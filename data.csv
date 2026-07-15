@@ -1,0 +1,26 @@
+country,city,is_active,gender,birth_date,salary,has_children,family_status,registration_date
+Belarus,Minsk,true,male,1970-04-12,1200,true,married,1999-06-15
+Belarus,Minsk,false,female,1980-05-03,2000,false,divorced,2006-11-20
+Belarus,Grodno,true,male,1990-02-02,2020,false,single,2003-03-03
+Poland,Krakov,true,female,1995-04-04,1990,true,single,2020-09-09
+Litva,Vilnus,false,female,1996-05-05,2300,false,divorced,2015-03-04
+Russia,Moscow,true,male,1990-04-12,120000,true,married,2022-01-15
+Russia,Saint Petersburg,true,female,1995-08-23,95000,false,single,2022-03-10
+Kazakhstan,Almaty,false,male,1988-11-05,70000,true,married,2021-06-20
+Belarus,Minsk,true,female,2000-02-14,60000,false,single,2023-09-01
+Russia,Novosibirsk,true,male,1982-01-30,110000,true,divorced,2020-11-12
+Uzbekistan,Tashkent,false,female,1993-07-19,45000,true,married,2023-02-18
+Armenia,Yerevan,true,male,1997-12-03,85000,false,single,2023-05-22
+Georgia,Tbilisi,true,female,1991-03-27,90000,false,divorced,2022-08-14
+Russia,Kazan,false,male,2001-09-10,50000,false,single,2024-01-05
+Kazakhstan,Astana,true,female,1985-05-18,130000,true,married,2021-04-30
+Russia,Yekaterinburg,true,male,1994-10-08,105000,true,married,2022-12-01
+Serbia,Belgrade,true,female,1998-06-15,115000,false,single,2023-10-11
+Kyrgyzstan,Bishkek,false,male,1992-04-01,55000,true,married,2022-07-19
+Russia,Samara,true,female,2002-11-25,48000,false,single,2024-02-14
+Belarus,Grodno,true,male,1987-08-11,80000,true,divorced,2021-09-09
+Turkey,Istanbul,false,female,1996-01-17,98000,false,single,2023-04-03
+Russia,Nizhny Novgorod,true,male,1989-12-31,112000,true,married,2020-03-25
+Kazakhstan,Shymkent,true,female,1999-03-04,62000,false,single,2023-11-30
+UAE,Dubai,true,male,1984-07-07,250000,true,married,2021-01-10
+Russia,Sochi,false,female,1993-09-14,75000,false,widowed,2022-05-17

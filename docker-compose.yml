@@ -1,0 +1,45 @@
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: app_nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./:/var/www/html
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+    depends_on:
+      - php
+      - db
+    networks:
+      - app-network
+
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app_php
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - app-network
+
+  db:
+    image: postgres:16-alpine
+    container_name: app_db
+    environment:
+      POSTGRES_DB: my_database
+      POSTGRES_USER: db_user
+      POSTGRES_PASSWORD: secret_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  pgdata:
