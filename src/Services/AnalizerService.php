@@ -1,20 +1,12 @@
 <?php
 
-namespace App;
+namespace App\Services;
 
-use Core\Request;
-
-class Analizer
-{
-    public function __construct(
-        public \PDO $pdo, 
-        public Request $request
-    )
-    {}
-
-    public function run()
+class AnalizerService
+{   
+    public function run(array $filters, $pdo)
     {
-        $inputs = $this->request->getParams();
+        $inputs = $filters;
         
         $sql = 'SELECT * FROM users WHERE 1=1 ';
         $params = [];
@@ -54,10 +46,11 @@ class Analizer
                     break;
             }
         }
-        $stm = $this->pdo->prepare($sql);
+        $stm = $pdo->prepare($sql);
         $users = $stm->execute($params);
         $users = $stm->fetchAll(\PDO::FETCH_OBJ);
+
+        return $users; 
         
-        require __DIR__ . '/views/analize.php';
     }
 }

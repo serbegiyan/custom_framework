@@ -1,21 +1,15 @@
 <?php
 
-namespace App;
-use Core\Database;
-use Core\Request;
+namespace App\Services;
 
-class CsvImporter
+use App\Core\Database;
+use App\Core\Request;
+
+class ImporterService
 {
-    public function __construct(
-        public \PDO $pdo, 
-        public Request $request,
-    )
-    {}    
-
-    public function run()
+    public function import($pdo, $file)
     {
-        $fp = null;
-        $file = $this->request->getFiles('csv_file');
+        $fp = null;        
 
         if($file === null){
             echo 'File not found';
@@ -27,9 +21,9 @@ class CsvImporter
         values (:country, :city, :is_active, :gender, :birth_date,
         :salary, :has_children, :family_status, :registration_date)'; 
 
-        $stm = $this->pdo->prepare($sql);
+        $stm = $pdo->prepare($sql);
 
-        $this->pdo->beginTransaction();
+        $pdo->beginTransaction();
         try{
             $fp = fopen($file, "r");
             $fake = fgetcsv($fp);
@@ -49,11 +43,11 @@ class CsvImporter
                     ':registration_date' => trim($row[8]),
                 ]);            
             }
-            $this->pdo->commit();
+            $pdo->commit();
             echo "Import complete";
 
         }catch(\Exception $e){
-            $this->pdo->rollBack();
+            $pdo->rollBack();
             echo $e;
         }finally{
             if($fp){

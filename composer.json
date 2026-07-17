@@ -1,0 +1,20 @@
+{
+    "name": "sergey/custom-framework",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Sergey",
+            "email": "siarhei.behiyan@innowise.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "fakerphp/faker": "2.0.x-dev"
+    }
+}

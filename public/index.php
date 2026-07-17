@@ -1,10 +1,10 @@
 <?php
 
-require_once __DIR__ . '/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
-use Core\Database;
-use Core\Router;
-use Core\Request;
+use App\Core\Database;
+use App\Core\Router;
+use App\Core\Request;
 
 $db = new Database();
 $pdo = $db->connect();
