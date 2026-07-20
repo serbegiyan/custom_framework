@@ -3,8 +3,8 @@
 require __DIR__ . '/../vendor/autoload.php';
 
 use App\Core\Database;
-use App\Core\Router;
 use App\Core\Request;
+use App\Core\Router;
 
 $db = new Database();
 $pdo = $db->connect();

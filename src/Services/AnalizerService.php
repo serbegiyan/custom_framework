@@ -2,12 +2,18 @@
 
 namespace App\Services;
 
+use PDO;
+
 class AnalizerService
-{   
-    public function run(array $filters, $pdo)
+{
+    /**
+     * @param array<string, mixed> $filters
+     * @return array<\stdClass>
+     */
+    public function run(array $filters, PDO $pdo): array
     {
         $inputs = $filters;
-        
+
         $sql = 'SELECT * FROM users WHERE 1=1 ';
         $params = [];
 
@@ -22,35 +28,34 @@ class AnalizerService
             'birth_date' => 'range',
             'registration_date' => 'range'
         ];
-        
-        foreach ($map_rules as $column => $type){
-            switch ($type){
+
+        foreach ($map_rules as $column => $type) {
+            switch ($type) {
                 case 'equals':
-                    if(isset($inputs[$column]) AND $inputs[$column] !== ''){
+                    if ((isset($inputs[$column])) and ($inputs[$column] !== '')) {
                         $sql .= " AND $column = :$column ";
                         $params[':' . $column] = $inputs[$column];
-                        break;
-                    }                   
-                
+                    }
+                    break;
                 case 'range':
                     $fromKey = $column . '_from';
                     $toKey = $column . '_to';
-                    
-                    if (!empty($inputs[$fromKey])){
+
+                    if (!empty($inputs[$fromKey])) {
                         $sql .= " AND $column >= :$fromKey ";
                         $params[':' . $fromKey] = $inputs[$fromKey];
-                    }if(!empty($inputs[$toKey])){
+                    }if (!empty($inputs[$toKey])) {
                         $sql .= " AND $column <= :$toKey ";
-                        $params[':' . $toKey] = $inputs[$toKey];                        
+                        $params[':' . $toKey] = $inputs[$toKey];
                     }
                     break;
             }
         }
         $stm = $pdo->prepare($sql);
         $users = $stm->execute($params);
-        $users = $stm->fetchAll(\PDO::FETCH_OBJ);
+        $users = $stm->fetchAll(PDO::FETCH_OBJ);
 
-        return $users; 
-        
+        return $users;
+
     }
 }

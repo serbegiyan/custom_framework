@@ -15,7 +15,8 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "fakerphp/faker": "2.0.x-dev"
+        "fakerphp/faker": "2.0.x-dev",
+        "php": "^8.3"
     },
     "require-dev": {
         "phpstan/phpstan": "2.2.x-dev",
