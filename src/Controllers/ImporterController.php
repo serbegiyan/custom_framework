@@ -2,10 +2,10 @@
 
 namespace App\Controllers;
 
+use App\Core\Interfaces\DatabaseInterface;
 use App\Core\Request;
 use App\Services\AnalizerService;
 use App\Services\ImporterService;
-use App\Core\Interfaces\DatabaseInterface;
 
 class ImporterController
 {

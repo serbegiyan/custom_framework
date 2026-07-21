@@ -2,9 +2,9 @@
 
 namespace App\Controllers;
 
+use App\Core\Interfaces\DatabaseInterface;
 use App\Core\Request;
 use App\Services\AnalizerService;
-use App\Core\Interfaces\DatabaseInterface;
 
 class AnalizeController
 {
@@ -30,7 +30,7 @@ class AnalizeController
     private function render(string $view, array $data): void
     {
         extract($data);
-        
+
         require __DIR__ . '/../../views/' . $view . '.php';
     }
 }

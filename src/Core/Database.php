@@ -7,13 +7,11 @@ use PDO;
 
 class Database implements DatabaseInterface
 {
-   
     public function __construct(
         public string $dsn,
         public string $user,
         public string $password
-    )
-    {
+    ) {
         $this->pdo = new PDO($dsn, $user, $password, [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
@@ -22,22 +20,24 @@ class Database implements DatabaseInterface
 
     private PDO $pdo;
 
-    /** 
+    /**
     *   @param array<string, mixed> $params
+    *   @return array<string, mixed>
     */
     public function select(string $sql, array $params, ?string $className = null): array
     {
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($params);
-        if($className){
+        if ($className) {
             $stmt->setFetchMode(PDO::FETCH_CLASS, $className);
         }
         $data = $stmt->fetchAll();
         return $data;
     }
 
-    /** 
+    /**
     *   @param array<string, mixed> $params
+    *   @return array<string, mixed>|false
     */
     public function find(string $sql, array $params): array|false
     {
@@ -47,7 +47,7 @@ class Database implements DatabaseInterface
         return $data;
     }
 
-    /** 
+    /**
     *   @param array<string, mixed> $params
     */
     public function execute(string $sql, array $params): int

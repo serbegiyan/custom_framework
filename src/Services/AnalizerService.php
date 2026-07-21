@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Core\Interfaces\DatabaseInterface;
 use App\Models\User;
-use PDO;
 
 class AnalizerService
 {
@@ -53,7 +52,7 @@ class AnalizerService
                     break;
             }
         }
-        
+
         $users = $db->select($sql, $params, User::class);
 
         return $users;

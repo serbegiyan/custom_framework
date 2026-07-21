@@ -21,11 +21,7 @@ $container->set(DatabaseInterface::class, function (ContainerInterface $c) {
 $container->set(Request::class, function (ContainerInterface $c) {
     return new Request();
 });
-$container->set(PDO::class, function (ContainerInterface $c) {
-    $db = new Database();
-    $pdo = $db->connect();
-    return $pdo;
-});
+
 $container->set(Router::class, function (ContainerInterface $c) {
     $router = new Router($c);
     return $router;
