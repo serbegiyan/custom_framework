@@ -11,7 +11,8 @@ class Router
 {
     public function __construct(
         public ContainerInterface $container
-    ) {}
+    ) {
+    }
 
     /**
     * @var array<string, array<string, array{0: string, 1:string}>>
@@ -21,8 +22,8 @@ class Router
             '/users' => [AnalizeController::class, 'index'],
         ],
         'POST' => [
-            '/users/imports' => [ImporterController::class, 'store'], 
-            '/users/generations' => [GeneratorController::class, 'generate'], 
+            '/users/imports' => [ImporterController::class, 'store'],
+            '/users/generations' => [GeneratorController::class, 'generate'],
         ]
     ];
 
@@ -32,13 +33,13 @@ class Router
         $path = $request->getPath();
         $method = $request->getMethod();
 
-        if (array_key_exists($method, $this->routes) and array_key_exists($path, $this->routes[$method])){
-                $controllerClass = $this->routes[$method][$path][0];
-                $controllerMethod = $this->routes[$method][$path][1];
-                $controller = $this->container->get($controllerClass);
-                $controller->$controllerMethod();                   
+        if (array_key_exists($method, $this->routes) and array_key_exists($path, $this->routes[$method])) {
+            $controllerClass = $this->routes[$method][$path][0];
+            $controllerMethod = $this->routes[$method][$path][1];
+            $controller = $this->container->get($controllerClass);
+            $controller->$controllerMethod();
         } else {
             echo 'Page not found(404)';
-        }    
+        }
     }
 }

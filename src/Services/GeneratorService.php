@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use Faker\Factory;
 use Exception;
+use Faker\Factory;
 
 class GeneratorService
 {

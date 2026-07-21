@@ -12,7 +12,7 @@ class GeneratorController
         public PDO $pdo,
         public Request $request,
         public GeneratorService $generator,
-    ) {   
+    ) {
     }
     public string $file;
 

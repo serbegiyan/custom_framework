@@ -4,6 +4,6 @@ namespace App\Core\Interfaces;
 
 interface ContainerInterface
 {
-    public function get(string $id);
-    public function has(string $id);
+    public function get(string $id): mixed;
+    public function has(string $id): bool;
 }

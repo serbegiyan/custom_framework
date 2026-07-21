@@ -3,11 +3,8 @@
 namespace App\Core;
 
 use App\Core\Interfaces\ContainerInterface;
-use App\Core\Interfaces\NotFoundExceptionInterface;
-use App\Core\Interfaces\ContainerExceptionInterface;
 use App\Services\ServiceNotFoundException;
 use ReflectionClass;
-use ReflectionException;
 use ReflectionNamedType;
 
 class Container implements ContainerInterface
@@ -19,12 +16,13 @@ class Container implements ContainerInterface
     public function __construct(
         private array $factories = [],
         private array $instances = []
-    ){}    
+    ) {
+    }
 
     /**
      * @param callable(ContainerInterface): mixed $factory
      */
-    
+
     public function set(string $id, callable $factory): void
     {
         $this->factories[$id] = $factory;
@@ -32,61 +30,55 @@ class Container implements ContainerInterface
 
     public function has(string $id): bool
     {
-        if(array_key_exists($id, $this->instances) or array_key_exists($id, $this->factories)){
+        if (array_key_exists($id, $this->instances) or array_key_exists($id, $this->factories)) {
             return true;
         } return false;
     }
 
     public function get(string $id): mixed
     {
-        if(array_key_exists($id, $this->instances)){
+        if (array_key_exists($id, $this->instances)) {
             return $this->instances[$id];
         }
-        if (array_key_exists($id, $this->factories)){
+        if (array_key_exists($id, $this->factories)) {
             $factory = $this->factories[$id];
             $obj = $factory($this);
             $this->instances[$id] = $obj;
-            return $obj;  
-        } 
-        /** @var class-string $id */
-        try{
-            $reflector = new ReflectionClass($id);
-        }catch (ReflectionException){
-            throw new ServiceNotFoundException("Class {$id} not found in application.");
+            return $obj;
         }
-        if(!$reflector->isInstantiable()){
+        /** @var class-string $id */
+        $reflector = new ReflectionClass($id);
+
+        if (!$reflector->isInstantiable()) {
             throw new ServiceNotFoundException("Class {$id} is not instantiable.");
         }
         $constructor = $reflector->getConstructor();
-        if(!$constructor){
+        if (!$constructor) {
             $obj = $reflector->newInstance();
             $this->instances[$id] = $obj;
             return $obj;
         }
         $parameters = $constructor->getParameters();
         $dependencies = [];
-        foreach($parameters as $param){
+        foreach ($parameters as $param) {
             $type = $param->getType();
             if (!$type instanceof ReflectionNamedType) {
                 if ($param->isDefaultValueAvailable()) {
-                $dependencies[] = $param->getDefaultValue();
-                continue;
+                    $dependencies[] = $param->getDefaultValue();
+                    continue;
                 }
-            throw new ServiceNotFoundException("Parameter {$param->getName()} has an untyped or complex dependency.");
+                throw new ServiceNotFoundException("Parameter {$param->getName()} has an untyped or complex dependency.");
             }
 
             if ($type->isBuiltin()) {
                 throw new ServiceNotFoundException("Built-in parameter {$param->getName()} has no default value.");
             } else {
-                $typeName = $type->getName();                
-                $dependencies[] = $this->get($typeName);                 
-            }                                                 
+                $typeName = $type->getName();
+                $dependencies[] = $this->get($typeName);
+            }
         }
         $obj = $reflector->newInstanceArgs($dependencies);
         $this->instances[$id] = $obj;
         return $obj;
     }
-}                               
-            
-          
-    
+}
