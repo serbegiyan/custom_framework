@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Core\Interfaces\DatabaseInterface;
+use App\Models\User;
 use PDO;
 
 class AnalizerService
@@ -10,7 +12,7 @@ class AnalizerService
      * @param array<string, mixed> $filters
      * @return array<\stdClass>
      */
-    public function run(array $filters, PDO $pdo): array
+    public function run(array $filters, DatabaseInterface $db): array
     {
         $inputs = $filters;
 
@@ -51,9 +53,8 @@ class AnalizerService
                     break;
             }
         }
-        $stm = $pdo->prepare($sql);
-        $users = $stm->execute($params);
-        $users = $stm->fetchAll(PDO::FETCH_OBJ);
+        
+        $users = $db->select($sql, $params, User::class);
 
         return $users;
 

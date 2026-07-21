@@ -1,201 +1,101 @@
 country,city,is_active,gender,birth_date,salary,has_children,family_status,registration_date
-"Marshall Islands",Jaquanfort,false,male,2009-05-28,109090,false,divorced,2022-03-15
-Greece,Starkmouth,false,female,2012-06-21,128893,false,married,2024-05-10
-"Antarctica (the territory South of 60 deg S)",Ryanfort,true,male,1999-04-23,88115,true,single,2023-08-30
-Nauru,"West Bernardport",false,male,2012-09-13,41305,true,married,2022-01-08
-Vanuatu,Jermeymouth,false,male,2015-01-06,39506,true,married,2022-12-24
-Comoros,"Lake Cynthia",true,female,2015-09-05,95582,true,single,2024-03-31
-Israel,Kochview,false,female,2014-10-07,63334,false,single,2026-03-02
-Mongolia,Rhiannonburgh,true,female,2009-04-17,65719,false,divorced,2023-01-28
-Belize,"West Eugene",false,male,2023-03-12,90823,false,single,2025-04-06
-"South Georgia and the South Sandwich Islands","North Francisport",false,female,2016-08-13,58477,false,divorced,2024-05-24
-"El Salvador","Lake Lylaborough",false,female,2022-11-20,97798,true,married,2025-08-12
-Cambodia,"Port Kirstenview",true,female,2004-01-09,94009,false,divorced,2024-01-24
-China,"West Wava",true,female,1999-12-26,70022,false,divorced,2025-04-18
-Uruguay,Coltchester,true,male,2008-12-03,93555,false,married,2023-12-23
-"South Africa","North Jocelyn",false,male,2008-10-10,131156,false,divorced,2024-05-02
-"Cote d'Ivoire","New Trevafurt",true,male,2003-05-07,33780,true,single,2021-08-10
-"South Georgia and the South Sandwich Islands","New Ewellville",false,male,2026-03-12,91973,false,divorced,2021-09-17
-"Cocos (Keeling) Islands",Tituschester,true,female,2023-03-20,113019,false,divorced,2026-01-23
-Italy,"East Betty",false,female,2011-09-05,40629,true,single,2025-04-28
-Hungary,Juwanton,false,male,2000-10-10,130187,false,single,2023-03-16
-"United Kingdom","Port Amina",false,female,2014-05-14,139347,true,single,2021-10-14
-"Cayman Islands",Kunzemouth,true,female,2022-08-17,142804,true,divorced,2024-09-05
-Dominica,Alexton,true,female,2008-05-03,148635,true,single,2024-09-12
-"Sao Tome and Principe",Wintheiserhaven,true,female,1998-02-13,145476,true,single,2023-03-27
-Kuwait,Beckerland,false,male,2016-05-30,125325,true,single,2026-02-01
-"Pitcairn Islands",Gennaroville,false,male,1999-05-20,86256,true,married,2022-11-28
-Algeria,"South Tanialand",false,female,2001-06-03,145357,true,married,2023-06-02
-Tunisia,"Port Laurinebury",true,female,2009-03-08,102519,true,divorced,2023-10-24
-"Puerto Rico",Dereckton,false,female,2003-05-06,144108,false,married,2024-01-14
-Latvia,"East Elvaburgh",true,male,2016-10-07,79263,false,divorced,2023-05-19
-"Lao People's Democratic Republic","New Eduardotown",true,female,2026-02-11,108121,true,divorced,2026-05-25
-Slovenia,"North Franco",true,female,2001-02-04,126629,false,married,2024-03-17
-Moldova,Beerfurt,true,female,2010-04-27,79360,true,single,2023-09-03
-"Faroe Islands",Collinsshire,false,female,2012-06-09,112974,true,single,2025-07-17
-Palau,"West Jackie",true,female,2019-09-15,51701,true,divorced,2024-02-11
-"Pitcairn Islands",Bergstromside,false,female,2017-03-09,126372,true,single,2023-12-04
-Nicaragua,"Lake Ephraimfurt",false,female,2001-10-22,78866,true,married,2021-08-17
-Albania,"West Gavin",true,female,2012-11-29,146147,false,divorced,2024-01-05
-"United Kingdom","Port Guadalupe",false,male,2001-04-06,59925,false,married,2025-11-20
-Guadeloupe,Madisynfurt,true,male,2016-04-23,70747,false,married,2021-12-07
-"Antigua and Barbuda","Lake Terrencechester",false,male,2017-03-03,121363,true,married,2026-04-14
-"Slovakia (Slovak Republic)",Haagborough,true,female,2025-02-10,90730,false,single,2025-09-14
-Latvia,"New Cheyenneland",false,male,2024-11-26,60124,false,married,2026-05-26
-Aruba,Koreymouth,false,female,2022-12-16,143040,true,divorced,2023-12-24
-Vietnam,Euniceberg,true,female,2002-06-01,144253,true,married,2023-06-27
-Haiti,Larsonberg,true,female,2022-03-29,114692,true,married,2021-12-09
-Brazil,Heathcotefort,false,female,2011-10-02,133899,true,married,2024-12-25
-Congo,Wilfredmouth,false,female,2005-05-09,59251,true,divorced,2026-01-28
-"Cayman Islands",Daphneshire,false,female,2012-05-06,85856,false,divorced,2024-11-14
-Chad,Alecton,true,male,2025-12-18,98679,true,married,2022-12-10
-"Netherlands Antilles",Melyssafurt,true,female,2010-02-12,134340,false,divorced,2021-09-09
-Bahamas,Ovafurt,false,female,2024-08-24,25593,false,single,2024-09-13
-"Costa Rica",Baumbachfort,false,male,2022-12-21,76734,true,single,2023-06-13
-"United States Minor Outlying Islands",Maymieberg,true,female,2002-10-29,100362,false,married,2026-04-25
-"New Zealand",Jarrodshire,true,male,2011-07-30,38564,false,single,2026-02-22
-"Slovakia (Slovak Republic)",Gutkowskiville,true,male,2006-07-10,66633,true,divorced,2022-04-16
-"Saint Lucia","West Sageborough",false,female,2023-10-31,112578,false,divorced,2025-06-19
-Mauritius,Trevaton,false,male,2025-02-11,106147,false,single,2022-08-19
-India,"New Lawson",false,male,1999-02-15,35339,false,divorced,2024-05-29
-Uganda,Aracelytown,false,female,2012-05-04,89856,true,divorced,2024-09-28
-Comoros,Watsicaville,false,male,2004-03-20,75737,false,single,2024-10-12
-"Cote d'Ivoire","South Michaela",true,male,2017-06-12,132483,false,single,2024-01-21
-Denmark,Marjorybury,true,male,2019-07-04,142232,false,married,2022-03-26
-Thailand,"New Efrainland",true,female,1997-08-25,89140,true,married,2022-01-11
-Guinea-Bissau,"East Kurtton",false,female,1999-02-07,105341,false,divorced,2024-03-08
-Tanzania,"Port Miloville",false,female,2014-05-29,145740,false,single,2026-06-25
-Croatia,Victoriafurt,false,female,2015-02-07,38403,false,married,2022-08-08
-Aruba,"South Ramiro",true,female,2002-06-11,113399,true,divorced,2023-11-15
-Swaziland,Blockchester,false,male,2014-07-30,105789,false,single,2026-05-01
-Spain,"Port Bobby",false,male,2026-03-08,130476,true,single,2025-04-28
-Honduras,"New Meaghan",false,male,2004-04-05,104986,false,single,2021-09-22
-Ukraine,"Lake Talonport",false,female,1998-10-06,108670,true,single,2024-09-10
-Kuwait,Moniqueton,false,male,1998-02-03,142157,true,single,2022-09-23
-Portugal,Sengerport,true,male,2010-11-03,136369,true,married,2023-05-20
-"United States of America",Klingmouth,true,female,2023-11-08,41210,true,married,2026-05-20
-"Cayman Islands",Browntown,true,male,2008-12-17,101545,true,divorced,2026-01-06
-Moldova,"West Ryan",true,male,2007-06-21,67996,false,married,2024-06-13
-"Solomon Islands","New Zula",false,female,2023-11-17,148751,false,married,2025-04-12
-Uzbekistan,"Lake Rhett",false,male,2001-01-03,90654,true,divorced,2024-05-27
-Honduras,"Lake Jacefurt",false,male,2026-01-11,97801,false,divorced,2025-10-06
-Portugal,Larsonberg,true,male,2003-09-04,52125,false,divorced,2023-05-27
-Malawi,Oceanemouth,false,male,2008-12-27,116162,false,single,2026-02-14
-Netherlands,Albertoville,true,male,2022-08-20,72701,true,single,2022-04-21
-"Bouvet Island (Bouvetoya)","New Tyree",true,male,2003-04-19,37863,true,divorced,2022-03-18
-Andorra,"Lake Antonettamouth",false,female,2000-07-26,81572,false,married,2022-05-08
-Guinea,"North Annabel",false,male,2009-12-18,77425,false,married,2024-10-01
-Turkey,Ivystad,false,male,2004-08-26,131482,false,married,2025-05-09
-Luxembourg,Jenkinsborough,false,male,2014-10-25,102070,true,married,2024-08-26
-Gibraltar,"Lake Modesta",false,female,2008-09-25,78810,false,single,2021-10-09
-"Turks and Caicos Islands",Stewartmouth,true,female,2015-06-04,119390,true,married,2024-08-12
-"Puerto Rico","South Marjory",false,female,2012-05-19,100638,false,single,2024-07-11
-"Puerto Rico",Stehrburgh,false,female,2014-07-27,87045,true,divorced,2025-09-11
-"San Marino","South Dedrick",false,male,2015-09-11,55038,true,married,2025-10-25
-Malta,"Lake Caseytown",false,male,1999-04-14,70609,true,divorced,2022-09-05
-Cambodia,Gladysfort,true,female,2023-11-30,98582,false,single,2023-02-08
-Lebanon,"Lake Marlon",true,male,2021-06-23,90839,true,married,2023-04-01
-Malawi,Annabellside,true,male,2016-07-27,103102,false,single,2022-01-20
-Sweden,Flatleyton,false,female,2016-03-24,90610,true,divorced,2023-10-15
-Bolivia,"North Sabrinaview",false,female,2021-04-28,74183,false,married,2026-06-24
-Germany,Jacquelynborough,true,female,1997-10-04,129001,true,single,2023-01-29
-Poland,"New Peter",false,female,2007-03-08,98499,false,divorced,2026-01-04
-Djibouti,"Port Noble",true,female,2001-01-03,52396,false,divorced,2024-08-27
-Macedonia,Charlotteside,false,male,2025-09-08,37754,true,divorced,2024-10-19
-"Libyan Arab Jamahiriya","Port Hermann",true,male,1999-07-24,34750,true,married,2022-03-10
-"Solomon Islands",Grimesmouth,false,male,2014-12-30,107913,true,divorced,2022-06-06
-"Trinidad and Tobago",Schoenmouth,false,male,2014-03-27,46106,true,divorced,2024-12-12
-Niue,"Lake Harold",false,female,1998-08-03,115404,false,divorced,2026-05-15
-"Czech Republic",Wymanberg,false,female,2002-06-17,102272,false,single,2026-01-19
-"Netherlands Antilles",Floyborough,false,male,2008-01-19,148379,true,married,2026-05-28
-Bolivia,Ivoryland,true,female,2019-09-15,54070,true,single,2023-10-05
-Macedonia,"Lake Caroleville",false,female,2024-12-15,64940,true,married,2024-04-09
-Montenegro,"South Freddiehaven",true,male,2008-05-19,59202,true,single,2024-09-22
-Yemen,Murazikport,true,female,2014-05-02,23468,true,divorced,2023-12-04
-"Saint Pierre and Miquelon","Port Andrewburgh",true,male,2001-05-26,118366,true,single,2024-02-27
-Greece,Nadermouth,false,male,2000-04-06,126681,true,divorced,2025-06-26
-Kuwait,Pfefferland,true,male,2001-07-02,23814,false,single,2025-10-06
-Jordan,"North Dayneberg",true,male,2018-01-18,122029,true,divorced,2026-01-12
-"Lao People's Democratic Republic","North Deshawn",false,male,2023-07-07,27367,false,single,2023-03-02
-"Czech Republic",Robertsfort,false,female,2005-08-04,57670,false,single,2022-03-07
-Panama,"East Yoshiko",false,female,2016-10-17,33676,false,married,2026-05-24
-Japan,Runteshire,true,male,2006-03-03,68466,false,single,2023-04-07
-Maldives,Wizashire,false,male,2022-08-06,144656,true,single,2023-03-28
-Singapore,"West Leo",false,female,1998-03-30,147216,false,single,2022-04-03
-Macedonia,Cartwrighttown,true,male,2003-04-13,78860,true,single,2023-09-13
-"Equatorial Guinea","North Camryn",false,female,2021-02-03,141815,false,married,2025-08-22
-Iraq,Martinefurt,true,female,1998-06-09,80340,true,divorced,2025-09-24
-Niue,"Lake Lyda",true,female,2008-11-07,96588,true,divorced,2024-10-23
-"French Polynesia",Harrisfort,true,female,2010-07-28,42022,false,single,2024-03-08
-"Brunei Darussalam","Port Orin",true,female,2012-11-21,82385,true,divorced,2022-04-15
-"Svalbard & Jan Mayen Islands","East Terrellville",true,male,2002-12-21,75103,true,married,2022-11-17
-Guam,Coleton,false,female,2024-07-24,128625,true,married,2023-01-26
-Guinea-Bissau,Schummfurt,true,female,2019-03-03,89480,true,divorced,2023-06-06
-Macedonia,"Port Pearlshire",false,male,2022-10-24,56925,false,single,2022-04-27
-"Western Sahara",Tremblayville,true,male,2021-12-28,57512,false,divorced,2024-08-10
-Turkey,"East Ulises",false,male,2017-07-17,85815,true,married,2021-12-30
-Senegal,"West Lane",false,female,2017-11-29,112151,true,single,2024-09-19
-Tunisia,"East Hiramville",false,female,2001-03-04,44042,false,single,2023-12-31
-Montserrat,"Lake Annabelle",true,male,1999-12-05,37610,true,single,2025-07-21
-Haiti,"West Carmelomouth",true,female,2022-10-13,142055,true,divorced,2022-07-26
-"Netherlands Antilles",Marquisburgh,true,female,2000-04-17,46849,false,divorced,2021-08-21
-Belarus,"Port Otilia",false,female,2007-06-18,60279,false,married,2022-02-20
-Bermuda,"North Charlotte",false,male,2001-07-17,48727,false,married,2024-11-08
-"Equatorial Guinea",Krajcikhaven,true,male,2020-10-11,134341,false,married,2022-03-02
-"Bosnia and Herzegovina","Port Norberto",true,female,2000-01-01,117539,true,married,2021-08-31
-Guatemala,Bayleeburgh,false,female,2001-12-27,135969,false,married,2026-05-24
-Uzbekistan,Titusfort,true,male,2024-01-05,24729,true,single,2023-03-27
-Samoa,Lucileland,true,female,1997-06-26,102301,false,married,2023-09-29
-"Cayman Islands",Alfredomouth,false,female,2012-05-10,79849,false,divorced,2023-06-12
-Portugal,"South Leanna",false,male,2021-08-07,38469,true,married,2022-12-22
-Brazil,Stoltenbergchester,true,female,2003-08-04,59871,true,married,2025-06-17
-Norway,"West Carolinafort",false,female,2002-08-30,82349,false,married,2021-11-01
-"Cape Verde",Walshburgh,true,female,2021-03-04,108537,true,married,2026-05-11
-Colombia,Schimmelville,true,female,2004-11-15,31046,true,single,2025-05-26
-Poland,"Lake Alanis",true,male,2016-01-02,35919,false,single,2021-07-26
-Gabon,"Port Isabel",false,male,2009-08-10,146372,false,married,2026-06-24
-Croatia,"West Alexandroshire",false,male,2018-11-29,85012,true,divorced,2022-09-24
-"Holy See (Vatican City State)",Donaldstad,true,male,2008-07-26,63316,false,single,2023-02-16
-Italy,"East Ephraimport",false,male,2023-05-18,86745,false,married,2023-08-02
-Portugal,"West Oriontown",false,male,2000-07-20,141403,true,divorced,2023-05-15
-"Syrian Arab Republic","East Dayanachester",false,male,2022-08-07,89304,true,divorced,2023-03-03
-Qatar,Bechtelarport,true,male,2003-05-17,28917,true,divorced,2021-08-28
-"Equatorial Guinea","East Odieton",false,female,2006-04-20,133705,true,single,2022-12-02
-"Equatorial Guinea",Hilpertburgh,true,female,1997-12-19,51212,false,married,2025-03-07
-Romania,"East Sid",false,male,2018-04-05,119725,false,single,2023-08-09
-Liechtenstein,Pollichchester,false,female,2004-05-23,40039,false,single,2024-05-21
-Australia,Dewaynemouth,true,male,2012-02-06,104102,false,married,2025-07-06
-Ethiopia,Mayertfort,true,female,2020-01-17,146192,false,single,2021-12-31
-"San Marino","North Magnolia",false,male,2019-07-21,76134,true,married,2024-01-26
-Armenia,Pollichfort,true,male,2004-10-29,90571,true,married,2025-02-03
-"French Guiana",Hermantown,true,female,2009-04-20,66524,true,single,2023-03-07
-Kiribati,Macejkovicview,false,female,1998-10-24,45623,false,married,2023-04-28
-Italy,"Port Camylle",true,male,1997-10-22,112585,true,divorced,2025-10-31
-Pakistan,"New Pinkiehaven",true,female,2023-07-14,119355,true,married,2025-12-04
-Honduras,"East Alvertabury",true,male,2021-12-02,123428,true,single,2025-03-26
-Suriname,"West Enoch",true,female,2003-09-14,67248,false,single,2024-04-04
-Nepal,Angelotown,false,male,2012-11-18,130431,false,married,2023-07-16
-"San Marino",Beattystad,false,male,2004-01-07,141363,false,divorced,2023-06-22
-"Norfolk Island","West Novellaport",false,male,2013-10-24,90624,true,single,2022-04-13
-"British Indian Ocean Territory (Chagos Archipelago)",Alexandrinefort,false,female,1998-07-07,37393,true,single,2025-08-26
-"Saudi Arabia",Deontemouth,true,female,2005-12-03,110536,false,single,2023-01-04
-Iran,Kyleemouth,true,female,1998-06-24,67228,true,married,2024-01-10
-Reunion,Jonathanbury,false,female,2020-11-06,28650,true,single,2026-01-10
-"British Indian Ocean Territory (Chagos Archipelago)","North Marquise",false,male,2004-07-11,107633,false,single,2025-01-08
-Serbia,"Port Wellingtonbury",false,male,2000-12-18,101959,true,married,2025-12-09
-Norway,Baumbachchester,false,female,2025-03-30,126403,false,divorced,2025-06-08
-Morocco,"North Westleyfort",true,male,2003-11-23,71382,false,married,2021-12-08
-Nicaragua,"Port Jena",false,female,2013-04-26,56424,true,single,2024-06-06
-Micronesia,Kemmerchester,true,male,2012-07-10,134085,false,married,2021-10-12
-"Wallis and Futuna",Weimannhaven,true,male,2024-02-07,91847,false,married,2022-07-27
-Gibraltar,"West Matt",false,male,2001-06-15,103743,false,divorced,2022-10-30
-"Cayman Islands",Simeonburgh,false,male,2005-08-09,123005,false,married,2022-04-14
-"Cayman Islands",Huelsfort,true,female,2019-11-25,126869,false,married,2022-02-19
-Tuvalu,Dawnview,true,male,2023-09-02,132747,true,single,2023-06-05
-"Cayman Islands",Lysanneport,false,female,2000-02-12,95925,false,divorced,2023-04-14
-Yemen,Sisterbury,false,male,2007-12-02,77049,true,married,2026-03-21
-Haiti,Rippinberg,false,male,2016-03-29,54883,true,single,2023-03-31
-Mauritania,"East Kaleighburgh",true,female,2011-06-19,87379,true,married,2026-05-26
-Panama,"East Cole",false,male,1997-12-31,132719,true,single,2023-02-23
-"Trinidad and Tobago",Cassinland,false,male,2012-07-24,131317,false,married,2024-02-17
-Tonga,Ernamouth,true,male,1996-11-02,113896,false,divorced,2022-12-05
+Belize,"North Desmond",false,female,2016-02-24,127210,true,divorced,2023-07-16
+Bolivia,Enricotown,true,male,2017-09-30,118201,false,single,2025-06-10
+Fiji,Kassulkeville,true,female,2024-10-18,41488,false,divorced,2024-01-29
+Suriname,Kobymouth,true,female,2010-06-28,111969,false,married,2025-04-02
+Tuvalu,"New Jakob",true,female,2006-02-25,106759,false,single,2021-08-28
+Bhutan,"East Hattie",true,male,2006-02-22,130334,false,married,2023-07-22
+Turkmenistan,Ziemeview,true,female,2019-06-05,141308,false,divorced,2025-04-23
+Belize,"New Mortonville",false,male,2010-09-18,21143,true,married,2025-09-29
+Bermuda,"New Enolaport",false,male,2009-10-22,116536,true,married,2022-06-26
+Guadeloupe,Schuppeport,false,female,2001-06-26,24300,true,divorced,2022-07-15
+Tokelau,"Port Jonathon",true,male,2024-06-24,66008,true,single,2025-02-28
+"Cape Verde","North Elsaton",false,female,1996-12-09,83462,false,divorced,2023-04-29
+Martinique,"Port Thereseland",true,female,2021-06-15,57612,true,single,2021-11-09
+Canada,"South Cade",false,male,2020-06-09,133116,true,single,2023-09-07
+"Saint Barthelemy","New Hildegard",true,male,2019-11-04,102714,true,divorced,2026-06-19
+"Antarctica (the territory South of 60 deg S)","South Normaside",false,male,2003-03-23,120475,false,married,2025-05-02
+Cyprus,Kelliview,true,female,2004-05-29,125659,false,single,2026-06-05
+Bangladesh,"New Oletafurt",true,male,2024-04-15,57824,true,divorced,2022-06-15
+Grenada,Ryanfurt,true,male,1996-11-18,138905,true,divorced,2024-11-08
+"Pitcairn Islands","West Mariah",false,male,2015-02-25,100118,true,single,2025-06-03
+Ireland,"Port Delphineville",true,male,2017-08-09,128468,false,single,2024-10-13
+"New Zealand",Rogersland,false,female,2008-10-16,137277,true,single,2023-07-05
+Kiribati,Salvadorburgh,false,male,2014-08-18,133245,false,divorced,2024-09-01
+Guernsey,"East Vivienmouth",true,male,2006-09-12,58312,false,divorced,2021-08-09
+Bulgaria,Erikaberg,false,male,2007-02-12,145727,false,married,2021-12-19
+"Russian Federation","Lake Kathrynhaven",false,male,2020-02-02,129422,true,divorced,2022-02-16
+Cambodia,"West Hertachester",false,female,2017-06-21,114183,true,married,2025-04-23
+"American Samoa","South Chelseafort",false,male,2018-09-30,42761,false,single,2024-02-26
+"South Georgia and the South Sandwich Islands","Lake Magdalena",true,female,2011-06-14,61217,true,married,2022-07-03
+Jamaica,"New Elenorastad",false,male,2025-06-03,96291,false,single,2022-04-10
+Angola,"East Thurman",false,male,1999-02-04,132433,false,divorced,2022-06-10
+Croatia,Jarrodside,false,male,2000-12-12,65389,false,married,2023-12-22
+Madagascar,"Lake Maxieburgh",true,male,2018-03-06,113067,false,divorced,2025-01-13
+Turkey,"South Orvillefort",true,male,2013-01-05,95728,false,married,2024-02-29
+Venezuela,Erdmanshire,false,male,2008-05-01,91157,false,single,2023-01-28
+Tonga,"Port Reganmouth",true,female,2016-11-16,117105,false,divorced,2022-09-29
+"New Caledonia",Baronmouth,false,female,1998-09-09,41922,true,married,2022-03-28
+"Holy See (Vatican City State)",Ebertland,false,male,2015-06-21,129228,false,married,2024-06-02
+Slovenia,Connellyfurt,true,female,2020-05-30,76510,false,single,2025-08-23
+Kiribati,"East Laronmouth",true,female,2024-11-29,102968,false,single,2026-03-03
+Algeria,"South Augustus",false,female,1999-05-04,23095,false,divorced,2024-09-24
+Guadeloupe,Nehaberg,false,male,2025-03-13,131067,true,married,2022-03-01
+Kenya,Harrishaven,true,male,2021-07-27,44612,false,single,2021-10-22
+Afghanistan,Bradlychester,false,male,2006-10-19,66950,true,married,2023-04-16
+"Sao Tome and Principe","Port Nichole",false,female,2007-01-09,39126,false,single,2021-07-23
+Ecuador,"New Erich",true,female,2022-11-28,61613,true,married,2022-04-17
+"Heard Island and McDonald Islands",Evemouth,true,female,2013-11-07,97822,false,divorced,2024-09-07
+"Saint Pierre and Miquelon",Blockbury,true,female,2021-10-17,107350,false,single,2023-07-01
+Montserrat,"Lake Neva",false,female,2017-12-11,66484,true,single,2022-04-11
+Gabon,"Port Adrielburgh",false,male,2009-07-22,74288,false,divorced,2024-11-04
+Tuvalu,Heatherland,false,female,1999-12-12,69089,true,single,2023-11-14
+Guam,"Port Earnestine",false,male,2022-05-11,147845,true,divorced,2024-12-20
+"United Arab Emirates","Port Marlinstad",false,male,1998-10-21,45946,true,divorced,2022-09-27
+Ghana,"West Colemanbury",false,female,1998-05-22,72898,false,married,2021-10-19
+"Libyan Arab Jamahiriya",Juanitachester,false,male,2012-05-14,43007,true,divorced,2024-03-10
+"Northern Mariana Islands","South Elbert",false,male,1999-05-16,121272,true,married,2023-04-06
+"Saint Kitts and Nevis","South Ruthieburgh",true,female,2023-12-03,148310,false,divorced,2022-07-14
+"Sierra Leone","South Christopherbury",false,female,2020-04-29,64950,true,single,2024-02-01
+Jordan,Jalynberg,true,female,2025-04-28,45585,true,married,2025-10-24
+"Antigua and Barbuda","Port Normafurt",true,male,2021-04-20,25950,true,married,2021-09-28
+Guatemala,Stiedemanntown,true,male,2019-04-11,42374,true,married,2022-01-01
+"Netherlands Antilles","Lake Chelsieland",true,male,2022-07-25,56352,true,single,2023-06-16
+Italy,"North Arnulfo",true,male,2009-04-13,131518,false,married,2024-11-03
+Grenada,Roobbury,true,female,2000-03-27,60488,false,married,2023-04-16
+"Western Sahara","East Henriettechester",true,female,2005-07-01,120033,true,divorced,2022-06-24
+"Brunei Darussalam","New Ruby",false,male,2015-01-03,120489,true,married,2024-11-24
+"Puerto Rico",Cloydtown,false,female,2007-02-10,87967,true,married,2022-07-23
+"Brunei Darussalam","West Jasminstad",false,male,2004-12-08,113168,true,married,2024-09-19
+Liberia,Margarettaberg,true,female,2025-08-14,56961,true,married,2025-07-02
+Portugal,Laceyberg,true,male,2015-07-22,23802,false,married,2023-10-06
+Guernsey,"Port Armandtown",false,female,2012-01-09,52633,true,single,2022-10-17
+Mauritania,Karianefurt,false,female,2025-04-12,134535,false,single,2023-12-12
+Cuba,Kobyfort,true,male,2025-04-22,42181,true,divorced,2021-08-26
+"Burkina Faso","North Rae",true,male,2020-06-27,46852,true,single,2025-08-13
+"Papua New Guinea","West Angeline",true,male,2024-11-09,115337,false,married,2023-04-10
+Samoa,McLaughlinstad,true,male,2003-01-06,125819,false,married,2026-05-28
+"Bouvet Island (Bouvetoya)","Port Anderson",true,male,2017-01-17,129400,false,divorced,2026-02-28
+"South Georgia and the South Sandwich Islands",Franceschester,false,female,2018-08-07,129564,false,married,2024-07-11
+Egypt,Ankundingbury,true,male,2022-10-01,43689,false,married,2021-12-30
+"United States Virgin Islands","East Vitamouth",true,male,2015-05-03,112747,true,married,2023-11-05
+Andorra,Rowefurt,true,female,2020-05-07,57498,false,single,2022-09-22
+"Cook Islands","Lake Adrienne",false,female,2016-09-29,39200,false,married,2024-05-22
+"Puerto Rico","Port Trevor",false,male,2012-10-18,132890,false,single,2024-01-21
+Uzbekistan,"North Nathanial",true,female,2015-06-15,124682,true,married,2024-04-12
+Eritrea,"Port Iva",true,female,2005-11-29,52964,true,divorced,2023-10-12
+"Saint Helena",Jastburgh,false,female,2014-10-30,73931,false,single,2022-08-24
+Palau,"Port Valentin",false,male,2020-12-21,104603,false,married,2023-10-15
+Mongolia,Bartolettiton,false,male,2005-12-19,106546,false,divorced,2021-09-04
+Japan,Murphychester,true,female,2011-06-03,31413,true,divorced,2023-03-31
+"Saint Kitts and Nevis","West Madelineberg",true,male,2025-05-14,56699,true,single,2024-04-28
+Croatia,"West Mariloushire",true,male,2015-05-23,51505,true,married,2025-10-13
+"Saint Lucia",Zemlakberg,false,male,2025-07-11,129860,false,married,2026-02-19
+Morocco,"Lake Ericberg",true,male,2013-08-05,109235,true,single,2024-08-15
+"Antigua and Barbuda","East Germainemouth",true,male,1997-09-05,111696,false,divorced,2022-04-26
+Finland,"Lake Myriam",true,female,2012-01-24,37486,false,married,2024-01-19
+Montenegro,Reillyport,true,male,2011-04-23,23321,true,married,2025-11-19
+Brazil,Gretahaven,true,female,1997-06-05,121311,true,divorced,2023-01-03
+Bulgaria,"North Madysonfort",true,male,2008-02-04,70813,false,divorced,2024-03-06
+Tuvalu,"Lake Nyah",true,male,2005-01-09,91757,true,divorced,2024-04-25
+Somalia,Tonymouth,true,male,2014-01-17,115470,false,married,2022-05-05

@@ -1,3 +1,6 @@
+<?php
+/** @var App\Models\User[] $users */
+?>
 <table>
     <thead>
         <tr>

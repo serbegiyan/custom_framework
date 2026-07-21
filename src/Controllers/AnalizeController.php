@@ -4,22 +4,33 @@ namespace App\Controllers;
 
 use App\Core\Request;
 use App\Services\AnalizerService;
-use PDO;
+use App\Core\Interfaces\DatabaseInterface;
 
 class AnalizeController
 {
     public function __construct(
-        public PDO $pdo,
+        public DatabaseInterface $db,
         public Request $request,
+        public AnalizerService $analizer
     ) {
     }
 
     public function index(): void
     {
         $filter = $this->request->getParams();
-        $service = new AnalizerService();
-        $users = $service->run($filter, $this->pdo);
+        $users = $this->analizer->run($filter, $this->db);
+        $this->render('analize', [
+            'users' => $users
+        ]);
+    }
 
-        require __DIR__ . '/../../views/analize.php';
+    /**
+     * @param array<string, mixed> $data
+     */
+    private function render(string $view, array $data): void
+    {
+        extract($data);
+        
+        require __DIR__ . '/../../views/' . $view . '.php';
     }
 }

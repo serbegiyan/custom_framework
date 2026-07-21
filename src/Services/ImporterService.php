@@ -2,11 +2,11 @@
 
 namespace App\Services;
 
-use PDO;
+use App\Core\Interfaces\DatabaseInterface;
 
 class ImporterService
 {
-    public function import(PDO $pdo, string|null $file): void
+    public function import(DatabaseInterface $db, string|null $file): void
     {
         $fp = null;
 
@@ -20,9 +20,7 @@ class ImporterService
         values (:country, :city, :is_active, :gender, :birth_date,
         :salary, :has_children, :family_status, :registration_date)';
 
-        $stm = $pdo->prepare($sql);
-
-        $pdo->beginTransaction();
+        $db->beginTransaction();
         try {
             $fp = fopen($file, "r");
             if ($fp) {
@@ -31,7 +29,7 @@ class ImporterService
                 while (!empty($row = fgetcsv($fp))) {
                     $salary = (int)$row[5];
 
-                    $stm->execute([
+                    $db->execute($sql, [
                         ':country' => trim($row[0] ?? ''),
                         ':city' => trim($row[1] ?? ''),
                         ':is_active' => trim($row[2] ?? ''),
@@ -43,12 +41,12 @@ class ImporterService
                         ':registration_date' => trim($row[8] ?? ''),
                     ]);
                 }
-                $pdo->commit();
+                $db->commit();
                 echo "Import complete";
             }
 
         } catch (\Exception $e) {
-            $pdo->rollBack();
+            $db->rollBack();
             echo $e;
         } finally {
             if ($fp) {

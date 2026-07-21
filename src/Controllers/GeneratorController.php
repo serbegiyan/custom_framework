@@ -4,12 +4,10 @@ namespace App\Controllers;
 
 use App\Core\Request;
 use App\Services\GeneratorService;
-use PDO;
 
 class GeneratorController
 {
     public function __construct(
-        public PDO $pdo,
         public Request $request,
         public GeneratorService $generator,
     ) {
