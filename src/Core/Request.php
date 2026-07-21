@@ -20,6 +20,14 @@ class Request
         return null;
     }
 
+    public function isValidSize(string $key): bool
+    {
+        if (isset($_FILES[$key]) and $_FILES[$key]['error'] === UPLOAD_ERR_OK) {
+            $size = $_FILES[$key]['size'];
+            return $size <= 5242880;   // 5 MB         
+        }
+        return false;
+    }
 
     public function getMethod(): string
     {

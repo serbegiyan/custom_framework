@@ -3,21 +3,18 @@
 namespace App\Services;
 
 use Faker\Factory;
+use Exception;
 
 class GeneratorService
 {
-    public function __construct(public string $file)
-    {
-    }
-
-    public function run(int $quantity): void
+    public function run(int $quantity, string $file): void
     {
         $faker = Factory::create();
 
         $fp = null;
 
         try {
-            $fp = fopen($this->file, "w");
+            $fp = fopen($file, "w");
             if ($fp === false) {
                 echo 'File not found';
                 return;
@@ -41,14 +38,12 @@ class GeneratorService
 
             echo "Generation complete";
 
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             echo $e;
         } finally {
             if ($fp) {
                 fclose($fp);
             }
         }
-
-
     }
 }
