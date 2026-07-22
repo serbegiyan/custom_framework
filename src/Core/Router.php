@@ -37,7 +37,11 @@ class Router
             $controllerClass = $this->routes[$method][$path][0];
             $controllerMethod = $this->routes[$method][$path][1];
             $controller = $this->container->get($controllerClass);
-            $controller->$controllerMethod();
+            if (is_object($controller) && method_exists($controller, $controllerMethod)) {
+                $controller->$controllerMethod();
+            } else {
+                throw new \RuntimeException("Controller or method not found");
+            }
         } else {
             echo 'Page not found(404)';
         }

@@ -17,34 +17,55 @@ class ImporterService
         $sql = 'INSERT INTO users (country, 
         city, is_active, gender, birth_date, salary, 
         has_children, family_status, registration_date)
-        values (:country, :city, :is_active, :gender, :birth_date,
-        :salary, :has_children, :family_status, :registration_date)';
+        VALUES ';
 
         $db->beginTransaction();
         try {
             $fp = fopen($file, "r");
-            if ($fp) {
-                $fake = fgetcsv($fp);
-
-                while (!empty($row = fgetcsv($fp))) {
-                    $salary = (int)$row[5];
-
-                    $db->execute($sql, [
-                        ':country' => trim($row[0] ?? ''),
-                        ':city' => trim($row[1] ?? ''),
-                        ':is_active' => trim($row[2] ?? ''),
-                        ':gender' => trim($row[3] ?? ''),
-                        ':birth_date' => trim($row[4] ?? ''),
-                        ':salary' => $salary,
-                        ':has_children' => trim($row[6] ?? ''),
-                        ':family_status' => trim($row[7] ?? ''),
-                        ':registration_date' => trim($row[8] ?? ''),
-                    ]);
+            if (is_resource($fp)) {
+                $headers = fgetcsv($fp);
+                if ($headers === false) {
+                    echo 'Empty file';
+                    return;
                 }
+                $columnsCount = count($headers);
+                $chank = [];
+                $chunkSize = 1000;
+                $placeholder = '(' . implode(', ', array_fill(0, $columnsCount, '?')) . ')';
+       
+                while (!empty($row = fgetcsv($fp))) {
+
+                    $chank[] = trim($row[0] ?? '');
+                    $chank[] = trim($row[1] ?? '');
+                    $chank[] = trim($row[2] ?? '');
+                    $chank[] = trim($row[3] ?? '');
+                    $chank[] = trim($row[4] ?? '');
+                    $chank[] = (int)($row[5] ?? 0);
+                    $chank[] = trim($row[6] ?? '');
+                    $chank[] = trim($row[7] ?? '');
+                    $chank[] = trim($row[8] ?? '');
+
+                    $amount = $chunkSize * $columnsCount;
+
+                    if(count($chank) < $amount){
+                        continue;
+                    }else{                        
+                        $allPlaceholders = array_fill(0, count($chank)/$columnsCount, $placeholder);
+                        $placeRow = implode(',', $allPlaceholders);
+                        $finalSql = $sql . $placeRow;
+                        $db->execute($finalSql, $chank);
+                        $chank = [];
+                    }          
+                }
+                if(!empty($chank)){
+                    $allPlaceholders = array_fill(0, count($chank)/$columnsCount, $placeholder);
+                    $placeRow = implode(',', $allPlaceholders);
+                    $finalSql = $sql . $placeRow;
+                    $db->execute($finalSql, $chank);
+                }              
                 $db->commit();
                 echo "Import complete";
             }
-
         } catch (\Exception $e) {
             $db->rollBack();
             echo $e;
@@ -53,6 +74,5 @@ class ImporterService
                 fclose($fp);
             }
         }
-
     }
 }

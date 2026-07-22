@@ -10,7 +10,7 @@ use ReflectionNamedType;
 class Container implements ContainerInterface
 {
     /**
-     * @param array<string, callable(ContainerInterface): mixed> $factories
+     * @param array<string, \Closure(ContainerInterface): mixed> $factories
      * @param array<string, mixed> $instances
      */
     public function __construct(
@@ -46,8 +46,14 @@ class Container implements ContainerInterface
             $this->instances[$id] = $obj;
             return $obj;
         }
-        /** @var class-string $id */
-        $reflector = new ReflectionClass($id);
+        /**
+         * @param string $id 
+         * @return mixed
+         * @throws ServiceNotFoundException
+         */
+        if (!class_exists($id) && !interface_exists($id)) {
+            throw new ServiceNotFoundException("Class or interface {$id} does not exist.");
+        }
 
         if (!$reflector->isInstantiable()) {
             throw new ServiceNotFoundException("Class {$id} is not instantiable.");
