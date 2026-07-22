@@ -20,10 +20,10 @@ class Container implements ContainerInterface
     }
 
     /**
-     * @param callable(ContainerInterface): mixed $factory
+     * @param \Closure(ContainerInterface): mixed $factory
      */
 
-    public function set(string $id, callable $factory): void
+    public function set(string $id, \Closure $factory): void
     {
         $this->factories[$id] = $factory;
     }
@@ -35,6 +35,11 @@ class Container implements ContainerInterface
         } return false;
     }
 
+    /**
+    * @param string $id
+    * @return mixed
+    * @throws ServiceNotFoundException
+    */
     public function get(string $id): mixed
     {
         if (array_key_exists($id, $this->instances)) {
@@ -46,14 +51,12 @@ class Container implements ContainerInterface
             $this->instances[$id] = $obj;
             return $obj;
         }
-        /**
-         * @param string $id 
-         * @return mixed
-         * @throws ServiceNotFoundException
-         */
+
         if (!class_exists($id) && !interface_exists($id)) {
             throw new ServiceNotFoundException("Class or interface {$id} does not exist.");
         }
+        /** @var class-string $id */
+        $reflector = new ReflectionClass($id);
 
         if (!$reflector->isInstantiable()) {
             throw new ServiceNotFoundException("Class {$id} is not instantiable.");

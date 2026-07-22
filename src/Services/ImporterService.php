@@ -32,7 +32,7 @@ class ImporterService
                 $chank = [];
                 $chunkSize = 1000;
                 $placeholder = '(' . implode(', ', array_fill(0, $columnsCount, '?')) . ')';
-       
+
                 while (!empty($row = fgetcsv($fp))) {
 
                     $chank[] = trim($row[0] ?? '');
@@ -47,22 +47,22 @@ class ImporterService
 
                     $amount = $chunkSize * $columnsCount;
 
-                    if(count($chank) < $amount){
+                    if (count($chank) < $amount) {
                         continue;
-                    }else{                        
-                        $allPlaceholders = array_fill(0, count($chank)/$columnsCount, $placeholder);
+                    } else {
+                        $allPlaceholders = array_fill(0, (int)(count($chank) / $columnsCount), $placeholder);
                         $placeRow = implode(',', $allPlaceholders);
                         $finalSql = $sql . $placeRow;
                         $db->execute($finalSql, $chank);
                         $chank = [];
-                    }          
+                    }
                 }
-                if(!empty($chank)){
-                    $allPlaceholders = array_fill(0, count($chank)/$columnsCount, $placeholder);
+                if (!empty($chank)) {
+                    $allPlaceholders = array_fill(0, (int)(count($chank) / $columnsCount), $placeholder);
                     $placeRow = implode(',', $allPlaceholders);
                     $finalSql = $sql . $placeRow;
                     $db->execute($finalSql, $chank);
-                }              
+                }
                 $db->commit();
                 echo "Import complete";
             }

@@ -9,7 +9,7 @@ class AnalizerService
 {
     /**
      * @param array<string, mixed> $filters
-     * @return array<\stdClass>
+     * @return array<int, array<string, mixed>|object>
      */
     public function run(array $filters, DatabaseInterface $db): array
     {

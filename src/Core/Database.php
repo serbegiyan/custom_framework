@@ -7,8 +7,8 @@ use PDO;
 
 class Database implements DatabaseInterface
 {
-    private PDO $pdo;    
-    
+    private PDO $pdo;
+
     public function __construct(
         public string $dsn,
         public string $user,
@@ -18,7 +18,7 @@ class Database implements DatabaseInterface
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         ]);
-    }    
+    }
 
     /**
     * @param array<string, mixed> $params
@@ -49,8 +49,8 @@ class Database implements DatabaseInterface
     }
 
     /**
-    *   @param array<string, mixed> $params
-    */
+     * @param array<string|int, mixed> $params
+     */
     public function execute(string $sql, array $params): int
     {
         $stmt = $this->pdo->prepare($sql);
