@@ -2,8 +2,8 @@
 
 namespace App\Controllers;
 
-use App\Interfaces\DatabaseInterface;
 use App\Core\Request;
+use App\Interfaces\DatabaseInterface;
 use App\Services\AnalizerService;
 
 class AnalizeController

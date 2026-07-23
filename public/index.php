@@ -5,10 +5,10 @@ Dotenv\Dotenv::createImmutable(__DIR__ . '/../')->load();
 
 use App\Core\Container;
 use App\Core\Database;
-use App\Interfaces\ContainerInterface;
-use App\Interfaces\DatabaseInterface;
 use App\Core\Request;
 use App\Core\Router;
+use App\Interfaces\ContainerInterface;
+use App\Interfaces\DatabaseInterface;
 
 $container = new Container();
 $container->set(DatabaseInterface::class, function (ContainerInterface $c) {
