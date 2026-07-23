@@ -40,6 +40,7 @@ class Database implements DatabaseInterface
     *   @param array<string, mixed> $params
     *   @return array<string, mixed>|false
     */
+    //пока не реализовано
     public function find(string $sql, array $params): array|false
     {
         $stmt = $this->pdo->prepare($sql);

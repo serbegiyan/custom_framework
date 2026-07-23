@@ -18,6 +18,7 @@ $container->set(DatabaseInterface::class, function (ContainerInterface $c) {
 
     return new Database($dsn, $user, $password);
 });
+
 $container->set(Request::class, function (ContainerInterface $c) {
     return new Request();
 });
@@ -26,5 +27,6 @@ $container->set(Router::class, function (ContainerInterface $c) {
     $router = new Router($c);
     return $router;
 });
+
 $router = $container->get(Router::class);
 $router->dispatch();
