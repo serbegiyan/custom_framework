@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Core\Interfaces\DatabaseInterface;
+use App\Interfaces\DatabaseInterface;
 use App\Core\Request;
 use App\Services\AnalizerService;
 

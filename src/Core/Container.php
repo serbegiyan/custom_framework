@@ -2,7 +2,7 @@
 
 namespace App\Core;
 
-use App\Core\Interfaces\ContainerInterface;
+use App\Interfaces\ContainerInterface;
 use App\Services\ServiceNotFoundException;
 use ReflectionClass;
 use ReflectionNamedType;

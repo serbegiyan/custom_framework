@@ -5,7 +5,7 @@ namespace App\Core;
 use App\Controllers\AnalizeController;
 use App\Controllers\GeneratorController;
 use App\Controllers\ImporterController;
-use App\Core\Interfaces\ContainerInterface;
+use App\Interfaces\ContainerInterface;
 
 class Router
 {

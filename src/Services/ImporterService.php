@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Core\Interfaces\DatabaseInterface;
+use App\Interfaces\DatabaseInterface;
 
 class ImporterService
 {

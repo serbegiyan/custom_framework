@@ -2,7 +2,7 @@
 
 namespace App\Core;
 
-use App\Core\Interfaces\DatabaseInterface;
+use App\Interfaces\DatabaseInterface;
 use PDO;
 
 class Database implements DatabaseInterface

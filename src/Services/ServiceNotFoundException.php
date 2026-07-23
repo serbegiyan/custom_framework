@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Core\Interfaces\NotFoundExceptionInterface;
+use App\Interfaces\NotFoundExceptionInterface;
 use Exception;
 
 class ServiceNotFoundException extends Exception implements NotFoundExceptionInterface
