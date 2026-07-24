@@ -1,10 +1,9 @@
 <?php
 
+use App\Interfaces\DatabaseInterface;
 use App\Interfaces\MigrationInterface;
-use use App\Interfaces\DatabaseInterface;
 
-return new class implements MigrationInterface
-{
+return new class () implements MigrationInterface {
     public function up(DatabaseInterface $db): void
     {
         $sql = 'CREATE TABLE IF NOT EXISTS users (
@@ -29,4 +28,4 @@ return new class implements MigrationInterface
 
         $db->execute($sql, []);
     }
-}
+};

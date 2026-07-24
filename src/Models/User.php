@@ -14,4 +14,5 @@ class User
     public bool $has_children = false;
     public string $family_status = '';
     public string $registration_date = '';
+    public int $organization_id = 0;
 }

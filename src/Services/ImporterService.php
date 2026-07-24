@@ -3,9 +3,18 @@
 namespace App\Services;
 
 use App\Interfaces\DatabaseInterface;
+use App\Validators\CsvValidator;
+use App\Exceptions\ValidationException;
+use App\DTO\CsvRow;
+use Generator;
 
 class ImporterService
 {
+    public function __construct(
+        public CsvValidator $validator
+    ) {
+    }
+
     public function import(DatabaseInterface $db, string|null $file): void
     {
         $fp = null;
@@ -16,38 +25,35 @@ class ImporterService
         }
         $sql = 'INSERT INTO users (country, 
         city, is_active, gender, birth_date, salary, 
-        has_children, family_status, registration_date)
+        has_children, family_status, registration_date, organization_id)
         VALUES ';
 
         $db->beginTransaction();
-        try {
-            $fp = fopen($file, "r");
-            if (is_resource($fp)) {
-                $headers = fgetcsv($fp);
-                if ($headers === false) {
-                    echo 'Empty file';
-                    return;
-                }
-                $columnsCount = count($headers);
+        try {            
+                $columnsCount = 0;
                 $chank = [];
-                $chunkSize = 1000;
+                $chunkSize = 500;
                 $placeholder = '(' . implode(', ', array_fill(0, $columnsCount, '?')) . ')';
+                $rowCount = 0;
+                $fileLine = 1; 
 
-                while (!empty($row = fgetcsv($fp))) {
-
-                    $chank[] = trim($row[0] ?? '');
-                    $chank[] = trim($row[1] ?? '');
-                    $chank[] = trim($row[2] ?? '');
-                    $chank[] = trim($row[3] ?? '');
-                    $chank[] = trim($row[4] ?? '');
-                    $chank[] = (int)($row[5] ?? 0);
-                    $chank[] = trim($row[6] ?? '');
-                    $chank[] = trim($row[7] ?? '');
-                    $chank[] = trim($row[8] ?? '');
-
-                    $amount = $chunkSize * $columnsCount;
-
-                    if (count($chank) < $amount) {
+                foreach ($this->readRows($file) as $row) {
+                    $rowCount++;
+                    $fileLine++;
+                    try{
+                        /** @var CsvRow $dto */
+                        $dto = $this->validator->validate($row, $headers);
+                        if ($columnsCount === 0) {
+                                $columnsCount = count($dto->toDatabaseArray());
+                                $placeholder = '(' . implode(', ', array_fill(0, $columnsCount, '?')) . ')';
+                            }                       
+                        $chank = array_merge($chank, $dto->toDatabaseArray());
+                    }catch(ValidationException $message){
+                        echo "Error in line {$fileLine}:"  . $message->getMessage() . PHP_EOL;
+                        $rowCount--;
+                    }                   
+                    
+                    if ($rowCount < $chunkSize) {
                         continue;
                     } else {
                         $allPlaceholders = array_fill(0, (int)(count($chank) / $columnsCount), $placeholder);
@@ -55,6 +61,7 @@ class ImporterService
                         $finalSql = $sql . $placeRow;
                         $db->execute($finalSql, $chank);
                         $chank = [];
+                        $rowCount = 0;
                     }
                 }
                 if (!empty($chank)) {
@@ -69,10 +76,21 @@ class ImporterService
         } catch (\Exception $e) {
             $db->rollBack();
             echo $e;
-        } finally {
-            if ($fp) {
-                fclose($fp);
-            }
+        } 
+    }
+
+    private function readRows(string $file): Generator
+    {
+        $fp = fopen($file, "r");
+        if (! $fp) {
+            echo 'File not found';
+            return;
         }
+        fgetcsv($fp);
+        while (($row = fgetcsv($fp)) !== false) {
+            yield $row;
+        }
+
+        fclose($fp);
     }
 }

@@ -27,7 +27,8 @@ class AnalizerService
             'family_status' => 'equals',
             'salary' => 'range',
             'birth_date' => 'range',
-            'registration_date' => 'range'
+            'registration_date' => 'range',
+            'organization_id' => 'equals'
         ];
 
         foreach ($map_rules as $column => $type) {
