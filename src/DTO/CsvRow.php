@@ -3,7 +3,6 @@
 namespace App\DTO;
 
 use DateTime;
-use App\Validators\CsvValidator;
 
 final readonly class CsvRow
 {
@@ -22,10 +21,10 @@ final readonly class CsvRow
      * @param array<string, string> $prepered
      */
     public function __construct(
-        array $prepered, 
-        DateTime $bir_date, 
+        array $prepered,
+        DateTime $bir_date,
         DateTime $reg_date
-    ){
+    ) {
         $this->country = $prepered['country'];
         $this->city = $prepered['city'];
         $this->is_active = ($prepered['is_active'] === '1' || $prepered['is_active'] === 'true');
@@ -36,8 +35,11 @@ final readonly class CsvRow
         $this->family_status = $prepered['family_status'];
         $this->registration_date = $reg_date;
         $this->organization_id = (int) $prepered['organization_id'];
-    } 
+    }
 
+    /**
+     * @return array<int, int|string>
+     */
     public function toDatabaseArray(): array
     {
         $array = [

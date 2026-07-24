@@ -4,7 +4,6 @@ use App\Interfaces\DatabaseInterface;
 use App\Interfaces\MigrationInterface;
 
 return new class () implements MigrationInterface {
-
     public function up(DatabaseInterface $db): void
     {
         $sql = 'CREATE TABLE IF NOT EXISTS organizations (

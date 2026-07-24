@@ -2,10 +2,10 @@
 
 namespace App\Services;
 
+use App\DTO\CsvRow;
+use App\Exceptions\ValidationException;
 use App\Interfaces\DatabaseInterface;
 use App\Validators\CsvValidator;
-use App\Exceptions\ValidationException;
-use App\DTO\CsvRow;
 use Generator;
 
 class ImporterService
@@ -29,64 +29,68 @@ class ImporterService
         VALUES ';
 
         $db->beginTransaction();
-        try {            
-                $columnsCount = 0;
-                $chank = [];
-                $chunkSize = 500;
-                $placeholder = '(' . implode(', ', array_fill(0, $columnsCount, '?')) . ')';
-                $rowCount = 0;
-                $fileLine = 1; 
+        try {
+            $columnsCount = 0;
+            $chank = [];
+            $chunkSize = 500;
+            $placeholder = '(' . implode(', ', array_fill(0, $columnsCount, '?')) . ')';
+            $rowCount = 0;
+            $fileLine = 1;
+            $headers = [];
 
-                foreach ($this->readRows($file) as $row) {
-                    $rowCount++;
-                    $fileLine++;
-                    try{
-                        /** @var CsvRow $dto */
-                        $dto = $this->validator->validate($row, $headers);
-                        if ($columnsCount === 0) {
-                                $columnsCount = count($dto->toDatabaseArray());
-                                $placeholder = '(' . implode(', ', array_fill(0, $columnsCount, '?')) . ')';
-                            }                       
-                        $chank = array_merge($chank, $dto->toDatabaseArray());
-                    }catch(ValidationException $message){
-                        echo "Error in line {$fileLine}:"  . $message->getMessage() . PHP_EOL;
-                        $rowCount--;
-                    }                   
-                    
-                    if ($rowCount < $chunkSize) {
-                        continue;
-                    } else {
-                        $allPlaceholders = array_fill(0, (int)(count($chank) / $columnsCount), $placeholder);
-                        $placeRow = implode(',', $allPlaceholders);
-                        $finalSql = $sql . $placeRow;
-                        $db->execute($finalSql, $chank);
-                        $chank = [];
-                        $rowCount = 0;
+            foreach ($this->readRows($file, $headers) as $row) {
+                $rowCount++;
+                $fileLine++;
+                try {
+                    /** @var CsvRow $dto */
+                    $dto = $this->validator->validate($row, $headers);
+                    if ($columnsCount === 0) {
+                        $columnsCount = count($dto->toDatabaseArray());
+                        $placeholder = '(' . implode(', ', array_fill(0, $columnsCount, '?')) . ')';
                     }
+                    $chank = array_merge($chank, $dto->toDatabaseArray());
+                } catch (ValidationException $message) {
+                    echo "Error in line {$fileLine}:"  . $message->getMessage() . PHP_EOL;
+                    $rowCount--;
                 }
-                if (!empty($chank)) {
+
+                if ($rowCount < $chunkSize) {
+                    continue;
+                } else {
                     $allPlaceholders = array_fill(0, (int)(count($chank) / $columnsCount), $placeholder);
                     $placeRow = implode(',', $allPlaceholders);
                     $finalSql = $sql . $placeRow;
                     $db->execute($finalSql, $chank);
+                    $chank = [];
+                    $rowCount = 0;
                 }
-                $db->commit();
-                echo "Import complete";
             }
+            if (!empty($chank)) {
+                $allPlaceholders = array_fill(0, (int)(count($chank) / $columnsCount), $placeholder);
+                $placeRow = implode(',', $allPlaceholders);
+                $finalSql = $sql . $placeRow;
+                $db->execute($finalSql, $chank);
+            }
+            $db->commit();
+            echo "Import complete";
         } catch (\Exception $e) {
             $db->rollBack();
             echo $e;
-        } 
+        }
     }
 
-    private function readRows(string $file): Generator
+    /**
+     * @param array<int, string> $headers
+    */
+    private function readRows(string $file, array $headers): Generator
     {
         $fp = fopen($file, "r");
         if (! $fp) {
             echo 'File not found';
             return;
         }
-        fgetcsv($fp);
+        $headers = fgetcsv($fp) ?: [];
+
         while (($row = fgetcsv($fp)) !== false) {
             yield $row;
         }
