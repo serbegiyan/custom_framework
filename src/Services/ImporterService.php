@@ -37,12 +37,13 @@ class ImporterService
             $rowCount = 0;
             $fileLine = 1;
             $openFile = fopen($file, "r");
-            $headers = $openFile ? (fgetcsv($openFile) ?: []) : [];
+            $rawHeaders = $openFile ? (fgetcsv($openFile) ?: []) : [];
             if ($openFile) {
                 fclose($openFile);
             }
-
-            foreach ($this->readRows($file, $headers) as $row) {
+            /** @var array<int, string> $headers */
+            $headers = array_map(fn ($item) => (string)$item, $rawHeaders);
+            foreach ($this->readRows($file) as $row) {
                 $rowCount++;
                 $fileLine++;
                 try {
@@ -83,9 +84,6 @@ class ImporterService
         }
     }
 
-    /**
-     * @param array<int, string> $headers
-    */
     private function readRows(string $file): Generator
     {
         $fp = fopen($file, "r");

@@ -3,7 +3,7 @@
 use App\Interfaces\DatabaseInterface;
 use App\Interfaces\MigrationInterface;
 
-return new class implements MigrationInterface{
+return new class () implements MigrationInterface {
     public function up(DatabaseInterface $db): void
     {
         $sql = 'ALTER TABLE organizations ADD owner_id int';

@@ -3,11 +3,11 @@
 namespace App\Core;
 
 use App\Controllers\AnalizeController;
+use App\Controllers\AuthController;
 use App\Controllers\GeneratorController;
 use App\Controllers\ImporterController;
-use App\Interfaces\ContainerInterface;
-use App\Controllers\AuthController;
 use App\Controllers\OrganizationController;
+use App\Interfaces\ContainerInterface;
 
 class Router
 {

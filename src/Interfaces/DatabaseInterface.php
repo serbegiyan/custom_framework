@@ -5,7 +5,7 @@ namespace App\Interfaces;
 interface DatabaseInterface
 {
     /**
-    *   @param array<string, mixed> $params
+    * @param array<string|int, mixed> $params
     * @return array<int, array<string, mixed>|object>
     */
     public function select(string $sql, array $params, ?string $className = null): array;

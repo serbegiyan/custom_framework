@@ -7,7 +7,7 @@ class Session
     public function __construct()
     {
         session_name('MySession');
-        if(session_status() === PHP_SESSION_NONE){
+        if (session_status() === PHP_SESSION_NONE) {
             session_start([
                 'cookie_lifetime' => 86400,
                 'cookie_httponly' => true,
@@ -37,7 +37,7 @@ class Session
 
     public function destroy(): void
     {
-        $_SESSION = array();
+        $_SESSION = [];
         session_destroy();
     }
 }

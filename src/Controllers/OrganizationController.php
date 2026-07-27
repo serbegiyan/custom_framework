@@ -3,23 +3,23 @@
 namespace App\Controllers;
 
 use App\Core\Request;
-use App\Interfaces\DatabaseInterface;
 use App\Core\Session;
-use App\Core\Exceptions\ValidationException;
+use App\Interfaces\DatabaseInterface;
 
 class OrganizationController
 {
     public function __construct(
-        public DatabaseInterface $db,   
+        public DatabaseInterface $db,
         public Request $request,
         public Session $session
-    ){}
+    ) {
+    }
 
     public function index(): void
     {
         $user_id = $this->session->get('user_id');
 
-        if($user_id === null){
+        if ($user_id === null) {
             http_response_code(401);
             echo 'Unauthorized';
             return;
@@ -29,10 +29,10 @@ class OrganizationController
 
         $orgs = $this->db->select($sql, [$user_id]);
 
-        if(empty($orgs)){
+        if (empty($orgs)) {
             echo 'You do not have access to any organization yet';
             return;
-        }        
+        }
         echo json_encode($orgs);
     }
 }
