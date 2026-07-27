@@ -6,10 +6,10 @@ use App\Interfaces\MigrationInterface;
 return new class () implements MigrationInterface {
     public function up(DatabaseInterface $db): void
     {
-        $sqlAdd = 'ALTER TABLE users ADD organization_id INT NULL';
+        $sqlAdd = 'ALTER TABLE statics ADD organization_id INT NULL';
         $sqlInsert = "INSERT INTO organizations (name, created_at, updated_at)
         VALUES ('Innowise', NOW(), NOW())";
-        $sqlUpdate = "UPDATE users SET organization_id = (
+        $sqlUpdate = "UPDATE statics SET organization_id = (
         SELECT id FROM organizations WHERE name = 'Innowise' limit 1)";
 
         $db->execute($sqlAdd, []);
@@ -19,7 +19,7 @@ return new class () implements MigrationInterface {
 
     public function down(DatabaseInterface $db): void
     {
-        $dropAdd = 'ALTER TABLE users DROP COLUMN organization_id';
+        $dropAdd = 'ALTER TABLE statics DROP COLUMN organization_id';
         $dropIns = "DELETE FROM organizations WHERE name = 'Innowise'";
 
         $db->execute($dropAdd, []);

@@ -6,6 +6,8 @@ use App\Controllers\AnalizeController;
 use App\Controllers\GeneratorController;
 use App\Controllers\ImporterController;
 use App\Interfaces\ContainerInterface;
+use App\Controllers\AuthController;
+use App\Controllers\OrganizationController;
 
 class Router
 {
@@ -19,11 +21,14 @@ class Router
     */
     private array $routes = [
         'GET' => [
-            '/users' => [AnalizeController::class, 'index'],
+            '/statics' => [AnalizeController::class, 'index'],
+            '/organizations' => [OrganizationController::class, 'index'],
         ],
         'POST' => [
-            '/users/imports' => [ImporterController::class, 'store'],
-            '/users/generations' => [GeneratorController::class, 'generate'],
+            '/statics/imports' => [ImporterController::class, 'store'],
+            '/statics/generations' => [GeneratorController::class, 'generate'],
+            '/users/login' => [AuthController::class, 'login'],
+            '/users/registration' => [AuthController::class, 'register'],
         ]
     ];
 

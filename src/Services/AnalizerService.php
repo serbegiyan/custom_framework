@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Interfaces\DatabaseInterface;
-use App\Models\User;
+use App\Models\Statics;
 
 class AnalizerService
 {
@@ -15,7 +15,7 @@ class AnalizerService
     {
         $inputs = $filters;
 
-        $sql = 'SELECT * FROM users WHERE 1=1 ';
+        $sql = 'SELECT * FROM statics WHERE 1=1 ';
         $params = [];
 
         $map_rules = [
@@ -54,9 +54,9 @@ class AnalizerService
             }
         }
 
-        $users = $db->select($sql, $params, User::class);
+        $statics = $db->select($sql, $params, Statics::class);
 
-        return $users;
+        return $statics;
 
     }
 }

@@ -18,9 +18,9 @@ class AnalizeController
     public function index(): void
     {
         $filter = $this->request->getParams();
-        $users = $this->analizer->run($filter, $this->db);
+        $statics = $this->analizer->run($filter, $this->db);
         $this->render('analize', [
-            'users' => $users
+            'statics' => $statics
         ]);
     }
 

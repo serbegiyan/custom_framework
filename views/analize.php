@@ -1,5 +1,5 @@
 <?php
-/** @var App\Models\User[] $users */
+/** @var App\Models\User[] $statics */
 ?>
 <table>
     <thead>
@@ -16,7 +16,7 @@
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($users as $user): ?>
+        <?php foreach ($statics as $user): ?>
             <tr>
                 <td><?= htmlspecialchars($user?->country ?? '') ?></td>
                 <td><?= htmlspecialchars($user?->city ?? '') ?></td>

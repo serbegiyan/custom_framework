@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class User
+class Statics
 {
     public int $id = 0;
     public string $country = '';

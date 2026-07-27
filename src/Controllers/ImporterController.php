@@ -22,7 +22,7 @@ class ImporterController
         if ($this->request->isValidSize('csv_file')) {
             $file = $this->request->getFiles('csv_file');
             $this->importer->import($this->db, $file);
-            $users = $this->analizer->run([], $this->db);
+            $statics = $this->analizer->run([], $this->db);
             require __DIR__ . '/../../views/analize.php';
         } else {
             echo 'Error 400: Bad request';

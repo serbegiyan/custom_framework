@@ -23,7 +23,7 @@ class ImporterService
             echo 'File not found';
             return;
         }
-        $sql = 'INSERT INTO users (country, 
+        $sql = 'INSERT INTO statics (country, 
         city, is_active, gender, birth_date, salary, 
         has_children, family_status, registration_date, organization_id)
         VALUES ';
@@ -36,7 +36,11 @@ class ImporterService
             $placeholder = '(' . implode(', ', array_fill(0, $columnsCount, '?')) . ')';
             $rowCount = 0;
             $fileLine = 1;
-            $headers = [];
+            $openFile = fopen($file, "r");
+            $headers = $openFile ? (fgetcsv($openFile) ?: []) : [];
+            if ($openFile) {
+                fclose($openFile);
+            }
 
             foreach ($this->readRows($file, $headers) as $row) {
                 $rowCount++;
@@ -82,14 +86,13 @@ class ImporterService
     /**
      * @param array<int, string> $headers
     */
-    private function readRows(string $file, array $headers): Generator
+    private function readRows(string $file): Generator
     {
         $fp = fopen($file, "r");
         if (! $fp) {
             echo 'File not found';
             return;
         }
-        $headers = fgetcsv($fp) ?: [];
 
         while (($row = fgetcsv($fp)) !== false) {
             yield $row;
