@@ -32,7 +32,7 @@ class Database implements DatabaseInterface
         if ($className) {
             $stmt->setFetchMode(PDO::FETCH_CLASS, $className);
         }
-        $data = $stmt->fetchAll();
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $data;
     }
 

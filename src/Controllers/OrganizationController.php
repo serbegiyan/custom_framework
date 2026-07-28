@@ -18,16 +18,10 @@ class OrganizationController
     public function index(): void
     {
         $user_id = $this->session->get('user_id');
-
-        if ($user_id === null) {
-            http_response_code(401);
-            echo 'Unauthorized';
-            return;
-        }
-
+        
         $sql = 'SELECT name FROM organizations WHERE owner_id = ?';
 
-        $orgs = $this->db->select($sql, [$user_id]);
+        $orgs = $this->db->select($sql, [(int)$user_id]);
 
         if (empty($orgs)) {
             echo 'You do not have access to any organization yet';

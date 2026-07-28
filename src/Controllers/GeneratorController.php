@@ -4,12 +4,14 @@ namespace App\Controllers;
 
 use App\Core\Request;
 use App\Services\GeneratorService;
+use App\Core\Localization;
 
 class GeneratorController
 {
     public function __construct(
         public Request $request,
         public GeneratorService $generator,
+        public Localization $local,
     ) {
     }
     public string $file;
@@ -22,7 +24,7 @@ class GeneratorController
         if (isset($quantity) and $quantity >= 1) {
             $this->generator->run($quantity, $this->file);
         } else {
-            echo 'Incorrect quantity';
+            echo $this->local->translate('gen.incorrect_quantity');
         }
     }
 }
