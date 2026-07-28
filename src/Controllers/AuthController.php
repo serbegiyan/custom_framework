@@ -2,11 +2,11 @@
 
 namespace App\Controllers;
 
+use App\Core\Localization;
 use App\Core\Request;
 use App\Core\Session;
 use App\Exceptions\ValidationException;
 use App\Interfaces\DatabaseInterface;
-use App\Core\Localization;
 
 class AuthController
 {
@@ -84,7 +84,7 @@ class AuthController
     public function logout(): void
     {
         $this->session->destroy();
-        setcookie(session_name(), '', time() - 3600, '/');
+        setcookie((string)session_name(), '', time() - 3600, '/');
         header('Location: /users/login');
         return;
     }

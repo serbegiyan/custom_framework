@@ -18,7 +18,7 @@ class OrganizationController
     public function index(): void
     {
         $user_id = $this->session->get('user_id');
-        
+
         $sql = 'SELECT name FROM organizations WHERE owner_id = ?';
 
         $orgs = $this->db->select($sql, [(int)$user_id]);

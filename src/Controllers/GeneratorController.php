@@ -2,9 +2,9 @@
 
 namespace App\Controllers;
 
+use App\Core\Localization;
 use App\Core\Request;
 use App\Services\GeneratorService;
-use App\Core\Localization;
 
 class GeneratorController
 {

@@ -6,11 +6,11 @@ use App\Controllers\AnalizeController;
 use App\Controllers\AuthController;
 use App\Controllers\GeneratorController;
 use App\Controllers\ImporterController;
-use App\Controllers\OrganizationController;
 use App\Controllers\LanguageController;
+use App\Controllers\OrganizationController;
 use App\Interfaces\ContainerInterface;
-use App\Middlewares\AuthMiddleware;
 use App\Interfaces\MiddlewareInterface;
+use App\Middlewares\AuthMiddleware;
 
 class Router
 {
@@ -32,7 +32,7 @@ class Router
             '/organizations' => [
                 'controller' => OrganizationController::class,
                 'method' => 'index',
-                'middleware' => [AuthMiddleware::class],    
+                'middleware' => [AuthMiddleware::class],
             ],
         ],
         'POST' => [
@@ -79,11 +79,11 @@ class Router
         if (array_key_exists($method, $this->routes) and array_key_exists($path, $this->routes[$method])) {
             $controllerClass = $this->routes[$method][$path]['controller'];
             $controllerMethod = $this->routes[$method][$path]['method'];
-            $middlewareClasses = $this->routes[$method][$path]['middleware'] ?? [];
+            $middlewareClasses = $this->routes[$method][$path]['middleware'];
 
-            foreach($middlewareClasses as $middlewareClass){
+            foreach ($middlewareClasses as $middlewareClass) {
                 $middleware = $this->container->get($middlewareClass);
-                if($middleware instanceof MiddlewareInterface){
+                if ($middleware instanceof MiddlewareInterface) {
                     $middleware->handle($request, $session);
                 }
             }
