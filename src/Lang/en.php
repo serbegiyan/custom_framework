@@ -12,6 +12,6 @@ return [
     'unauthorized' => 'Unauthorized',
     'error_400' => 'Error 400: Bad request',
     'not_available_orgs' => 'You do not have access to any organization yet',
-    'success' => 'Completed successfully', 
+    'success' => 'Completed successfully',
     'error_500' => 'Error 500: Fatal server error'
 ];

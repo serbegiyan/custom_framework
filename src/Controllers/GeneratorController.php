@@ -19,9 +19,9 @@ class GeneratorController
     public function generate(): void
     {
         $this->file = __DIR__ . '/../../storage/data.csv';
-        $params = $this->request->getParams();
-        $quantity = $params['quantity'] ?? null;
-        if (isset($quantity) and $quantity >= 1) {
+        $quantity = $this->request->getInt('quantity');
+
+        if ($quantity >= 1) {
             $this->generator->run($quantity, $this->file);
         } else {
             echo $this->local->translate('gen.incorrect_quantity');

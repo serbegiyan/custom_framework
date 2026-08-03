@@ -20,16 +20,13 @@ class AuthController
 
     public function login(): void
     {
-        $params = $this->request->getParams();
-        $required = ['email', 'password'];
+        $email = $this->request->getString('email');
+        $password = $this->request->getString('password');
 
-        foreach ($required as $key) {
-            $value = $params[$key] ?? null;
-            if (!is_string($value) or trim($value) === '') {
-                throw new ValidationException('Invalid inputs values');
-            }
+        if (trim($email) === '' || trim($password) === '') {
+            throw new ValidationException('Invalid inputs values');
         }
-        $email = $params['email'];
+
         $sql = 'SELECT id, password_hash FROM users WHERE email = ? LIMIT 1';
 
         $res = $this->db->select($sql, [$email]);
@@ -37,7 +34,7 @@ class AuthController
         /** @var array{id: int, password_hash: string}|null $user */
         $user = $res[0] ?? null;
 
-        if (! $user or ! password_verify($params['password'], $user['password_hash'])) {
+        if (! $user || ! password_verify($password, $user['password_hash'])) {
             throw new ValidationException($this->local->translate('auth.invalid_credentials'));
         }
         $user_id = $user['id'];
@@ -48,23 +45,21 @@ class AuthController
 
     public function register(): void
     {
-        $params = $this->request->getParams();
-        $required = ['name', 'email', 'password'];
+        $email = $this->request->getString('email');
+        $password = $this->request->getString('password');
+        $name = $this->request->getString('name');
 
         $sql = 'SELECT id FROM users WHERE email = ? LIMIT 1';
-        foreach ($required as $key) {
-            $value = $params[$key] ?? null;
-            if (!is_string($value) or trim($value) === '') {
-                throw new ValidationException($this->local->translate('auth.invalid_values'));
-            }
+
+        if (trim($email) === '' || trim($password) === '' || trim($name) === '') {
+            throw new ValidationException($this->local->translate('auth.invalid_values'));
         }
-        $name = $params['name'];
-        $email = $params['email'];
+
         $original = $this->db->select($sql, [$email]);
         if (!empty($original)) {
             throw new ValidationException($this->local->translate('auth.user_already_exists'));
         }
-        $password = password_hash($params['password'], PASSWORD_BCRYPT);
+        $password = password_hash($password, PASSWORD_BCRYPT);
 
         $sqlIns = 'INSERT INTO users (name, email, password_hash)
         VALUES (?, ?, ?)';

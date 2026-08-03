@@ -2,14 +2,13 @@
 
 namespace App\Controllers;
 
-use App\Core\Request;
-use App\Services\OrganizationService;
 use App\Core\Localization;
+use App\Core\Request;
 use App\Exceptions\ForbiddenException;
 use App\Exceptions\ValidationException;
-use App\Exceptions\InternalServerErrorException;
-use App\Services\Gate;
 use App\Policies\OrganizationPolicy;
+use App\Services\Gate;
+use App\Services\OrganizationService;
 use App\ValueObjects\OrganizationId;
 
 class OrganizationController
@@ -19,7 +18,8 @@ class OrganizationController
         public OrganizationService $orgService,
         public Localization $local,
         public Gate $gate,
-    ) {}
+    ) {
+    }
 
     public function index(): void
     {
@@ -35,34 +35,35 @@ class OrganizationController
     public function store(): void
     {
         $user_id = $this->request->getUserId();
-        $dataName = $this->request->getParams();
-        $orgName = $dataName['name'] ?? '';
-        if (!isset($dataName['name']) || trim($dataName['name']) === '') {
-                throw new ValidationException($this->local->translate('invalid.incorrect_value'));    
-            }
+        if (!$user_id) {
+            throw new ForbiddenException($this->local->translate('auth.forbidden'));
+        }
+        $orgName = $this->request->getString('name');
+        if (trim($orgName) === '') {
+            throw new ValidationException($this->local->translate('invalid.incorrect_value'));
+        }
         $this->orgService->storeToDb($orgName, $user_id);
-        echo $this->local->translate('success');         
+        echo $this->local->translate('success');
     }
 
     public function update(): void
     {
         $org_Data = $this->request->getParams();
-        $org_id = new OrganizationId ((int) ($org_Data['id'] ?? 0));
-        $this->gate->authorize(OrganizationPolicy::class, 'update', $org_id);               
-        $newData = $this->request->getParams();
-        $newName = $newData['name'];
-        if (!$newName || trim($newName) === '') {
-            throw new ValidationException($this->local->translate('invalid.incorrect_value'));    
+        $org_id = new OrganizationId((int) ($org_Data['id'] ?? 0));
+        $this->gate->authorize(OrganizationPolicy::class, 'update', $org_id);
+        $orgName = $this->request->getString('name');
+        if (!$orgName || trim($orgName) === '') {
+            throw new ValidationException($this->local->translate('invalid.incorrect_value'));
         }
-        $this->orgService->updateToBd($newName, $org_id->orgId);
-        echo $this->local->translate('success');            
+        $this->orgService->updateToBd($orgName, $org_id->orgId);
+        echo $this->local->translate('success');
     }
 
     public function delete(): void
     {
         $org_Data = $this->request->getParams();
-        $org_id = new OrganizationId ((int) ($org_Data['id'] ?? 0));
-        $this->gate->authorize(OrganizationPolicy::class, 'delete', $org_id); 
+        $org_id = new OrganizationId((int) ($org_Data['id'] ?? 0));
+        $this->gate->authorize(OrganizationPolicy::class, 'delete', $org_id);
         $this->orgService->deleteFromBd($org_id->orgId);
         echo $this->local->translate('success');
     }

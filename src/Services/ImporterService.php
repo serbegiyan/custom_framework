@@ -56,7 +56,7 @@ class ImporterService
                         $placeholder = '(' . implode(', ', array_fill(0, $columnsCount, '?')) . ')';
                     }
                     $rowArray = $dto->toDatabaseArray();
-                    $rowArray[] = $organizationId->orgId; 
+                    $rowArray[] = $organizationId->orgId;
                     $chank = array_merge($chank, $rowArray);
                 } catch (ValidationException $message) {
                     echo "Error in line {$fileLine}:"  . $message->getMessage() . PHP_EOL;
@@ -95,7 +95,7 @@ class ImporterService
             echo 'File not found';
             return;
         }
-        fgetcsv($fp); 
+        fgetcsv($fp);
         while (($row = fgetcsv($fp)) !== false) {
             yield $row;
         }

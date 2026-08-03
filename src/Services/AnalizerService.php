@@ -10,12 +10,14 @@ class AnalizerService
 {
     public function __construct(
         public DatabaseInterface $db,
-    ){}
+    ) {
+    }
 
     /**
-     * @param array<string, mixed> $filters
+     * @param array<array-key, mixed> $filters
      * @return array<int, array<string, mixed>|object>
      */
+
     public function run(array $filters, OrganizationId $organizationId): array
     {
         $inputs = $filters;

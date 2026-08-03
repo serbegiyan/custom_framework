@@ -2,13 +2,12 @@
 
 namespace App\Controllers;
 
+use App\Core\Localization;
 use App\Core\Request;
+use App\Exceptions\ForbiddenException;
 use App\Services\AnalizerService;
 use App\Services\ImporterService;
 use App\Services\OrganizationService;
-use App\Exceptions\ForbiddenException;
-use App\ValueObjects\OrganizationId;
-use App\Core\Localization;
 
 class ImporterController
 {
@@ -27,10 +26,10 @@ class ImporterController
             $file = $this->request->getFiles('csv_file');
             $user_id = $this->request->getUserId();
             $organizationId = $this->orgService->getOrgId((int)$user_id);
-            $this->importer->import($organizationId, $file);
-            if(!$organizationId){
+            if (!$organizationId) {
                 throw new ForbiddenException($this->local->translate('auth.forbidden'));
             }
+            $this->importer->import($organizationId, $file);
             $statics = $this->analizer->run([], $organizationId);
             require __DIR__ . '/../../views/analize.php';
         } else {

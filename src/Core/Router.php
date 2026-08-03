@@ -13,14 +13,20 @@ class Router
     }
 
     public string $currentPrefix = '';
+    /**
+     * @var array<int, string>
+     */
     public array $currentMiddlewares = [];
 
     /**
     * @var array<string, array<string, array{controller: string, method: string, middleware: array<int, string>}>>
     */
     private array $routes = [];
-    
-    public function group(array $modifiers, callable $callback)
+
+    /**
+     * @param array{prefix?: string, middleware?: array<int, string>} $modifiers
+     */
+    public function group(array $modifiers, callable $callback): void
     {
         $this->currentPrefix = $modifiers['prefix'] ?? '';
         $this->currentMiddlewares = $modifiers['middleware'] ?? [];
@@ -29,28 +35,47 @@ class Router
         $this->currentMiddlewares = [];
     }
 
+    /**
+    * @param array<int, string> $middleware
+    */
     private function addRoute(string $HTTPmethod, string $path, string $controller, string $method, array $middleware = []): void
     {
         $fullPath = $this->currentPrefix . $path;
         $fullMiddlewares = array_merge($this->currentMiddlewares, $middleware);
-        $this->routes[$HTTPmethod][$fullPath] = [$controller, $method, $fullMiddlewares];
+        $this->routes[$HTTPmethod][$fullPath] = [
+            'controller' => $controller,
+            'method' => $method,
+            'middleware' => $fullMiddlewares,
+        ];
     }
 
+    /**
+    * @param array<int, string> $middleware
+    */
     public function get(string $path, string $controller, string $method, array $middleware = []): void
     {
         $this->addRoute('GET', $path, $controller, $method, $middleware);
     }
 
+    /**
+    * @param array<int, string> $middleware
+    */
     public function post(string $path, string $controller, string $method, array $middleware = []): void
     {
         $this->addRoute('POST', $path, $controller, $method, $middleware);
     }
 
+    /**
+    * @param array<int, string> $middleware
+    */
     public function patch(string $path, string $controller, string $method, array $middleware = []): void
     {
         $this->addRoute('PATCH', $path, $controller, $method, $middleware);
     }
 
+    /**
+    * @param array<int, string> $middleware
+    */
     public function delete(string $path, string $controller, string $method, array $middleware = []): void
     {
         $this->addRoute('DELETE', $path, $controller, $method, $middleware);
@@ -65,9 +90,9 @@ class Router
         $path = rtrim($path, '/');
 
         if (array_key_exists($method, $this->routes) and array_key_exists($path, $this->routes[$method])) {
-            $controllerClass = $this->routes[$method][$path][0];
-            $controllerMethod = $this->routes[$method][$path][1];
-            $middlewareClasses = $this->routes[$method][$path][2];
+            $controllerClass = $this->routes[$method][$path]['controller'];
+            $controllerMethod = $this->routes[$method][$path]['method'];
+            $middlewareClasses = $this->routes[$method][$path]['middleware'];
             foreach ($middlewareClasses as $middlewareClass) {
                 $middleware = $this->container->get($middlewareClass);
                 if ($middleware instanceof MiddlewareInterface) {
@@ -75,7 +100,7 @@ class Router
                 }
             }
 
-            $controller = $this->container->get($controllerClass); 
+            $controller = $this->container->get($controllerClass);
             if (is_object($controller) && method_exists($controller, $controllerMethod)) {
                 $controller->$controllerMethod();
             } else {

@@ -2,12 +2,11 @@
 
 namespace App\Controllers;
 
+use App\Core\Localization;
 use App\Core\Request;
+use App\Exceptions\ForbiddenException;
 use App\Interfaces\DatabaseInterface;
 use App\Services\AnalizerService;
-use App\ValueObjects\OrganizationId;
-use App\Core\Localization;
-use App\Exceptions\ForbiddenException;
 use App\Services\OrganizationService;
 
 class AnalizeController
@@ -22,10 +21,10 @@ class AnalizeController
     }
 
     public function index(): void
-    {        
+    {
         $user_id = $this->request->getUserId();
         $organizationId = $this->orgService->getOrgId((int)$user_id);
-        if(!$organizationId){
+        if (!$organizationId) {
             throw new ForbiddenException($this->local->translate('auth.forbidden'));
         }
         $filter = $this->request->getParams();

@@ -36,7 +36,7 @@ class Request
         return $_SERVER['REQUEST_METHOD'] ?? 'GET';
     }
 
-    /** @return array<string, mixed>*/
+    /** @return array<int|string, array<mixed>|string>*/
     public function getParams(): array
     {
         if ($this->getMethod() == 'GET') {
@@ -45,8 +45,11 @@ class Request
         if ($this->getMethod() == 'POST') {
             return $_POST;
         }
-        if (in_array($this->getMethod(), ['PATCH', 'PUT', 'DELETE'])){
+        if (in_array($this->getMethod(), ['PATCH', 'PUT', 'DELETE'])) {
             $data = file_get_contents('php://input');
+            if (!$data) {
+                throw new \RuntimeException('Invalid inputs');
+            }
             $patchData = [];
             parse_str($data, $patchData);
             return $patchData;
@@ -62,5 +65,26 @@ class Request
     public function getUserId(): ?int
     {
         return $this->user_id;
+    }
+
+    public function getString(string $key, string $default = ''): string
+    {
+        $params = $this->getParams();
+        $value = $params[$key] ?? $default;
+
+        return is_array($value) ? $default : (string)$value;
+    }
+
+    public function getInt(string $key, int $default = 0): int
+    {
+        $params = $this->getParams();
+        $value = $params[$key] ?? null;
+
+        if ($value === null || is_array($value)) {
+            return $default;
+        }
+
+        $filtered = filter_var($value, FILTER_VALIDATE_INT);
+        return $filtered !== false ? $filtered : $default;
     }
 }

@@ -2,14 +2,15 @@
 
 namespace App\Policies;
 
-use App\ValueObjects\OrganizationId;
 use App\Services\OrganizationService;
+use App\ValueObjects\OrganizationId;
 
 class OrganizationPolicy
 {
     public function __construct(
         public OrganizationService $service,
-    ){}
+    ) {
+    }
 
     private function isOwner(int $user_id, OrganizationId $org_id): bool
     {

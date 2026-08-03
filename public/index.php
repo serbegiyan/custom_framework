@@ -5,7 +5,6 @@ Dotenv\Dotenv::createImmutable(__DIR__ . '/../')->load();
 
 use App\Core\Container;
 use App\Core\Database;
-use App\Core\Request;
 use App\Core\Router;
 use App\Interfaces\ContainerInterface;
 use App\Interfaces\DatabaseInterface;

@@ -18,7 +18,8 @@ class LanguageController
         $path = $this->request->getPath();
         $params = $this->request->getParams();
         if (array_key_exists('lang', $params)) {
-            $this->local->setLang((string)$params['lang']);
+            $lang = $this->request->getString('lang');
+            $this->local->setLang($lang);
             header('Location: ' . ($_SERVER['HTTP_REFERER'] ?? '/'));
         }
     }
