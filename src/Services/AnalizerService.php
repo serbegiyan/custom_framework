@@ -4,19 +4,24 @@ namespace App\Services;
 
 use App\Interfaces\DatabaseInterface;
 use App\Models\Statics;
+use App\ValueObjects\OrganizationId;
 
 class AnalizerService
 {
+    public function __construct(
+        public DatabaseInterface $db,
+    ){}
+
     /**
      * @param array<string, mixed> $filters
      * @return array<int, array<string, mixed>|object>
      */
-    public function run(array $filters, DatabaseInterface $db): array
+    public function run(array $filters, OrganizationId $organizationId): array
     {
         $inputs = $filters;
 
-        $sql = 'SELECT * FROM statics WHERE 1=1 ';
-        $params = [];
+        $sql = 'SELECT * FROM statics WHERE organization_id = :organization_id ';
+        $params = [':organization_id' => $organizationId->orgId];
 
         $map_rules = [
             'country' => 'equals',
@@ -28,7 +33,6 @@ class AnalizerService
             'salary' => 'range',
             'birth_date' => 'range',
             'registration_date' => 'range',
-            'organization_id' => 'equals'
         ];
 
         foreach ($map_rules as $column => $type) {
@@ -54,9 +58,8 @@ class AnalizerService
             }
         }
 
-        $statics = $db->select($sql, $params, Statics::class);
+        $statics = $this->db->select($sql, $params, Statics::class);
 
         return $statics;
-
     }
 }

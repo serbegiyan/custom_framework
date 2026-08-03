@@ -30,10 +30,9 @@ class Database implements DatabaseInterface
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($params);
         if ($className) {
-            $stmt->setFetchMode(PDO::FETCH_CLASS, $className);
+            return $stmt->fetchAll(PDO::FETCH_CLASS, $className);
         }
-        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $data;
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**

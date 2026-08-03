@@ -11,6 +11,9 @@ use App\Interfaces\ContainerInterface;
 use App\Interfaces\DatabaseInterface;
 
 $container = new Container();
+$container->set(ContainerInterface::class, function (ContainerInterface $c) {
+    return $c;
+});
 $container->set(DatabaseInterface::class, function (ContainerInterface $c) {
     $dsn = $_ENV['DB_HOST'] . ';dbname=' . $_ENV['DB_NAME'];
     $user = $_ENV['DB_USER'];
@@ -19,14 +22,8 @@ $container->set(DatabaseInterface::class, function (ContainerInterface $c) {
     return new Database($dsn, $user, $password);
 });
 
-$container->set(Request::class, function (ContainerInterface $c) {
-    return new Request();
-});
-
-$container->set(Router::class, function (ContainerInterface $c) {
-    $router = new Router($c);
-    return $router;
-});
-
 $router = $container->get(Router::class);
+
+require __DIR__ . '/../routes/web.php';
+
 $router->dispatch();

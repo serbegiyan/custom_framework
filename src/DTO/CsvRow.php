@@ -15,7 +15,6 @@ final readonly class CsvRow
     public bool $has_children;
     public string $family_status;
     public DateTime $registration_date;
-    public int $organization_id;
 
     /**
      * @param array<string, string> $prepered
@@ -34,7 +33,6 @@ final readonly class CsvRow
         $this->has_children = ($prepered['has_children'] === '1' || $prepered['has_children'] === 'true');
         $this->family_status = $prepered['family_status'];
         $this->registration_date = $reg_date;
-        $this->organization_id = (int) $prepered['organization_id'];
     }
 
     /**
@@ -52,7 +50,6 @@ final readonly class CsvRow
             $this->has_children ? 1 : 0,
             $this->family_status,
             $this->registration_date->format('Y-m-d'),
-            $this->organization_id,
         ];
 
         return $array;

@@ -32,7 +32,7 @@ class GeneratorService
                     $faker->boolean() ? 'true' : 'false',
                     $faker->randomElement(['single', 'married', 'divorced']),
                     $faker->dateTimeBetween('-5 years', 'now')->format('Y-m-d'),
-                    1
+                    $faker->numberBetween(1, 10),
                 ];
                 fputcsv($fp, $arr);
             }

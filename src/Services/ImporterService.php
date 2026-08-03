@@ -6,16 +6,18 @@ use App\DTO\CsvRow;
 use App\Exceptions\ValidationException;
 use App\Interfaces\DatabaseInterface;
 use App\Validators\CsvValidator;
+use App\ValueObjects\OrganizationId;
 use Generator;
 
 class ImporterService
 {
     public function __construct(
-        public CsvValidator $validator
+        public CsvValidator $validator,
+        public DatabaseInterface $db
     ) {
     }
 
-    public function import(DatabaseInterface $db, string|null $file): void
+    public function import(OrganizationId $organizationId, string|null $file): void
     {
         $fp = null;
 
@@ -28,7 +30,7 @@ class ImporterService
         has_children, family_status, registration_date, organization_id)
         VALUES ';
 
-        $db->beginTransaction();
+        $this->db->beginTransaction();
         try {
             $columnsCount = 0;
             $chank = [];
@@ -50,10 +52,12 @@ class ImporterService
                     /** @var CsvRow $dto */
                     $dto = $this->validator->validate($row, $headers);
                     if ($columnsCount === 0) {
-                        $columnsCount = count($dto->toDatabaseArray());
+                        $columnsCount = count($dto->toDatabaseArray()) + 1;
                         $placeholder = '(' . implode(', ', array_fill(0, $columnsCount, '?')) . ')';
                     }
-                    $chank = array_merge($chank, $dto->toDatabaseArray());
+                    $rowArray = $dto->toDatabaseArray();
+                    $rowArray[] = $organizationId->orgId; 
+                    $chank = array_merge($chank, $rowArray);
                 } catch (ValidationException $message) {
                     echo "Error in line {$fileLine}:"  . $message->getMessage() . PHP_EOL;
                     $rowCount--;
@@ -65,7 +69,7 @@ class ImporterService
                     $allPlaceholders = array_fill(0, (int)(count($chank) / $columnsCount), $placeholder);
                     $placeRow = implode(',', $allPlaceholders);
                     $finalSql = $sql . $placeRow;
-                    $db->execute($finalSql, $chank);
+                    $this->db->execute($finalSql, $chank);
                     $chank = [];
                     $rowCount = 0;
                 }
@@ -74,12 +78,12 @@ class ImporterService
                 $allPlaceholders = array_fill(0, (int)(count($chank) / $columnsCount), $placeholder);
                 $placeRow = implode(',', $allPlaceholders);
                 $finalSql = $sql . $placeRow;
-                $db->execute($finalSql, $chank);
+                $this->db->execute($finalSql, $chank);
             }
-            $db->commit();
+            $this->db->commit();
             echo "Import complete";
         } catch (\Exception $e) {
-            $db->rollBack();
+            $this->db->rollBack();
             echo $e;
         }
     }
@@ -91,7 +95,7 @@ class ImporterService
             echo 'File not found';
             return;
         }
-
+        fgetcsv($fp); 
         while (($row = fgetcsv($fp)) !== false) {
             yield $row;
         }

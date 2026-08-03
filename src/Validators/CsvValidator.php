@@ -14,11 +14,12 @@ class CsvValidator
     */
     public function validate(array $row, array $headers): CsvRow
     {
-        if (!in_array('organization_id', $headers, true)) {
-            $headers[] = 'organization_id';
-            $row[] = '1';
+        $index = array_search('organization_id', $headers);
+        if(!$index){
+            unset($row[$index]);
         }
-
+        $headers = array_values($headers);
+        $row = array_values($row);
         $this->validateColumnCount($row, $headers);
 
         $prepered = array_combine($headers, $row);
@@ -88,10 +89,6 @@ class CsvValidator
         if (! DateTime::createFromFormat('Y-m-d', trim($prepered['registration_date']))) {
             throw new ValidationException("Column 'registration_date' has invalid type");
         }
-        //organization_id
-        if (! is_numeric($prepered['organization_id'])) {
-            throw new ValidationException("Column 'organization_id' has invalid type");
-        }
     }
 
     /**
@@ -111,10 +108,6 @@ class CsvValidator
         //registration_date
         if ($reg_date < $bir_date) {
             throw new ValidationException("Column 'registration_date' has invalid type");
-        }
-        //organization_id
-        if (trim($prepered['organization_id']) < 0) {
-            throw new ValidationException("Column 'organization_id' has invalid value");
         }
     }
 }

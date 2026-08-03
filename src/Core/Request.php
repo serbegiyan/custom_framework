@@ -4,6 +4,8 @@ namespace App\Core;
 
 class Request
 {
+    private ?int $user_id = null;
+
     public function getPath(): string
     {
         $temUrl = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
@@ -39,9 +41,26 @@ class Request
     {
         if ($this->getMethod() == 'GET') {
             return $_GET;
-        } else {
+        }
+        if ($this->getMethod() == 'POST') {
             return $_POST;
         }
+        if (in_array($this->getMethod(), ['PATCH', 'PUT', 'DELETE'])){
+            $data = file_get_contents('php://input');
+            $patchData = [];
+            parse_str($data, $patchData);
+            return $patchData;
+        }
+        return [];
+    }
 
+    public function setUserId(int $userId): void
+    {
+        $this->user_id = $userId;
+    }
+
+    public function getUserId(): ?int
+    {
+        return $this->user_id;
     }
 }

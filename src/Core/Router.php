@@ -2,15 +2,8 @@
 
 namespace App\Core;
 
-use App\Controllers\AnalizeController;
-use App\Controllers\AuthController;
-use App\Controllers\GeneratorController;
-use App\Controllers\ImporterController;
-use App\Controllers\LanguageController;
-use App\Controllers\OrganizationController;
 use App\Interfaces\ContainerInterface;
 use App\Interfaces\MiddlewareInterface;
-use App\Middlewares\AuthMiddleware;
 
 class Router
 {
@@ -19,55 +12,49 @@ class Router
     ) {
     }
 
+    public string $currentPrefix = '';
+    public array $currentMiddlewares = [];
+
     /**
     * @var array<string, array<string, array{controller: string, method: string, middleware: array<int, string>}>>
     */
-    private array $routes = [
-        'GET' => [
-            '/statics' => [
-                'controller' => AnalizeController::class,
-                'method' => 'index',
-                'middleware' => [],
-            ],
-            '/organizations' => [
-                'controller' => OrganizationController::class,
-                'method' => 'index',
-                'middleware' => [AuthMiddleware::class],
-            ],
-        ],
-        'POST' => [
-            '/statics/imports' => [
-                'controller' => ImporterController::class,
-                'method' => 'store',
-                'middleware' => [],
-            ],
-            '/statics/generations' => [
-                'controller' => GeneratorController::class,
-                'method' => 'generate',
-                'middleware' => [],
-            ],
-            '/users/login' => [
-                'controller' => AuthController::class,
-                'method' => 'login',
-                'middleware' => [],
-            ],
-            '/users/registration' => [
-                'controller' => AuthController::class,
-                'method' => 'register',
-                'middleware' => [],
-            ],
-            '/users/logout' => [
-                'controller' => AuthController::class,
-                'method' => 'logout',
-                'middleware' => [],
-            ],
-            '/lang/switch' => [
-                'controller' => LanguageController::class,
-                'method' => 'switchLang',
-                'middleware' => [],
-            ],
-        ]
-    ];
+    private array $routes = [];
+    
+    public function group(array $modifiers, callable $callback)
+    {
+        $this->currentPrefix = $modifiers['prefix'] ?? '';
+        $this->currentMiddlewares = $modifiers['middleware'] ?? [];
+        $callback($this);
+        $this->currentPrefix = '';
+        $this->currentMiddlewares = [];
+    }
+
+    private function addRoute(string $HTTPmethod, string $path, string $controller, string $method, array $middleware = []): void
+    {
+        $fullPath = $this->currentPrefix . $path;
+        $fullMiddlewares = array_merge($this->currentMiddlewares, $middleware);
+        $this->routes[$HTTPmethod][$fullPath] = [$controller, $method, $fullMiddlewares];
+    }
+
+    public function get(string $path, string $controller, string $method, array $middleware = []): void
+    {
+        $this->addRoute('GET', $path, $controller, $method, $middleware);
+    }
+
+    public function post(string $path, string $controller, string $method, array $middleware = []): void
+    {
+        $this->addRoute('POST', $path, $controller, $method, $middleware);
+    }
+
+    public function patch(string $path, string $controller, string $method, array $middleware = []): void
+    {
+        $this->addRoute('PATCH', $path, $controller, $method, $middleware);
+    }
+
+    public function delete(string $path, string $controller, string $method, array $middleware = []): void
+    {
+        $this->addRoute('DELETE', $path, $controller, $method, $middleware);
+    }
 
     public function dispatch(): void
     {
@@ -75,12 +62,12 @@ class Router
         $session = $this->container->get(Session::class);
         $path = $request->getPath();
         $method = $request->getMethod();
+        $path = rtrim($path, '/');
 
         if (array_key_exists($method, $this->routes) and array_key_exists($path, $this->routes[$method])) {
-            $controllerClass = $this->routes[$method][$path]['controller'];
-            $controllerMethod = $this->routes[$method][$path]['method'];
-            $middlewareClasses = $this->routes[$method][$path]['middleware'];
-
+            $controllerClass = $this->routes[$method][$path][0];
+            $controllerMethod = $this->routes[$method][$path][1];
+            $middlewareClasses = $this->routes[$method][$path][2];
             foreach ($middlewareClasses as $middlewareClass) {
                 $middleware = $this->container->get($middlewareClass);
                 if ($middleware instanceof MiddlewareInterface) {
@@ -88,7 +75,7 @@ class Router
                 }
             }
 
-            $controller = $this->container->get($controllerClass);
+            $controller = $this->container->get($controllerClass); 
             if (is_object($controller) && method_exists($controller, $controllerMethod)) {
                 $controller->$controllerMethod();
             } else {

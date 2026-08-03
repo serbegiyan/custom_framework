@@ -15,5 +15,6 @@ class AuthMiddleware implements MiddlewareInterface
             header('Location: /users/login');
             exit;
         }
+        $request->setUserId((int)$user_id);
     }
 }
