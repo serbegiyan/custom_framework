@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Core\JsonResponse;
 use App\Core\Localization;
 use App\Core\Request;
 use App\Exceptions\ValidationException;
@@ -17,7 +18,7 @@ class GeneratorController
     }
     public string $file;
 
-    public function generate(): void
+    public function generate(): JsonResponse
     {
         $this->file = __DIR__ . '/../../storage/data.csv';
         $quantity = $this->request->getInt('quantity', 0);

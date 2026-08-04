@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Core\JsonResponse;
 use App\Core\Localization;
 use App\Core\Request;
 use App\Exceptions\ForbiddenException;
@@ -21,7 +22,7 @@ class OrganizationController
     ) {
     }
 
-    public function index(): void
+    public function index(): JsonResponse
     {
         $user_id = $this->request->getUserId();
         $orgs = $this->orgService->getOrgList((int)$user_id);
@@ -30,7 +31,7 @@ class OrganizationController
             : new JsonResponse($orgs, 200);
     }
 
-    public function store(): void
+    public function store(): JsonResponse
     {
         $user_id = $this->request->getUserId();
         if (!$user_id) {
@@ -44,7 +45,7 @@ class OrganizationController
         return new JsonResponse(['message' => $this->local->translate('created')], 201);
     }
 
-    public function update(): void
+    public function update(): JsonResponse
     {
         $org_Data = $this->request->getParams();
         $org_id = new OrganizationId((int) ($org_Data['id'] ?? 0));
@@ -57,12 +58,12 @@ class OrganizationController
         return new JsonResponse(['message' => $this->local->translate('success')], 200);
     }
 
-    public function delete(): void
+    public function delete(): JsonResponse
     {
         $org_Data = $this->request->getParams();
         $org_id = new OrganizationId((int) ($org_Data['id'] ?? 0));
         $this->gate->authorize(OrganizationPolicy::class, 'delete', $org_id);
         $this->orgService->deleteFromBd($org_id->orgId);
-        return new JsonResponse('', 204);
+        return new JsonResponse([], 204);
     }
 }

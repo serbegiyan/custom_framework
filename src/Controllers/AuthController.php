@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Core\JsonResponse;
 use App\Core\Localization;
 use App\Core\Request;
 use App\Core\Session;
@@ -18,7 +19,7 @@ class AuthController
     ) {
     }
 
-    public function login(): void
+    public function login(): JsonResponse
     {
         $email = $this->request->getString('email');
         $password = $this->request->getString('password');
@@ -43,7 +44,7 @@ class AuthController
         return new JsonResponse(['message' => $this->local->translate('auth.login_success')], 200);
     }
 
-    public function register(): void
+    public function register(): JsonResponse
     {
         $email = $this->request->getString('email');
         $password = $this->request->getString('password');

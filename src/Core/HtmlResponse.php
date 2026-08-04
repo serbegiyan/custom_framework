@@ -11,7 +11,9 @@ class HtmlResponse implements ResponseInterface
         public int $statusCode = 200,
     ) {
     }
-
+    /**
+     * @var array<string, string>
+     */
     public array $headers = ['Content-Type' => 'text/html; charset=utf-8'];
 
     public function getBody(): string
@@ -24,6 +26,9 @@ class HtmlResponse implements ResponseInterface
         return $this->statusCode;
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function getHeaders(): array
     {
         return $this->headers;

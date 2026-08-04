@@ -1,10 +1,8 @@
 <?php
 
-require __DIR__ . '/../vendor/autoload.php';
-Dotenv\Dotenv::createImmutable(__DIR__ . '/../')->load();
-
 use App\Core\Container;
 use App\Core\Database;
+use App\Core\JsonResponse;
 use App\Core\ResponseEmitter;
 use App\Core\Router;
 use App\Exceptions\ForbiddenException;
@@ -12,7 +10,9 @@ use App\Exceptions\UnauthorizedException;
 use App\Exceptions\ValidationException;
 use App\Interfaces\ContainerInterface;
 use App\Interfaces\DatabaseInterface;
-use App\Interfaces\ResponseInterface;
+
+require __DIR__ . '/../vendor/autoload.php';
+Dotenv\Dotenv::createImmutable(__DIR__ . '/../')->load();
 
 $container = new Container();
 $container->set(ContainerInterface::class, function (ContainerInterface $c) {
@@ -43,7 +43,7 @@ try {
 } catch (UnauthorizedException $e) {
     $responseException = new JsonResponse(['success' => false, 'error' => $e->getMessage()], 401);
     $emitter->emit($responseException);
-} catch (InternalServerErrorException | \Throwable $e) {
+} catch (\Throwable $e) {
     $logMessage = sprintf(
         "[%s] Критическая ошибка: %s в файле %s на строке %d\nСтек вызовов:\n%s\n\n",
         date('Y-m-d H:i:s'),
