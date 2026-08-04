@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Core\Localization;
 use App\Core\Request;
 use App\Exceptions\ForbiddenException;
+use App\Exceptions\ValidationException;
 use App\Services\AnalizerService;
 use App\Services\ImporterService;
 use App\Services\OrganizationService;
@@ -33,7 +34,7 @@ class ImporterController
             $statics = $this->analizer->run([], $organizationId);
             require __DIR__ . '/../../views/analize.php';
         } else {
-            echo $this->local->translate('error_400');
+            throw new ValidationException($this->local->translate('error_400'));
         }
     }
 }

@@ -5,9 +5,14 @@ Dotenv\Dotenv::createImmutable(__DIR__ . '/../')->load();
 
 use App\Core\Container;
 use App\Core\Database;
+use App\Core\ResponseEmitter;
 use App\Core\Router;
+use App\Exceptions\ForbiddenException;
+use App\Exceptions\UnauthorizedException;
+use App\Exceptions\ValidationException;
 use App\Interfaces\ContainerInterface;
 use App\Interfaces\DatabaseInterface;
+use App\Interfaces\ResponseInterface;
 
 $container = new Container();
 $container->set(ContainerInterface::class, function (ContainerInterface $c) {
@@ -25,4 +30,29 @@ $router = $container->get(Router::class);
 
 require __DIR__ . '/../routes/web.php';
 
-$router->dispatch();
+$emitter = new ResponseEmitter();
+try {
+    $response = $router->dispatch();
+    $emitter->emit($response);
+} catch (ValidationException $e) {
+    $responseException = new JsonResponse(['success' => false, 'error' => $e->getMessage()], 422);
+    $emitter->emit($responseException);
+} catch (ForbiddenException $e) {
+    $responseException = new JsonResponse(['success' => false, 'error' => $e->getMessage()], 403);
+    $emitter->emit($responseException);
+} catch (UnauthorizedException $e) {
+    $responseException = new JsonResponse(['success' => false, 'error' => $e->getMessage()], 401);
+    $emitter->emit($responseException);
+} catch (InternalServerErrorException | \Throwable $e) {
+    $logMessage = sprintf(
+        "[%s] Критическая ошибка: %s в файле %s на строке %d\nСтек вызовов:\n%s\n\n",
+        date('Y-m-d H:i:s'),
+        $e->getMessage(),
+        $e->getFile(),
+        $e->getLine(),
+        $e->getTraceAsString()
+    );
+    error_log($logMessage, 3, __DIR__ . '/../storage/logs/app.log');
+    $responseException = new JsonResponse(['success' => false, 'error' => 'Internal Server Error. Please try again later.'], 500);
+    $emitter->emit($responseException);
+}

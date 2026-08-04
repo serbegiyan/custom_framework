@@ -25,11 +25,9 @@ class OrganizationController
     {
         $user_id = $this->request->getUserId();
         $orgs = $this->orgService->getOrgList((int)$user_id);
-        if (empty($orgs)) {
-            echo $this->local->translate('not_available_orgs');
-            return;
-        }
-        echo json_encode($orgs);
+        return empty($orgs)
+            ? new JsonResponse(['message' => $this->local->translate('not_available_orgs')], 200)
+            : new JsonResponse($orgs, 200);
     }
 
     public function store(): void
@@ -43,7 +41,7 @@ class OrganizationController
             throw new ValidationException($this->local->translate('invalid.incorrect_value'));
         }
         $this->orgService->storeToDb($orgName, $user_id);
-        echo $this->local->translate('success');
+        return new JsonResponse(['message' => $this->local->translate('created')], 201);
     }
 
     public function update(): void
@@ -56,7 +54,7 @@ class OrganizationController
             throw new ValidationException($this->local->translate('invalid.incorrect_value'));
         }
         $this->orgService->updateToBd($orgName, $org_id->orgId);
-        echo $this->local->translate('success');
+        return new JsonResponse(['message' => $this->local->translate('success')], 200);
     }
 
     public function delete(): void
@@ -65,6 +63,6 @@ class OrganizationController
         $org_id = new OrganizationId((int) ($org_Data['id'] ?? 0));
         $this->gate->authorize(OrganizationPolicy::class, 'delete', $org_id);
         $this->orgService->deleteFromBd($org_id->orgId);
-        echo $this->local->translate('success');
+        return new JsonResponse('', 204);
     }
 }

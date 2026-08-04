@@ -2,8 +2,10 @@
 
 namespace App\Core;
 
+use App\Exceptions\InternalServerErrorException;
 use App\Interfaces\ContainerInterface;
 use App\Interfaces\MiddlewareInterface;
+use App\Interfaces\ResponseInterface;
 
 class Router
 {
@@ -81,7 +83,7 @@ class Router
         $this->addRoute('DELETE', $path, $controller, $method, $middleware);
     }
 
-    public function dispatch(): void
+    public function dispatch(): ResponseInterface
     {
         $request = $this->container->get(Request::class);
         $session = $this->container->get(Session::class);
@@ -102,12 +104,22 @@ class Router
 
             $controller = $this->container->get($controllerClass);
             if (is_object($controller) && method_exists($controller, $controllerMethod)) {
-                $controller->$controllerMethod();
+                $response = $controller->$controllerMethod();
+                return $response;
             } else {
-                throw new \RuntimeException("Controller or method not found");
+                throw new InternalServerErrorException("Controller or method not found");
             }
         } else {
-            echo 'Page not found(404)';
+            $pathExistsForOtherMethod = false;
+            foreach ($this->routes as $httpMethod => $paths) {
+                if (array_key_exists($path, $paths)) {
+                    $pathExistsForOtherMethod = true;
+                    break;
+                }
+            }
+            return $pathExistsForOtherMethod
+            ? new JsonResponse(['error' => 'Method Not Allowed'], 405)
+            : new JsonResponse(['error' => 'Not Found'], 404);
         }
     }
 }

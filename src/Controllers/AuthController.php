@@ -40,7 +40,7 @@ class AuthController
         $user_id = $user['id'];
         $this->session->set('user_id', $user_id);
 
-        echo $this->local->translate('auth.login_success');
+        return new JsonResponse(['message' => $this->local->translate('auth.login_success')], 200);
     }
 
     public function register(): void
@@ -73,7 +73,7 @@ class AuthController
         $user_id = $id[0]['id'] ?? 0;
         $this->session->set('user_id', $user_id);
 
-        echo $this->local->translate('auth.registration_success');
+        return new JsonResponse(['message' => $this->local->translate('auth.registration_success')], 201);
     }
 
     public function logout(): void
