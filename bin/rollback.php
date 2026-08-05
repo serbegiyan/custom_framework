@@ -43,10 +43,16 @@ foreach($plainMigrations as $oneMigration){
         $sqlIns = "DELETE FROM migrations WHERE migration = (?)";
         $db->execute($sqlIns, [$oneMigration]);
         $db->commit();
-        echo "Rolled back: " . $oneMigration . PHP_EOL;
-    }catch(\Exception $e){
+        fwrite(STDOUT, "\033[32m[Успешно]\033[0m Миграция $oneMigration откатилась.\n");
+    }catch(\Throwable $e){
         $db->rollback();
-        echo $e;
+        $errorMessage = sprintf(
+            "\n\033[31m[Ошибка миграции]\033[0m %s (Файл: %s, Строка: %d)\n",
+            $e->getMessage(),
+            $e->getFile(),
+            $e->getLine()
+        );
+        fwrite(STDERR, $errorMessage);
         exit(1);
     }    
 }

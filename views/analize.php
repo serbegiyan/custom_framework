@@ -1,6 +1,14 @@
 <?php
 /** @var App\Models\User[] $statics */
 ?>
+<?php if ($skipped_rows): ?>
+<p>Повреждены или отсутствуют данные в строках:</p>
+<ul>
+    <?php foreach ($skipped_rows as $row): ?>
+    <li><?= $row ?></li>
+    <?php endforeach; ?>
+</ul>
+<?php endif ?>
 <table>
     <thead>
         <tr>
@@ -15,7 +23,7 @@
             <th>Registration_date</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody>   
         <?php foreach ($statics as $user): ?>
             <tr>
                 <td><?= htmlspecialchars($user?->country ?? '') ?></td>

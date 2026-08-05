@@ -1,13 +1,13 @@
 <?php
 
-require __DIR__ . '/../vendor/autoload.php';
-Dotenv\Dotenv::createImmutable(__DIR__ . '/../')->load();
-
 use App\Core\Container;
 use App\Core\Database;
 use App\Interfaces\DatabaseInterface;
 use App\Interfaces\ContainerInterface;
 use App\Interfaces\MigrationInterface;
+
+require __DIR__ . '/../vendor/autoload.php';
+Dotenv\Dotenv::createImmutable(__DIR__ . '/../')->load();
 
 $container = new Container();
 $container->set(DatabaseInterface::class, function(ContainerInterface $c){
@@ -47,9 +47,18 @@ foreach($migrationsForRunning as $oneMigration){
         $sqlIns = "INSERT INTO migrations (migration) VALUES (?)";
         $db->execute($sqlIns, [$oneMigration]);
         $db->commit();
-    }catch(\Exception $e){
+        fwrite(STDOUT, "\033[32m[Успешно]\033[0m Миграция $oneMigration применена.\n");
+    }catch(\Throwable $e){
         $db->rollback();
-        echo $e;
+
+        $errorMessage = sprintf(
+            "\n\033[31m[Ошибка миграции]\033[0m %s (Файл: %s, Строка: %d)\n",
+            $e->getMessage(),
+            $e->getFile(),
+            $e->getLine()
+        );
+        fwrite(STDERR, $errorMessage);
+
         exit(1);
     }    
 }
