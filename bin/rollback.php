@@ -20,15 +20,45 @@ $container->set(DatabaseInterface::class, function(ContainerInterface $c){
 
 $db = $container->get(DatabaseInterface::class);
 
-$steps = isset($argv[1]) ? (int)$argv[1] : 0;
+$arguments = isset($argv[1]) ? $argv[1] : null;
+$steps = 1;
+$isAll = false;
+
+if ($arguments == '--all'){
+    $isAll = true;
+} elseif ($arguments !== null) {
+    if((int)$arguments <= 0){       
+        fwrite(STDERR, 'Ошибка аргумента. Шаг миграции не может быть <= 0');
+        exit(1);
+    }
+    $steps = (int)$arguments; 
+}
+
+$env = $_ENV['APP_ENV'] ?? 'local';
+if($env === 'production' and ($isAll === true or $steps > 1)){
+    fwrite(STDOUT, "Вы собираетесь откатить несколько миграций сразу. Вы уверены7 д/н\n");
+    $handle = fopen("php://stdin", "r");
+    $input = fgets($handle); 
+    $confirmation = trim($input);
+    if(strtolower($confirmation) !== 'д'){
+        fwrite(STDOUT, 'Rollback canceled');
+        exit(0);
+    }
+}
 
 $sql = "SELECT migration FROM migrations ORDER BY id DESC";
  
 $migrations = $db->select($sql, []);
 
 $plainMigrations = array_column($migrations, 'migration');
-if($steps > 0){
+
+if(!$isAll){
     $plainMigrations = array_slice($plainMigrations, 0, $steps);
+}
+
+if (empty($plainMigrations)) {
+    fwrite(STDOUT, "Нет миграций для отката.\n");
+    exit(0);
 }
 
 $dir = 'src/Database/Migrations/';
