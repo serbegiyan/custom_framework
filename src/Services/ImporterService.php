@@ -16,7 +16,9 @@ class ImporterService
         public DatabaseInterface $db
     ) {
     }
-
+    /**
+     * @return array<int, string>
+     */
     public function import(OrganizationId $organizationId, string|null $file): array
     {
         $fp = null;
@@ -40,10 +42,8 @@ class ImporterService
         if (!$openFile) {
             throw new \RuntimeException('Failed to open file');
         }
-        $rawHeaders = $openFile ? (fgetcsv($openFile) ?: []) : [];
-        if ($openFile) {
-            fclose($openFile);
-        }
+        $rawHeaders = fgetcsv($openFile) ?: [];
+        fclose($openFile);
         /** @var array<int, string> $headers */
         $headers = array_map(fn ($item) => (string)$item, $rawHeaders);
         foreach ($this->readRows($file) as $row) {

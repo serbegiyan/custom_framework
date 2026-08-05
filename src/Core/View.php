@@ -10,7 +10,11 @@ class View
     {
         $this->path = __DIR__ . '/../../views/';
     }
-
+    /**
+    * @param string $template
+     * @param array<string, mixed> $data
+     * @return string
+    */
     private function renderFile(string $template, array $data = []): string
     {
         extract($data);
@@ -28,6 +32,11 @@ class View
         return $result;
     }
 
+    /**
+     * @param string $template
+     * @param array<string, mixed> $data
+     * @return string
+     */
     public function render(string $template, array $data = []): string
     {
         $content = $this->renderFile($template, $data);

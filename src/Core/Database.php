@@ -74,4 +74,8 @@ class Database implements DatabaseInterface
         $this->pdo->rollBack();
     }
 
+    public function inTransaction(): void
+    {
+        $this->pdo->inTransaction();
+    }
 }

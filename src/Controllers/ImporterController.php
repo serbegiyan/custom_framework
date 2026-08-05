@@ -48,9 +48,7 @@ class ImporterController
             ]);
             return new HtmlResponse($html, 200);
         } catch (\Throwable $e) {
-            if ($this->db->inTransaction()) {
-                $this->db->rollback();
-            }
+            $this->db->rollback();
             throw $e;
         }
     }
