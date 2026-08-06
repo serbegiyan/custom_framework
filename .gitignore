@@ -1,1 +1,4 @@
-/vendor/
+vendor/
+storage/logs/
+.env
+.php-cs-fixer.cache
