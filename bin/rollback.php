@@ -61,7 +61,7 @@ if (empty($plainMigrations)) {
     exit(0);
 }
 
-$dir = 'src/Database/Migrations/';
+$dir = __DIR__ . '/../database/Migrations/';
 
 foreach($plainMigrations as $oneMigration){
     try{

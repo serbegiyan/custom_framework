@@ -17,8 +17,8 @@ class Localization
     ) {
         $cook = $_COOKIE['app_lang'] ?? '';
         $this->currentLang = (is_string($cook) && in_array($cook, self::LANG, true) ? $cook : self::LANG[0]);
-        $this->ruDic = require __DIR__ . '/../Lang/ru.php';
-        $this->enDic = require __DIR__ . '/../Lang/en.php';
+        $this->ruDic = require __DIR__ . '/../lang/ru.php';
+        $this->enDic = require __DIR__ . '/../lang/en.php';
     }
 
     /**

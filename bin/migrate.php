@@ -31,11 +31,14 @@ $oldMigrations = 'SELECT migration FROM migrations';
 $migrations = $db->select($oldMigrations, []);
 $plainMigrations = array_column($migrations, 'migration');
 
-$dir = 'src/Database/Migrations/';
+$dir = __DIR__ . '/../database/Migrations/';
 $files = scandir($dir);
 $issetFiles = array_diff($files, ['.', '..']);
 
 $migrationsForRunning = array_diff($issetFiles, $plainMigrations);
+if($migrationsForRunning === []){
+    fwrite(STDOUT, "Нет непримененных миграций.\n");
+}
 
 foreach($migrationsForRunning as $oneMigration){
     try{
