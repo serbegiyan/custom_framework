@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use Core\JsonResponse;
-use Core\Localization;
+use App\Services\Localization;
 use Core\Request;
 use Core\Session;
 use App\Services\AuthService;

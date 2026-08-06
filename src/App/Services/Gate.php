@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use Core\Localization;
+use App\Services\Localization;
 use Core\Request;
 use App\Exceptions\ForbiddenException;
 use App\Interfaces\ContainerInterface;

@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use Core\Localization;
+use App\Services\Localization;
 use Core\Request;
 
 class LanguageController

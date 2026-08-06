@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use Core\HtmlResponse;
-use Core\Localization;
+use App\Services\Localization;
 use Core\Request;
 use Core\View;
 use App\Exceptions\ForbiddenException;
