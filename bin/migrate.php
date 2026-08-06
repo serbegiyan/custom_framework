@@ -1,7 +1,7 @@
 <?php
 
-use App\Core\Container;
-use App\Core\Database;
+use Core\Container;
+use Core\Database;
 use App\Interfaces\DatabaseInterface;
 use App\Interfaces\ContainerInterface;
 use App\Interfaces\MigrationInterface;

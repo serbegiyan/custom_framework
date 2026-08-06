@@ -2,8 +2,8 @@
 
 namespace App\Interfaces;
 
-use App\Core\Request;
-use App\Core\Session;
+use Core\Request;
+use Core\Session;
 
 interface MiddlewareInterface
 {

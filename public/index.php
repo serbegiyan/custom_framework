@@ -1,10 +1,10 @@
 <?php
 
-use App\Core\Container;
-use App\Core\Database;
-use App\Core\JsonResponse;
-use App\Core\ResponseEmitter;
-use App\Core\Router;
+use Core\Container;
+use Core\Database;
+use Core\JsonResponse;
+use Core\ResponseEmitter;
+use Core\Router;
 use App\Exceptions\ForbiddenException;
 use App\Exceptions\UnauthorizedException;
 use App\Exceptions\ValidationException;

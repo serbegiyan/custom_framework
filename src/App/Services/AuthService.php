@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Core\Localization;
+use Core\Localization;
 use App\Exceptions\ValidationException;
 use App\Interfaces\DatabaseInterface;
 

@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use App\Core\Localization;
-use App\Core\Request;
+use Core\Localization;
+use Core\Request;
 use App\Exceptions\ForbiddenException;
 use App\Interfaces\ContainerInterface;
 use App\ValueObjects\OrganizationId;

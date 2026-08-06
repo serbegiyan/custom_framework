@@ -2,10 +2,10 @@
 
 namespace App\Controllers;
 
-use App\Core\HtmlResponse;
-use App\Core\Localization;
-use App\Core\Request;
-use App\Core\View;
+use Core\HtmlResponse;
+use Core\Localization;
+use Core\Request;
+use Core\View;
 use App\Exceptions\ForbiddenException;
 use App\Exceptions\ValidationException;
 use App\Services\OrganizationService;

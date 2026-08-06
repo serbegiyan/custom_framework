@@ -2,9 +2,9 @@
 
 namespace App\Controllers;
 
-use App\Core\JsonResponse;
-use App\Core\Localization;
-use App\Core\Request;
+use Core\JsonResponse;
+use Core\Localization;
+use Core\Request;
 use App\Exceptions\ForbiddenException;
 use App\Exceptions\ValidationException;
 use App\Policies\OrganizationPolicy;
