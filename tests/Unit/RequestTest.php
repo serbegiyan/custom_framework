@@ -14,6 +14,9 @@ class RequestTest extends TestCase
         $_SERVER = [];
         $_GET = [];
         $_POST = [];
+        $_FILES = []; 
+        
+        parent::tearDown();
     }
 
     public function testIfReturnRightPath(): void
@@ -41,11 +44,11 @@ class RequestTest extends TestCase
 
         $_SERVER['REQUEST_METHOD'] = 'POST';
         $_POST = ['name' => 'Sergey'];
-        $request = new Request();
-        $method = $request->getMethod();
-        $this->assertSame('POST', $method);
-        $params = $request->getParams();
-        $this->assertSame(['name' => 'Sergey'], $params);
+        $request2 = new Request();
+        $method2 = $request2->getMethod();
+        $this->assertSame('POST', $method2);
+        $params2 = $request->getParams();
+        $this->assertSame(['name' => 'Sergey'], $params2);
     }
 
     public function testIfGetStringRetirnEmptyRowFromArray(): void
@@ -57,7 +60,7 @@ class RequestTest extends TestCase
         $this->assertSame('', $str);
     }
 
-    public function testIfGetIntRetirnZeroFromLetters(): void
+    public function testIfGetIntReturnZeroFromLetters(): void
     {
         $_SERVER['REQUEST_METHOD'] = 'GET';
         $_GET = ['val' => 'ABC'];
@@ -66,7 +69,7 @@ class RequestTest extends TestCase
         $this->assertSame(0, $int);
     }
 
-    public function testIfFailSizeIsCorrect(): void
+    public function testIfFileSizeIsCorrect(): void
     {
         $_FILES['avatar'] = [
             'error' => UPLOAD_ERR_OK,
@@ -78,7 +81,7 @@ class RequestTest extends TestCase
         $this->assertTrue($size);
     }
 
-    public function testIfFailSizeIsIncorrect(): void
+    public function testIfFileSizeIsIncorrect(): void
     {
         $_FILES['avatar'] = [
             'error' => UPLOAD_ERR_OK,

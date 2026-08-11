@@ -18,7 +18,7 @@ class OrganizationPolicyTest extends TestCase
 
         $service->expects($this->once())
             ->method('getOwnerId')
-            ->willReturn(5);      
+            ->willReturn(5);     
         
         $policy = new OrganizationPolicy($service);
         $result = $policy->update(5, $orgId);
