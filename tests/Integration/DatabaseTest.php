@@ -37,10 +37,11 @@ class DatabaseTest extends TestCase
 
         $this->db->execute($userSql, ['testUser', 'test@test.com', $password]);
 
-        $select = "SELECT name FROM users WHERE email = ?";
+        $select = "SELECT name FROM users WHERE email = :email";
 
-        $user = $this->db->select($select, ['test@test.com']);
+        $user = $this->db->select($select, [':email' => 'test@test.com']);
 
+        /** @var array<int, array<string, mixed>> $user */
         $name = $user[0]['name'];
         
         $this->assertSame('testUser', $name);

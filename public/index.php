@@ -1,15 +1,15 @@
 <?php
 
-use Core\Container;
-use Core\Database;
-use Core\JsonResponse;
-use Core\ResponseEmitter;
-use Core\Router;
 use App\Exceptions\ForbiddenException;
 use App\Exceptions\UnauthorizedException;
 use App\Exceptions\ValidationException;
 use App\Interfaces\ContainerInterface;
 use App\Interfaces\DatabaseInterface;
+use Core\Container;
+use Core\Database;
+use Core\JsonResponse;
+use Core\ResponseEmitter;
+use Core\Router;
 
 require __DIR__ . '/../vendor/autoload.php';
 Dotenv\Dotenv::createImmutable(__DIR__ . '/../')->load();

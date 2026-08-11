@@ -2,14 +2,14 @@
 
 namespace App\Controllers;
 
-use Core\HtmlResponse;
-use App\Services\Localization;
-use Core\Request;
-use Core\View;
 use App\Exceptions\ForbiddenException;
 use App\Interfaces\DatabaseInterface;
 use App\Services\AnalizerService;
+use App\Services\Localization;
 use App\Services\OrganizationService;
+use Core\HtmlResponse;
+use Core\Request;
+use Core\View;
 
 class AnalizeController
 {

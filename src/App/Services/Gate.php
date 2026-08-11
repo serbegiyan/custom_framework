@@ -2,11 +2,10 @@
 
 namespace App\Services;
 
-use App\Services\Localization;
-use Core\Request;
 use App\Exceptions\ForbiddenException;
 use App\Interfaces\ContainerInterface;
 use App\ValueObjects\OrganizationId;
+use Core\Request;
 
 class Gate
 {

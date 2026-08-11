@@ -2,9 +2,9 @@
 
 namespace App\Middlewares;
 
+use App\Interfaces\MiddlewareInterface;
 use Core\Request;
 use Core\Session;
-use App\Interfaces\MiddlewareInterface;
 
 class AuthMiddleware implements MiddlewareInterface
 {

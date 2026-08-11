@@ -2,11 +2,11 @@
 
 namespace App\Controllers;
 
-use Core\JsonResponse;
+use App\Services\AuthService;
 use App\Services\Localization;
+use Core\JsonResponse;
 use Core\Request;
 use Core\Session;
-use App\Services\AuthService;
 
 class AuthController
 {

@@ -2,11 +2,11 @@
 
 namespace App\Controllers;
 
-use Core\JsonResponse;
-use App\Services\Localization;
-use Core\Request;
 use App\Exceptions\ValidationException;
 use App\Services\GeneratorService;
+use App\Services\Localization;
+use Core\JsonResponse;
+use Core\Request;
 
 class GeneratorController
 {
