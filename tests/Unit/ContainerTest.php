@@ -45,9 +45,7 @@ class ContainerTest extends TestCase
 
     public function testItCanCreateClassWithoutConstructor(): void
     {
-        $result = $this->container->get(SampleService::class, function(){
-            return new SampleService();
-        });
+        $result = $this->container->get(SampleService::class);
 
         $this->assertInstanceOf(SampleService::class, $result);
     }

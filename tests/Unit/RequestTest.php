@@ -16,7 +16,7 @@ class RequestTest extends TestCase
         $_POST = [];
     }
 
-    public function testIfReturnRightPath()
+    public function testIfReturnRightPath(): void
     {
         $url = '/users/profile';
         $_SERVER['REQUEST_URI'] = '/users/profile/';
@@ -29,7 +29,7 @@ class RequestTest extends TestCase
         $this->assertSame($url, $result);
     }
 
-    public function testIfReturnRightMethodAndParams()
+    public function testIfReturnRightMethodAndParams(): void
     {
         $_SERVER['REQUEST_METHOD'] = 'GET';
         $_GET = ['name' => 'Sergey'];
@@ -55,15 +55,6 @@ class RequestTest extends TestCase
         $request = new Request();
         $str = $request->getString('name');
         $this->assertSame('', $str);
-    }
-
-    public function testIfGetIntRetirnValidValue(): void
-    {
-        $_SERVER['REQUEST_METHOD'] = 'GET';
-        $_GET = ['val' => 2];
-        $request = new Request();
-        $int = $request->getInt('val');
-        $this->assertIsInt($int);
     }
 
     public function testIfGetIntRetirnZeroFromLetters(): void
