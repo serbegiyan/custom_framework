@@ -19,49 +19,46 @@ class RouterTest extends TestCase
 {
     private Container $container;
 
+    /** @var MockObject&Session */
+    private $sessionMock;
+
+    /** @var Stub&Request */
+    private $requestMock;
+
+    /** @var Stub&Request */
+    private $dbMock;
+
+    /** @var Stub&Request */
+    private $localMock;
+
     public function setUp(): void
     {
         parent::setUp();
         $this->container = new Container();
+        $this->requestMock = $this->createStub(Request::class);
+        $this->sessionMock = $this->createStub(Session::class);
+        $this->dbMock = $this->createStub(DatabaseInterface::class);
+        $this->localMock = $this->createStub(Localization::class);
+
+        $this->container->set(Request::class, fn () => $this->requestMock);
+        $this->container->set(Session::class, fn () => $this->sessionMock);
+        $this->container->set(ContainerInterface::class, fn () => $this->container);
+        $this->container->set(DatabaseInterface::class, fn () => $this->dbMock);
+        $this->container->set(Localization::class, fn () => $this->localMock); 
     }   
+
+    private function mockRequest(string $method, string $path, int $id): void
+    {
+        $this->requestMock->method('getMethod')->willReturn($method);
+        $this->requestMock->method('getPath')->willReturn($path);
+        $this->requestMock->method('getUserId')->willReturn($id);        
+    }
     
     public function testIfGetRequestProsessCorrectly(): void
-    {
-        $request = $this->createStub(Request::class);
-        $method = $request->method('getMethod')
-            ->willReturn('GET');
-        $path = $request->method('getPath')
-            ->willReturn('/organizations');
-        $requestId = $request->method('getUserId')
-            ->willReturn(1);
-
-        $session = $this->createMock(Session::class);
-        $sessionId = $session->expects($this->any())
-            ->method('get')
-            ->with('user_id')
-            ->willreturn(1);
-
-        $db = $this->createStub(DatabaseInterface::class); 
+    {    
+        $this->mockRequest('GET', '/organizations', 1);
         
-        $local = $this->createStub(Localization::class);
-        $message = $local->method('translate')
-            ->willreturn('success');
-
-        $this->container->set(Request::class, function () use ($request){
-            return $request;
-        });
-        $this->container->set(Session::class, function () use ($session){
-            return $session;
-        });
-        $this->container->set(DatabaseInterface::class, function () use ($db){
-            return $db;
-        });
-        $this->container->set(Localization::class, function () use ($local){
-            return $local;
-        });
-        $this->container->set(ContainerInterface::class, function (){
-            return $this->container;
-        });
+        $message = $this->localMock->method('translate')->willreturn('success');                
         
         $router = new Router($this->container);
         $router->get('/organizations', OrganizationController::class, 'index');
@@ -69,5 +66,29 @@ class RouterTest extends TestCase
 
         $this->assertInstanceOf(ResponseInterface::class, $result);
         $this->assertSame(200, $result->getStatusCode());
+    }
+
+    public function testItReturns404IfRouteDoesNotExist(): void
+    {
+        $this->mockRequest('GET', '/organiz', 1);
+
+        $router = new Router($this->container);
+        $router->get('/organizations', OrganizationController::class, 'index');
+        $result = $router->dispatch();
+
+        $this->assertInstanceOf(ResponseInterface::class, $result);
+        $this->assertSame(404, $result->getStatusCode());
+    }
+
+    public function testItReturns405IfMethodIsNotAllowed(): void
+    {
+        $this->mockRequest('POST', '/organizations', 1);
+
+        $router = new Router($this->container);
+        $router->get('/organizations', OrganizationController::class, 'index');
+        $result = $router->dispatch();
+
+        $this->assertInstanceOf(ResponseInterface::class, $result);
+        $this->assertSame(405, $result->getStatusCode());
     }
 }

@@ -1,5 +1,5 @@
 <?php
-/** @var App\Models\User[] $statics */
+/** @var App\Models\Statics[] $statics */
 ?>
 <?php if ($skipped_rows): ?>
 <p>Повреждены или отсутствуют данные в строках:</p>
