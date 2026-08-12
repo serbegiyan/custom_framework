@@ -11,7 +11,7 @@ use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 class SessionTest extends TestCase
 {
     #[RunInSeparateProcess]
-    public function testItCanSetAndGetValues()
+    public function testItCanSetAndGetValues(): void
     {
         $_SESSION = [];
         $session = new Session();
@@ -22,7 +22,7 @@ class SessionTest extends TestCase
     }
 
     #[RunInSeparateProcess]
-    public function testWhatReturnGetWithoutKey()
+    public function testWhatReturnGetWithoutKey(): void
     {
         $_SESSION = [];
         $session = new Session();
@@ -32,7 +32,7 @@ class SessionTest extends TestCase
     }
 
     #[RunInSeparateProcess]
-    public function testIfOperationProcessCorrect()
+    public function testIfOperationProcessCorrect(): void
     {
         $_SESSION = [];
         $session = new Session();
@@ -41,7 +41,7 @@ class SessionTest extends TestCase
         $has = $session->has('thirdKey');
         $this->assertSame(true, $has);
 
-        $remove = $session->remove('thirdKey');
+        $session->remove('thirdKey');
         $this->assertSame(false, $session->has('thirdKey'));
 
         $session->set('fourthKey', 'fourthValue');

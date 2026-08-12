@@ -9,7 +9,7 @@ use Core\JsonResponse;
 #[CoversClass(JsonResponse::class)]
 class JsonResponseTest extends TestCase
 {
-    public function testDefaultStatusCodeAndHeaders()
+    public function testDefaultStatusCodeAndHeaders(): void
     {
         $response = new JsonResponse(['message' => 'success']);
 
@@ -20,7 +20,7 @@ class JsonResponseTest extends TestCase
         $this->assertSame(['Content-Type' => 'application/json; charset=utf-8'], $headers);
     }
 
-    public function testCustomStatusCode()
+    public function testCustomStatusCode(): void
     {
         $response = new JsonResponse(['message' => 'success'], 401);
 
@@ -28,7 +28,7 @@ class JsonResponseTest extends TestCase
         $this->assertSame(401, $status);
     }
 
-    public function testGetBodyEncodesJsonCorrectly()
+    public function testGetBodyEncodesJsonCorrectly(): void
     {
         $response = new JsonResponse(['message' => 'success', 'id' => 5], 200);
 
@@ -36,7 +36,7 @@ class JsonResponseTest extends TestCase
         $this->assertSame('{"message":"success","id":5}', $body);
     }
 
-    public function testThrowsExceptionOnInvalidJson()
+    public function testThrowsExceptionOnInvalidJson(): void
     {
         $this->expectException(\JsonException::class);
         $invalidUtf8String = "\xEF\xBF\xBD\x50\x44\x46\xB1";

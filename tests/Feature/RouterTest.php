@@ -13,22 +13,23 @@ use Core\Session;
 use Core\Router;
 use App\Services\Localization;
 use App\Interfaces\ResponseInterface;
+use PHPUnit\Framework\MockObject\Stub; 
 
 #[CoversClass(RouterTest::class)]
 class RouterTest extends TestCase
 {
     private Container $container;
 
-    /** @var MockObject&Session */
+    /** @var Stub&Session */
     private $sessionMock;
 
     /** @var Stub&Request */
     private $requestMock;
 
-    /** @var Stub&Request */
+    /** @var Stub&DatabaseInterface */
     private $dbMock;
 
-    /** @var Stub&Request */
+    /** @var Stub&Localization */
     private $localMock;
 
     public function setUp(): void
