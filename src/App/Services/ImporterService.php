@@ -43,8 +43,11 @@ class ImporterService
             throw new \RuntimeException('Failed to open file');
         }
         $openFile = fopen($file, "r");
-        $rawHeaders = fgetcsv($openFile) ?: [];
-        fclose($openFile);
+        $rawHeaders = [];
+        if($openFile){
+            $rawHeaders = fgetcsv($openFile) ?: [];
+            fclose($openFile);
+        }        
         /** @var array<int, string> $headers */
         $headers = array_map(fn ($item) => (string)$item, $rawHeaders);
         foreach ($this->readRows($file) as $row) {

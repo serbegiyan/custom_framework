@@ -14,7 +14,7 @@ use Core\Database;
 class AnalizerServiceTest extends TestCase
 {
     private Database $db;
-    private $service;
+    private AnalizerService $service;
 
     protected function setUp(): void
     {
@@ -27,7 +27,7 @@ class AnalizerServiceTest extends TestCase
 
         $this->db->execute('TRUNCATE TABLE statics RESTART IDENTITY CASCADE', []);
         $this->db->execute('TRUNCATE TABLE organizations RESTART IDENTITY CASCADE', []);
-        
+
         $sqlOrg = "INSERT INTO organizations (name) VALUES ('Innowise'), ('EPAM')";
         $this->db->execute($sqlOrg, []);
 
@@ -50,7 +50,10 @@ class AnalizerServiceTest extends TestCase
         $this->db->execute($sqlOrg, []);
         parent::tearDown();
     }
-
+    
+    /**
+     * @param array<string, string|int> $filters
+     */
     #[DataProvider('filterProvider')]
     public function testIfFiltersReturnCorrectCount(array $filters, int $expectedCount): void
     {
@@ -60,6 +63,9 @@ class AnalizerServiceTest extends TestCase
         $this->assertCount($expectedCount, $result);
     }
 
+    /**
+     * @return array<string, array<string, array<string, int|string>|int>>
+     */
     public static function filterProvider(): array
     {
         return [
