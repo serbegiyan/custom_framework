@@ -7,5 +7,5 @@ use Core\Session;
 
 interface MiddlewareInterface
 {
-    public function handle(Request $request, Session $session): void;
+    public function handle(Request $request, Session $session): ResponseInterface;
 }

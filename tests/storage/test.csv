@@ -1,0 +1,4 @@
+country,city,is_active,gender,birth_date,salary,has_children,family_status,registration_date,organization_id
+Brazil,Okeyview,false,female,2014-10-28,80930,false,divorced,2022-07-18,1
+"Northern Mariana Islands",Hauckport,single,2024-07-30,1
+Spain,"East Glen",true,male,2000-07-14,112965,false,single,2025-11-27,1

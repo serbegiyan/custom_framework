@@ -11,7 +11,7 @@ class DatabaseTest extends TestCase
 {
     private Database $db;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $dsn = $_ENV['DB_HOST'] . ';dbname=' . $_ENV['DB_NAME'];

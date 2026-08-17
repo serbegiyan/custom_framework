@@ -37,11 +37,12 @@ class ImporterService
         $chunkSize = 500;
         $placeholder = '(' . implode(', ', array_fill(0, $columnsCount, '?')) . ')';
         $rowCount = 0;
+
         $fileLine = 1;
-        $openFile = fopen($file, "r");
-        if (!$openFile) {
+        if (!file_exists($file) || !is_readable($file)) {
             throw new \RuntimeException('Failed to open file');
         }
+        $openFile = fopen($file, "r");
         $rawHeaders = fgetcsv($openFile) ?: [];
         fclose($openFile);
         /** @var array<int, string> $headers */
