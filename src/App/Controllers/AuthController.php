@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Services\AuthService;
 use App\Services\Localization;
 use Core\JsonResponse;
+use Core\RedirectResponse;
 use Core\Request;
 use Core\Session;
 
@@ -43,11 +44,13 @@ class AuthController
         return new JsonResponse(['message' => $this->local->translate('auth.registration_success')], 201);
     }
 
-    public function logout(): void
+    public function logout(): RedirectResponse
     {
         $this->session->destroy();
-        setcookie((string)session_name(), '', time() - 3600, '/');
-        header('Location: /users/login');
-        return;
+        return (new RedirectResponse('/users/login'))
+            ->withCookie((string)session_name(), '', [
+                'expires' => time() - 3600,
+                'path' => '/'
+            ]);
     }
 }

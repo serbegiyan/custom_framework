@@ -13,11 +13,20 @@ use App\ValueObjects\OrganizationId;
 use App\Validators\CsvValidator;
 use App\Exceptions\ValidationException;
 use RuntimeException;
+use App\Services\CsvReader;
+use App\Repositories\StatisticRepository;
 
 #[CoversClass(ImportUseCase::class)]
 class UseCaseTest extends TestCase
 {
     private Database $db;
+    private CsvValidator $validator;
+    private OrganizationId $orgId;
+    private AnalizerService $analizer;
+    private CsvReader $reader;
+    private StatisticRepository $repo;
+    private ImporterService $importer;
+    private ImportUseCase $useCase;
 
     protected function setUp(): void
     {
@@ -25,8 +34,16 @@ class UseCaseTest extends TestCase
         $dsn = $_ENV['DB_HOST'] . ';dbname=' . $_ENV['DB_NAME'];
         $user = $_ENV['DB_USER'];
         $password = $_ENV['DB_PASS'];
+
         $data = new Database($dsn, $user, $password);
-        $this->db = $data;        
+        $this->db = $data;  
+        $this->validator = new CsvValidator();
+        $this->orgId = new OrganizationId(1);
+        $this->analizer = new AnalizerService($this->db);
+        $this->reader = new CsvReader();
+        $this->repo = new StatisticRepository($this->db);
+        $this->importer = new ImporterService($this->validator, $this->repo, $this->reader);        
+        $this->useCase = new ImportUseCase($this->db, $this->analizer, $this->importer);      
     }
 
     protected function tearDown(): void
@@ -38,13 +55,8 @@ class UseCaseTest extends TestCase
 
     public function testIfTransactionRunCorrect(): void
     {   
-        $validator = new CsvValidator();
-        $analizer = new AnalizerService($this->db);
-        $importer = new ImporterService($validator, $this->db);
-        $orgId = new OrganizationId(1);
         $path = __DIR__ . '/../storage/test.csv';
-        $useCase = new ImportUseCase($this->db, $analizer, $importer);
-        $result = $useCase->runTransaction($orgId, $path);
+        $result = $this->useCase->runTransaction($this->orgId, $path);
 
         $this->assertCount(1, $result['skippedRows']);
         $this->assertArrayHasKey(3, $result['skippedRows']);
@@ -57,15 +69,9 @@ class UseCaseTest extends TestCase
     }
 
     public function testIfRollbackRunCorrectWhenFileIsBroken(): void
-    {
-        $validator = new CsvValidator();
-        $analizer = new AnalizerService($this->db);
-        $importer = new ImporterService($validator, $this->db);
-        $orgId = new OrganizationId(1);
-        $useCase = new ImportUseCase($this->db, $analizer, $importer);
-
+    {  
         try{
-            $result = $useCase->runTransaction($orgId, 'WrongPath');
+            $result = $this->useCase->runTransaction($this->orgId, 'WrongPath');
             $this->fail('Ожидалось исключение RuntimeException, но метод завершился успешно.');
         }catch(RuntimeException $e){
         }

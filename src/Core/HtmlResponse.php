@@ -2,35 +2,21 @@
 
 namespace Core;
 
-use App\Interfaces\ResponseInterface;
-
-class HtmlResponse implements ResponseInterface
+class HtmlResponse extends BaseResponse
 {
+    /**
+     * @param int $statusCode
+     */
     public function __construct(
         public string $body,
-        public int $statusCode = 200,
+        int $statusCode = 200,
     ) {
+        parent::__construct($statusCode);
+        $this->withHeader('Content-Type', 'text/html; charset=utf-8');
     }
-    /**
-     * @var array<string, string>
-     */
-    public array $headers = ['Content-Type' => 'text/html; charset=utf-8'];
 
     public function getBody(): string
     {
         return $this->body;
-    }
-
-    public function getStatusCode(): int
-    {
-        return $this->statusCode;
-    }
-
-    /**
-     * @return array<string, string>
-     */
-    public function getHeaders(): array
-    {
-        return $this->headers;
     }
 }

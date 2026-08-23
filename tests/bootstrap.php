@@ -6,4 +6,3 @@ $_ENV['DB_NAME'] = 'custom_framework_test';
 $_SERVER['DB_NAME'] = 'custom_framework_test';
 
 require __DIR__ . '/../bin/migrate.php';
-fwrite(STDOUT, "\n--- База данных готова к тестам ---\n\n");

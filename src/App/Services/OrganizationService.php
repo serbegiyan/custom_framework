@@ -28,7 +28,8 @@ class OrganizationService
 
         /** @var array<int, array<string, mixed>> $orgRes */
         $orgRes = $this->db->select($sql, [$org_id]);
-        $orgOwner = $orgRes[0]['owner_id'] ?? null;
+        $orgData = $orgRes[0] ?? null;
+        $orgOwner = $orgData['owner_id'] ?? null;
         return $orgOwner !== null ? (int)$orgOwner : null;
     }
 

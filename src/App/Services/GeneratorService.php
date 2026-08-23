@@ -4,20 +4,28 @@ namespace App\Services;
 
 use Exception;
 use Faker\Factory;
+use RuntimeException;
 
 class GeneratorService
 {
+    public function __construct(
+        public Factory $factory,
+    ) {
+    }
+
     public function run(int $quantity, string $file): void
     {
-        $faker = Factory::create();
+        $faker = $this->factory::create();
 
         $fp = null;
 
         try {
+            if (!file_exists($file) || !is_readable($file)) {
+                throw new RuntimeException('Failed to open file');
+            }
             $fp = fopen($file, "w");
             if ($fp === false) {
-                echo 'File not found';
-                return;
+                throw new RuntimeException('file not found');
             }
 
             fputcsv($fp, ['country', 'city', 'is_active', 'gender', 'birth_date', 'salary', 'has_children', 'family_status', 'registration_date', 'organization_id']);
@@ -36,11 +44,10 @@ class GeneratorService
                 ];
                 fputcsv($fp, $arr);
             }
-
-            echo "Generation complete";
+            return;
 
         } catch (Exception $e) {
-            echo 'Error: ' . $e->getMessage();
+            throw new RuntimeException($e->getMessage());
         } finally {
             if ($fp) {
                 fclose($fp);

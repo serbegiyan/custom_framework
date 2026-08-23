@@ -1,0 +1,6 @@
+country,city,is_active,gender,birth_date,salary,has_children,family_status,registration_date,organization_id
+"Sao Tome and Principe","Lake Geo",false,female,2015-05-15,147068,false,single,2024-12-08,5
+Jordan,"North Stephania",true,female,2012-10-13,56266,false,single,2024-11-01,2
+Belize,Miaport,true,female,1999-05-02,81403,false,married,2024-11-24,2
+"Central African Republic","West Billy",false,male,2006-01-04,53640,false,divorced,2021-09-11,1
+Brazil,Wittingfort,true,male,2016-05-01,29625,false,single,2025-01-26,3

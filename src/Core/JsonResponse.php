@@ -2,9 +2,7 @@
 
 namespace Core;
 
-use App\Interfaces\ResponseInterface;
-
-class JsonResponse implements ResponseInterface
+class JsonResponse extends BaseResponse
 {
     /**
      * @param array<array-key, mixed> $data
@@ -12,30 +10,14 @@ class JsonResponse implements ResponseInterface
      */
     public function __construct(
         public array $data,
-        public int $statusCode = 200,
+        int $statusCode = 200,
     ) {
+        parent::__construct($statusCode);
+        $this->withHeader('Content-Type', 'application/json; charset=utf-8');
     }
-    /**
-     * @var array<string, string>
-     */
-    public array $headers = ['Content-Type' => 'application/json; charset=utf-8'];
 
     public function getBody(): string
     {
-        $data = json_encode($this->data, JSON_THROW_ON_ERROR);
-        return $data;
-    }
-
-    public function getStatusCode(): int
-    {
-        return $this->statusCode;
-    }
-
-    /**
-     * @return array<string, string>
-     */
-    public function getHeaders(): array
-    {
-        return $this->headers;
+        return json_encode($this->data, JSON_THROW_ON_ERROR);
     }
 }

@@ -10,4 +10,8 @@ interface ResponseInterface
      * @return array<string, string>
      */
     public function getHeaders(): array;
+    public function withHeader(string $name, string $value): static;
+
+    public function withCookie(string $name, string $value, array $options): static;
+    public function getCookies(): array;
 }

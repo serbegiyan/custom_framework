@@ -2,23 +2,24 @@
 
 namespace App\Services;
 
+use App\Interfaces\ResponseInterface;
+use Core\Request;
+
 class Localization
 {
     public const LANG = ['ru', 'en'];
 
     private string $currentLang;
 
-    /** @var array<string, string> */
-    private array $ruDic = [];
-    /** @var array<string, string> */
-    private array $enDic = [];
+    private string $langDirPath;
+
 
     public function __construct(
+        public Request $request,
     ) {
-        $cook = $_COOKIE['app_lang'] ?? '';
+        $this->langDirPath = __DIR__ . '/../../../lang';
+        $cook = $this->request->getCookies('app_lang');
         $this->currentLang = (is_string($cook) && in_array($cook, self::LANG, true) ? $cook : self::LANG[0]);
-        $this->ruDic = require __DIR__ . '/../lang/ru.php';
-        $this->enDic = require __DIR__ . '/../lang/en.php';
     }
 
     /**
@@ -27,9 +28,9 @@ class Localization
     private function getVocabulary(): array
     {
         if ($this->currentLang === 'ru') {
-            return $this->ruDic;
+            return require $this->langDirPath . '/ru.php';
         }
-        return $this->enDic;
+        return require $this->langDirPath . '/en.php';
     }
 
     public function translate(string $key): string
@@ -42,12 +43,21 @@ class Localization
         return $vocabulary[$key];
     }
 
-    public function setLang(string $lang): void
+    public function setLang(string $lang, ResponseInterface $response): void
     {
         if (in_array($lang, self::LANG)) {
-            setcookie('app_lang', $lang, [ 'expires' => time() + 31536000, 'path' => '/' ]);
+            $response->withCookie('app_lang', $lang, [ 'expires' => time() + 31536000, 'path' => '/' ]);
             $this->currentLang = $lang;
         }
     }
 
+    public function setLangDirPath(string $path): void
+    {
+        $this->langDirPath = $path;
+    }
+
+    public function getCurrentLang(): string
+    {
+        return $this->currentLang;
+    }
 }

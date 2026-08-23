@@ -10,17 +10,18 @@ use Core\Request;
 
 class GeneratorController
 {
+    public string $file;
+
     public function __construct(
         public Request $request,
         public GeneratorService $generator,
         public Localization $local,
     ) {
+        $this->file = __DIR__ . '/../../storage/data.csv';
     }
-    public string $file;
 
     public function generate(): JsonResponse
     {
-        $this->file = __DIR__ . '/../../storage/data.csv';
         $quantity = $this->request->getInt('quantity', 0);
 
         if ($quantity < 1) {

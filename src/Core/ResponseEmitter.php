@@ -16,6 +16,13 @@ class ResponseEmitter
                 $header = $key . ': ' . $value;
                 header($header);
             }
+            $cookies = $response->getCookies();
+            foreach ($cookies as $name => $cookieData) {
+                $options = $cookieData['options'];
+                $options['value'] = $cookieData['value'];
+
+                setcookie($name, $options);
+            }
         }
         echo $response->getBody();
     }

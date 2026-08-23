@@ -14,10 +14,7 @@ class CsvValidator
     */
     public function validate(array $row, array $headers): CsvRow
     {
-        $index = array_search('organization_id', $headers);
-        if (!$index) {
-            unset($row[$index]);
-        }
+
         $headers = array_values($headers);
         $row = array_values($row);
         $this->validateColumnCount($row, $headers);

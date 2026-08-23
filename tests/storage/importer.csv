@@ -1,0 +1,4 @@
+country,city,is_active,gender,birth_date,salary,has_children,family_status,registration_date
+Brazil,Okeyview,1,female,2014-10-28,80930,1,divorced,2022-07-18
+Brazil,1,0,2014-10-28,80930,1,error
+Brazil,Okeyview,1,female,2014-10-28,80930,1,divorced,2022-07-18

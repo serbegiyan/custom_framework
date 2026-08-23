@@ -87,4 +87,9 @@ class Request
         $filtered = filter_var($value, FILTER_VALIDATE_INT);
         return $filtered !== false ? $filtered : $default;
     }
+
+    public function getCookies(string $key): ?string
+    {
+        return $_COOKIE[$key] ?? null;
+    }
 }
