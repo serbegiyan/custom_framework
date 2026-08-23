@@ -16,6 +16,9 @@ use Core\Database;
 class AuthServiceTest extends TestCase
 {
     private Database $db;
+    /**
+     * @var \App\Services\Localization&\PHPUnit\Framework\MockObject\MockObject
+     */
     private Localization $local;
 
     protected function setUp(): void
@@ -26,7 +29,7 @@ class AuthServiceTest extends TestCase
         $password = $_ENV['DB_PASS'];
         $data = new Database($dsn, $user, $password);
         $this->db = $data;
-        $this->local = $this->createStub(Localization::class);
+        $this->local = $this->createMock(Localization::class);
     }
 
     protected function tearDown(): void
@@ -46,6 +49,7 @@ class AuthServiceTest extends TestCase
 
         $sql = "SELECT email FROM users WHERE id = :id";
         $dbUser = $this->db->select($sql, [':id' => $user]);
+        $this->assertIsArray($dbUser[0]);
         $this->assertSame('test@test.com', $dbUser[0]['email']);
     }
 

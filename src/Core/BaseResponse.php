@@ -6,7 +6,24 @@ use App\Interfaces\ResponseInterface;
 
 abstract class BaseResponse implements ResponseInterface
 {
+    /**
+    * @var array<string, string>
+    */
     protected array $headers = [];
+
+    /**
+     * @var array<string, array{
+     *     value: string,
+     *     options: array{
+     *         expires?: int,
+     *         path?: string,
+     *         domain?: string,
+     *         secure?: bool,
+     *         httponly?: bool,
+     *         samesite?: 'Lax'|'Strict'|'None'
+     *     }
+     * }>
+     */
     protected array $cookies = [];
 
     public function __construct(
@@ -18,7 +35,7 @@ abstract class BaseResponse implements ResponseInterface
     {
         return $this->statusCode;
     }
-
+    
     public function getHeaders(): array
     {
         return $this->headers;
@@ -39,6 +56,19 @@ abstract class BaseResponse implements ResponseInterface
         return $this;
     }
 
+    /**
+     * @return array<string, array{
+     *     value: string,
+     *     options: array{
+     *         expires?: int,
+     *         path?: string,
+     *         domain?: string,
+     *         secure?: bool,
+     *         httponly?: bool,
+     *         samesite?: 'Lax'|'Strict'|'None'
+     *     }
+     * }>
+     */
     public function getCookies(): array
     {
         return $this->cookies;

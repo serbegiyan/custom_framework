@@ -12,6 +12,9 @@ class StatisticRepository
     ) {
     }
 
+    /**
+     * @param array<int, array<int, mixed>> $chank
+     */
     public function insertBatch(array $chank, int $organizationId): void
     {
         $sql = 'INSERT INTO statics (country, 
@@ -21,19 +24,17 @@ class StatisticRepository
         if (!$chank) {
             throw new ValidationException('Empty chank');
         }
-        $columnsCount = count($chank[0]) + 1;
+        $columnsCount = count(current($chank)) + 1;
         $placeholder = '(' . implode(', ', array_fill(0, $columnsCount, '?')) . ')';
-        if ($columnsCount > 0) {
-            $allPlaceholders = array_fill(0, (int)count($chank), $placeholder);
-        }
+        $allPlaceholders = array_fill(0, (int)count($chank), $placeholder);
+        
         $placeRow = implode(',', $allPlaceholders);
         $finalSql = $sql . $placeRow;
-        $preparedRows = [];
+        $flatParams = [];
         foreach ($chank as $oneRow) {
             $oneRow[] = $organizationId;
-            $preparedRows[] = $oneRow;
+            array_push($flatParams, ...$oneRow);
         }
-        $flatParams = array_merge(...$preparedRows);
         $this->db->execute($finalSql, $flatParams);
     }
 }

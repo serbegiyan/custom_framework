@@ -32,6 +32,7 @@ class GeneratorServiceTest extends TestCase
         $this->assertGreaterThan(0, $size);
 
         $rows = file($path);
+        $this->assertIsArray($rows);
         $this->assertCount(6, $rows);
 
         $firstRow = $rows[0];

@@ -14,23 +14,39 @@ use Core\HtmlResponse;
 use Core\Request;
 use Core\View;
 use App\ValueObjects\OrganizationId;
-use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 
 #[CoversClass(AnalizeController::class)]
 class AnalizeControllerTest extends TestCase
 {
     private DatabaseInterface $db;
+
+    /**
+     * @var \Core\Request&\PHPUnit\Framework\MockObject\MockObject
+     */
     private Request $request;
+
+    /**
+     * @var \App\Services\AnalizerService&\PHPUnit\Framework\MockObject\MockObject
+     */
     private AnalizerService $analizer;
+
     private Localization $local;
+
+    /**
+     * @var \App\Services\OrganizationService&\PHPUnit\Framework\MockObject\MockObject
+     */    
     private OrganizationService $orgService;
+
+    /**
+     * @var \Core\View&\PHPUnit\Framework\MockObject\MockObject
+     */ 
     private View $view;
 
     public function setUp(): void
     {
         parent::setUp();
         $this->db = $this->createStub(DatabaseInterface::class);
-        $this->request = $this->createStub(Request::class);
+        $this->request = $this->createMock(Request::class);
         $this->analizer = $this->createMock(AnalizerService::class);
         $this->local = $this->createStub(Localization::class);
         $this->orgService = $this->createMock(OrganizationService::class);
@@ -62,7 +78,6 @@ class AnalizeControllerTest extends TestCase
         $this->assertSame("<h1>Analize Page</h1>", $result->getBody());
     }
     
-    #[AllowMockObjectsWithoutExpectations]
     public function testIfAccessForbidden(): void
     {
         $this->request->method('getUserId')->willReturn(1);

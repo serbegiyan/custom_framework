@@ -47,6 +47,7 @@ class OrganizationServiceTest extends TestCase
         $sql = 'SELECT * FROM organizations';
         $res = $this->db->select($sql, []);
 
+        $this->assertIsArray($res[0]);
         $this->assertCount(1, $res);        
         $this->assertSame('Google', $res[0]['name']);
         $this->assertSame(1, $res[0]['owner_id']);
@@ -58,6 +59,8 @@ class OrganizationServiceTest extends TestCase
         $service->storeToDb('Google', 1);
         $sql = 'SELECT id FROM organizations WHERE name = :name';
         $orgId = $this->db->select($sql, [':name' => 'Google']);
+
+        $this->assertIsArray($orgId[0]);
         $id = (int)$orgId[0]['id'];
 
         $service->updateToBd('NewName', $id);
@@ -65,6 +68,7 @@ class OrganizationServiceTest extends TestCase
 
         
         $newOrg = $this->db->select($sqlId, [':id' => $id]);
+        $this->assertIsArray($newOrg[0]);
         $this->assertSame('NewName', $newOrg[0]['name']);
 
         $service->deleteFromBd($id);
@@ -85,6 +89,7 @@ class OrganizationServiceTest extends TestCase
 
         //Check getting OrganizationId
         $org = $service->getOrgId(2);
+        $this->assertNotNull($org);
         $org_id = $org->orgId;
         $this->assertSame(3, $org_id);
 
@@ -94,6 +99,8 @@ class OrganizationServiceTest extends TestCase
 
         //Check getting Organization List
         $list = $service->getOrgList(1);
+        $this->assertIsArray($list[0]);
+        $this->assertIsArray($list[1]);
         $orgList = [$list[0]['name'], $list[1]['name']];
         $this->assertSame(['Google', 'Netflix'], $orgList);
     }

@@ -17,11 +17,8 @@ class ResponseEmitter
                 header($header);
             }
             $cookies = $response->getCookies();
-            foreach ($cookies as $name => $cookieData) {
-                $options = $cookieData['options'];
-                $options['value'] = $cookieData['value'];
-
-                setcookie($name, $options);
+            foreach ($cookies as $name => $cookieData) {  
+                setcookie($name, $cookieData['value'], $cookieData['options']);
             }
         }
         echo $response->getBody();

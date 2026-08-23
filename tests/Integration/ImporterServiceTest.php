@@ -50,11 +50,12 @@ class ImporterServiceTest extends TestCase
         parent::tearDown();
     }
 
-    private function createCorrectFile($rowsCount): void
+    private function createCorrectFile(int $rowsCount): void
     {
         $fp = fopen($this->path, 'w');
         $headers = ['country', 'city', 'is_active', 'gender', 'birth_date',
         'salary', 'has_children', 'family_status', 'registration_date'];
+        $this->assertIsResource($fp);
         fputcsv($fp, $headers);
         $rows = ['Brazil', 'Okeyview', '1', 'female', '2014-10-28', 80930, '1', 'divorced', '2022-07-18'];
         for($i = 0; $i < $rowsCount; $i++){
@@ -68,6 +69,7 @@ class ImporterServiceTest extends TestCase
         $fp = fopen($this->path, 'w');
         $headers = ['country', 'city', 'is_active', 'gender', 'birth_date',
         'salary', 'has_children', 'family_status', 'registration_date'];
+        $this->assertIsResource($fp);
         fputcsv($fp, $headers);
         $row1 = ['Brazil', 'Okeyview', '1', 'female', '2014-10-28', 80930, '1', 'divorced', '2022-07-18'];
         fputcsv($fp, $row1);
@@ -111,6 +113,9 @@ class ImporterServiceTest extends TestCase
         $this->assertCount($expectedCount, $result);
     }
 
+    /**
+     * @return array<string, array<string, int>>
+     */
     public static function filterProvider(): array
     {
         return [

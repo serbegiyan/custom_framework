@@ -25,8 +25,11 @@ class ImporterService
         $skippedRowsErrors = [];
         $fileLine = 1;
         $rowCount = 0;
-        $headers = [];
         /** @var array<int, string> $headers */
+        $headers = [];
+        if(!$file){
+            throw new ValidationException('Invalid file');
+        }
         foreach ($this->csvReader->readRows($file) as $key => $value) {
             if ($key === 'headers') {
                 $headers = $value;

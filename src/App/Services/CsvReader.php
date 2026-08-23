@@ -21,7 +21,7 @@ class CsvReader
         yield 'headers' => $headers;
 
         while (($row = fgetcsv($fp)) !== false) {
-            if ($row === null || $row === [null] || empty($row) || $row[0] === null) {
+            if ($row == null || $row == [null] || $row[0] == null) {
                 continue;
             }
             yield 'row' => $row;

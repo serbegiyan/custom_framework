@@ -10,13 +10,23 @@ use App\Services\Localization;
 use Core\JsonResponse;
 use App\Services\GeneratorService;
 use App\Exceptions\ValidationException;
-use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 
 #[CoversClass(GeneratorController::class)]
 class GeneratorControllerTest extends TestCase
 {
+    /**
+     * @var \Core\Request&\PHPUnit\Framework\MockObject\MockObject
+     */
     private Request $request;
+
+    /**
+     * @var \App\Services\Localization&\PHPUnit\Framework\MockObject\MockObject
+     */
     private Localization $local;
+
+    /**
+     * @var \App\Services\GeneratorService&\PHPUnit\Framework\MockObject\MockObject
+     */
     private GeneratorService $service;
 
     public function setUp(): void
@@ -24,7 +34,7 @@ class GeneratorControllerTest extends TestCase
         parent::setUp();
         $this->request = $this->createMock(Request::class);
         $this->service = $this->createMock(GeneratorService::class);
-        $this->local = $this->createStub(Localization::class);
+        $this->local = $this->createMock(Localization::class);
     }
 
     public function testIfGenerateCorrect(): void
@@ -44,7 +54,6 @@ class GeneratorControllerTest extends TestCase
         $this->assertSame(200, $code);
     }
 
-    #[AllowMockObjectsWithoutExpectations]
     public function testIfQuantitySubZero(): void
     {
         $this->local->method('translate')->willReturn('success');

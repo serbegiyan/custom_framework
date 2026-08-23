@@ -23,13 +23,13 @@ class StatisticRepositoryTest extends TestCase
 
     public function testIfSqlCreatedCorrect(): void
     {
-        $OrganizationId = new OrganizationId(1);
+        $organizationId = new OrganizationId(1);
         $db = $this->createMock(DatabaseInterface::class);
         $db->expects($this->once())
             ->method('execute')
             ->with(
                 $this->stringContains('INSERT INTO statics'), 
-                $this->callback(function (array $params) use ($organizationId) {
+                $this->callback(function (array $params) {
                     if (count($params) !== 9) { 
                         return false;
                     }
@@ -41,6 +41,6 @@ class StatisticRepositoryTest extends TestCase
             );        
         $chank = [['France', 'Paris'], ['USA', 'NY'], ['Belorus', 'Minsk']];
         $repo = new StatisticRepository($db);
-        $repo->insertBatch($chank, $OrganizationId->orgId);
+        $repo->insertBatch($chank, $organizationId->orgId);
     }
 }

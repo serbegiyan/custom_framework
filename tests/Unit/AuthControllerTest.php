@@ -12,23 +12,37 @@ use Core\RedirectResponse;
 use Core\JsonResponse;
 use App\Services\AuthService;
 use App\Exceptions\ValidationException;
-use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 
 #[CoversClass(AuthController::class)]
 class AuthControllerTest extends TestCase
 {
+    /**
+     * @var \Core\Session&\PHPUnit\Framework\MockObject\MockObject
+     */
     private Session $session;
+
+    /**
+     * @var \Core\Request&\PHPUnit\Framework\MockObject\MockObject
+     */
     private Request $request;
+
+    /**
+     * @var \App\Services\Localization&\PHPUnit\Framework\MockObject\MockObject
+     */
     private Localization $local;
+
+    /**
+     * @var \App\Services\AuthService&\PHPUnit\Framework\MockObject\MockObject
+     */
     private AuthService $service;
 
     public function setUp(): void
     {
         parent::setUp();
-        $this->request = $this->createStub(Request::class);
+        $this->request = $this->createMock(Request::class);
         $this->session = $this->createMock(Session::class);
-        $this->service = $this->createStub(AuthService::class);
-        $this->local = $this->createStub(Localization::class);
+        $this->service = $this->createMock(AuthService::class);
+        $this->local = $this->createMock(Localization::class);
     }
 
     public function testIfLoginAndLogoutCorrect(): void
@@ -82,7 +96,6 @@ class AuthControllerTest extends TestCase
         $this->assertSame(201, $code);
     }
 
-    #[AllowMockObjectsWithoutExpectations]
     public function testIfLoginInvalid(): void
     {
         $this->request
@@ -100,7 +113,6 @@ class AuthControllerTest extends TestCase
         $controller->login();
     }
 
-    #[AllowMockObjectsWithoutExpectations]
     public function testExceptionIfUserExists(): void
     {
         $this->request

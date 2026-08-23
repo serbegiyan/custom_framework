@@ -17,7 +17,9 @@ use Core\Request;
 class GateTest extends TestCase
 {
     private Container $container;
-
+    /**
+     * @var \App\Services\Localization&\PHPUnit\Framework\MockObject\MockObject
+     */
     private Localization $local;
 
     private Request $request;
@@ -27,7 +29,7 @@ class GateTest extends TestCase
         parent::setUp();
         $this->container = new Container();
         $this->request = new Request();
-        $this->local = $this->createStub(Localization::class);
+        $this->local = $this->createMock(Localization::class);
         $this->request->setUserId(22);
     }
 
