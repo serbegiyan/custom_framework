@@ -92,4 +92,9 @@ class Request
     {
         return $_COOKIE[$key] ?? null;
     }
+
+    public function getReferer(): string
+    {
+        return $_SERVER['HTTP_REFERER'] ?? '/';
+    }
 }

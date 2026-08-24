@@ -35,7 +35,7 @@ abstract class BaseResponse implements ResponseInterface
     {
         return $this->statusCode;
     }
-    
+
     public function getHeaders(): array
     {
         return $this->headers;

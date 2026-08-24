@@ -27,7 +27,7 @@ class StatisticRepository
         $columnsCount = count(current($chank)) + 1;
         $placeholder = '(' . implode(', ', array_fill(0, $columnsCount, '?')) . ')';
         $allPlaceholders = array_fill(0, (int)count($chank), $placeholder);
-        
+
         $placeRow = implode(',', $allPlaceholders);
         $finalSql = $sql . $placeRow;
         $flatParams = [];

@@ -26,9 +26,7 @@ class OrganizationController
     {
         $user_id = $this->request->getUserId();
         $orgs = $this->orgService->getOrgList((int)$user_id);
-        return empty($orgs)
-            ? new JsonResponse(['message' => $this->local->translate('not_available_orgs')], 200)
-            : new JsonResponse($orgs, 200);
+        return new JsonResponse($orgs, 200);
     }
 
     public function store(): JsonResponse
@@ -47,8 +45,11 @@ class OrganizationController
 
     public function update(): JsonResponse
     {
-        $org_Data = $this->request->getParams();
-        $org_id = new OrganizationId((int) ($org_Data['id'] ?? 0));
+        $params = $this->request->getParams();
+        if (!isset($params['id']) || empty($params['id'])) {
+            throw new ValidationException('Organization ID is required');
+        }
+        $org_id = new OrganizationId((int) ($params['id'] ?? 0));
         $this->gate->authorize(OrganizationPolicy::class, 'update', $org_id);
         $orgName = $this->request->getString('name');
         if (!$orgName || trim($orgName) === '') {
@@ -60,8 +61,11 @@ class OrganizationController
 
     public function delete(): JsonResponse
     {
-        $org_Data = $this->request->getParams();
-        $org_id = new OrganizationId((int) ($org_Data['id'] ?? 0));
+        $params = $this->request->getParams();
+        $org_id = new OrganizationId((int) ($params['id'] ?? 0));
+        if (!isset($params['id']) || empty($params['id'])) {
+            throw new ValidationException('Organization ID is required');
+        }
         $this->gate->authorize(OrganizationPolicy::class, 'delete', $org_id);
         $this->orgService->deleteFromBd($org_id->orgId);
         return new JsonResponse([], 204);
