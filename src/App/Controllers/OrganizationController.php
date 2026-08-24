@@ -49,7 +49,7 @@ class OrganizationController
         if (!isset($params['id']) || empty($params['id'])) {
             throw new ValidationException('Organization ID is required');
         }
-        $org_id = new OrganizationId((int) ($params['id'] ?? 0));
+        $org_id = new OrganizationId((int) ($params['id']));
         $this->gate->authorize(OrganizationPolicy::class, 'update', $org_id);
         $orgName = $this->request->getString('name');
         if (!$orgName || trim($orgName) === '') {
