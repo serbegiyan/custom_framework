@@ -81,6 +81,10 @@ class AnalizerServiceTest extends TestCase
                 'filters' => ['salary_from' => 1500],
                 'expectedCount' => 1
             ],
+            'фильтр range по зарплате (до)' => [
+                'filters' => ['salary_to' => 3000],
+                'expectedCount' => 2
+            ],
             'несуществующий город' => [
                 'filters' => ['city' => 'Minsk'],
                 'expectedCount' => 0

@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Exceptions\ValidationException;
 use Generator;
 
 class CsvReader
@@ -13,9 +12,6 @@ class CsvReader
             throw new \RuntimeException('Failed to open file');
         }
         $fp = fopen($file, "r");
-        if (! $fp) {
-            throw new ValidationException('File incorrect');
-        }
 
         $headers = fgetcsv($fp) ?: [];
         yield 'headers' => $headers;

@@ -33,4 +33,23 @@ class CsvReaderTest extends TestCase
             $result[$key] = $value;
         }        
     }
+
+    public function testReadRowsSkipsEmptyRowsUsingExistingStorageFile(): void
+    {
+        $reader = new CsvReader();
+        $filePath = __DIR__ . '/../storage/empty_lines.csv'; 
+
+        $generator = $reader->readRows($filePath);
+
+        $rows = [];
+        foreach ($generator as $key => $value) {
+            if ($key === 'row') {
+                $rows[] = $value;
+            }
+        }
+
+        $this->assertCount(2, $rows);
+        $this->assertSame('Google', $rows[0][0]);
+        $this->assertSame('Netflix', $rows[1][0]);
+    }
 }

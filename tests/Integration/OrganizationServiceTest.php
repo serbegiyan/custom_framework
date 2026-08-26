@@ -104,4 +104,53 @@ class OrganizationServiceTest extends TestCase
         $orgList = [$list[0]['name'], $list[1]['name']];
         $this->assertSame(['Google', 'Netflix'], $orgList);
     }
+
+    public function testStoreToDbRollsBackOnInvalidOwnerId(): void
+    {
+        $service = new OrganizationService($this->db);
+
+        $this->expectException(\RuntimeException::class);
+
+        $service->storeToDb('Invalid Org', 99999);
+    }
+
+    public function testUpdateToDbRollsBackOnInvalidOwnerId(): void
+    {
+        $dbMock = $this->getMockBuilder(Database::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['beginTransaction', 'execute', 'rollBack', 'commit'])
+            ->getMock();
+
+        $dbMock->expects($this->once())->method('beginTransaction');
+        $dbMock->expects($this->once())->method('rollBack');
+        $dbMock->expects($this->never())->method('commit');
+
+        $dbMock->method('execute')
+            ->willThrowException(new \Exception('Database error during update'));
+
+        $service = new OrganizationService($dbMock);
+
+        $this->expectException(\RuntimeException::class);
+        $service->updateToBd('New Name', 1);
+    }
+
+    public function testDeleteFromBdRollsBackOnInvalidOwnerId(): void
+    {
+        $dbMock = $this->getMockBuilder(Database::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['beginTransaction', 'execute', 'rollBack', 'commit'])
+            ->getMock();
+
+        $dbMock->expects($this->once())->method('beginTransaction');
+        $dbMock->expects($this->once())->method('rollBack');
+        $dbMock->expects($this->never())->method('commit');
+
+        $dbMock->method('execute')
+            ->willThrowException(new \Exception('Database error during update'));
+
+        $service = new OrganizationService($dbMock);
+
+        $this->expectException(\RuntimeException::class);
+        $service->deleteFromBd(1);
+    }
 }

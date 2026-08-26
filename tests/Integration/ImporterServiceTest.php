@@ -13,6 +13,7 @@ use Core\Database;
 use RuntimeException;
 use App\Interfaces\DatabaseInterface;
 use PHPUnit\Framework\Attributes\DataProvider;
+use App\Exceptions\ValidationException;
 
 #[CoversClass(ImporterService::class)]
 class ImporterServiceTest extends TestCase
@@ -78,6 +79,14 @@ class ImporterServiceTest extends TestCase
         $row3 = ['Brazil', 'Okeyview', '1', 'female', '2014-10-28', 80930, '1', 'divorced', '2022-07-18'];
         fputcsv($fp, $row3);
         fclose($fp);
+    }
+
+    public function testIfFileDoesNotExsist(): void
+    {
+        $importer = new ImporterService($this->validator, $this->statRep, $this->reader);
+        $orgId = new OrganizationId(1);
+        $this->expectException(ValidationException::class);
+        $importer->import($orgId, null, 3);
     }
 
     public function testIfCorrectlyHandleInvalidRows(): void

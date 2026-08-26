@@ -17,6 +17,12 @@ class View
     */
     private function renderFile(string $template, array $data = []): string
     {
+        $fullPath = $this->path . $template . '.php';
+
+        if (!file_exists($fullPath)) {
+            throw new \InvalidArgumentException("Template file not found: {$template}.php");
+        }
+
         extract($data);
 
         ob_start();
@@ -24,10 +30,6 @@ class View
         require $this->path . $template . '.php';
 
         $result = ob_get_clean();
-
-        if ($result === false) {
-            throw new \RuntimeException("Failed to render template: {$template}");
-        }
 
         return $result;
     }

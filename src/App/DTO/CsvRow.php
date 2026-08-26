@@ -2,56 +2,40 @@
 
 namespace App\DTO;
 
+use App\Enums\FamilyStatus;
+use App\Enums\Gender;
 use DateTime;
 
 final readonly class CsvRow
 {
-    public string $country;
-    public string $city;
-    public bool $is_active;
-    public string $gender;
-    public DateTime $birth_date;
-    public int $salary;
-    public bool $has_children;
-    public string $family_status;
-    public DateTime $registration_date;
-
-    /**
-     * @param array<string, string> $prepered
-     */
     public function __construct(
-        array $prepered,
-        DateTime $bir_date,
-        DateTime $reg_date
+        public string $country,
+        public string $city,
+        public bool $isActive,
+        public Gender $gender,
+        public DateTime $birthDate,
+        public int $salary,
+        public bool $hasChildren,
+        public FamilyStatus $familyStatus,
+        public DateTime $registrationDate,
     ) {
-        $this->country = $prepered['country'];
-        $this->city = $prepered['city'];
-        $this->is_active = ($prepered['is_active'] === '1' || $prepered['is_active'] === 'true');
-        $this->gender = $prepered['gender'];
-        $this->birth_date = $bir_date;
-        $this->salary = (int) $prepered['salary'];
-        $this->has_children = ($prepered['has_children'] === '1' || $prepered['has_children'] === 'true');
-        $this->family_status = $prepered['family_status'];
-        $this->registration_date = $reg_date;
     }
 
     /**
-     * @return array<int, int|string>
+     * @return array<int, int|string|bool>
      */
     public function toDatabaseArray(): array
     {
-        $array = [
+        return [
             $this->country,
             $this->city,
-            $this->is_active ? 1 : 0,
-            $this->gender,
-            $this->birth_date->format('Y-m-d'),
+            $this->isActive ? 1 : 0,
+            $this->gender->value,
+            $this->birthDate->format('Y-m-d'),
             $this->salary,
-            $this->has_children ? 1 : 0,
-            $this->family_status,
-            $this->registration_date->format('Y-m-d'),
+            $this->hasChildren ? 1 : 0,
+            $this->familyStatus->value,
+            $this->registrationDate->format('Y-m-d'),
         ];
-
-        return $array;
     }
 }

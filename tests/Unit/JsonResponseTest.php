@@ -43,4 +43,21 @@ class JsonResponseTest extends TestCase
         $response = new JsonResponse(['invalid' => $invalidUtf8String], 200);
         $body = $response->getBody();
     }
+
+    public function testIfSetAndGetsCookiesCorrect(): void
+    {
+        $response = new JsonResponse(['message' => 'success'], 200);
+        $response->withCookie('testName', 'testValue', [ 'expires' => time() + 31536000, 'path' => '/' ]);
+        $cookies = $response->getCookies();
+
+        $this->assertArrayHasKey('testName', $cookies);
+    }
+
+    public function testIfCookiesEmpty(): void
+    {
+        $response = new JsonResponse(['message' => 'success'], 200);
+        $cookies = $response->getCookies();
+
+        $this->assertSame([], $cookies);
+    }
 }

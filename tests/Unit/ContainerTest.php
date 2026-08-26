@@ -6,6 +6,7 @@ use PHPUnit\Framework\TestCase;
 use Core\Container;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Tests\Stubs\SampleService;
+use Tests\Stubs\TestInterface;
 use Tests\Stubs\DependService;
 use Tests\Stubs\ClassWithBuiltInParam;
 use App\Services\ServiceNotFoundException;
@@ -30,6 +31,19 @@ class ContainerTest extends TestCase
         $result = $this->container->get('testId');
 
         $this->assertSame('success', $result);
+    }
+
+    public function testIfObjectHasRuncorrect(): void
+    {
+        $this->container->set('testId', function(){
+            return 'success';
+        });
+
+        $result = $this->container->has('testId');
+        $wrong = $this->container->has('WrongId');
+
+        $this->assertSame(true, $result);
+        $this->assertSame(false, $wrong);
     }
 
     public function testItReturnsTheSameInstance(): void
@@ -64,6 +78,22 @@ class ContainerTest extends TestCase
     {
         $this->expectException(ServiceNotFoundException::class);
 
-        $result = $this->container->get(ClassWithBuiltInParam::class);
+        $this->container->get(ClassWithBuiltInParam::class);
+    }
+
+    public function testItThrowsExceptionIfClassDoesNotExist(): void
+    {
+        $this->expectException(ServiceNotFoundException::class);
+
+        $this->container->get(SomeWrongClass::class);
+    }
+
+    public function testItThrowsExceptionIfClassNotInstantiable(): void
+    {
+        $this->expectException(ServiceNotFoundException::class);
+        $this->container->set('TestInterface', function(){
+            return new TestInterface();
+        });
+        $this->container->get(TestInterface::class);
     }
 }

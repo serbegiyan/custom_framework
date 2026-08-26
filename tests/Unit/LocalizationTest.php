@@ -26,7 +26,7 @@ class LocalizationTest extends TestCase
         $this->assertSame('en', $cookies['app_lang']['value']);
     }
 
-    public function testIfLangSaveCorrect(): void
+    public function testIfLangSaveCorrectAndSwich(): void
     {
         $response = new JsonResponse(['message' => 'success']);
         $request = $this->createMock(Request::class);
@@ -35,8 +35,13 @@ class LocalizationTest extends TestCase
             ->with('app_lang')
             ->willReturn('en');
         $local = new Localization($request);
+        $local->setLangDirPath(__DIR__ . '/../Stubs');
+
         $lang = $local->getCurrentLang();
         $this->assertSame('en', $lang);
+
+        $word = $local->translate('created');
+        $this->assertSame('created', $word);
     }
 
     public function testIfLangIncorrect(): void
@@ -65,5 +70,20 @@ class LocalizationTest extends TestCase
 
         $phrase = $local->translate('created');
         $this->assertSame('Успешно создано', $phrase);
-    }
+    }    
+
+    public function testIfTranslateWithoutKey(): void
+    {
+        $response = new JsonResponse(['message' => 'success']);
+        $request = $this->createMock(Request::class);
+        $request->expects($this->once())
+            ->method('getCookies')
+            ->with('app_lang')
+            ->willReturn('ru');
+        $local = new Localization($request);
+        $local->setLangDirPath(__DIR__ . '/../Stubs');
+
+        $phrase = $local->translate('createdby');
+        $this->assertSame('createdby', $phrase);
+    }    
 }

@@ -36,19 +36,6 @@ class Database implements DatabaseInterface
     }
 
     /**
-    *   @param array<string, mixed> $params
-    *   @return array<string, mixed>|false
-    */
-    //пока не реализовано
-    public function find(string $sql, array $params): array|false
-    {
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute($params);
-        $data = $stmt->fetch();
-        return $data;
-    }
-
-    /**
      * @param array<string|int, mixed> $params
      */
     public function execute(string $sql, array $params): int

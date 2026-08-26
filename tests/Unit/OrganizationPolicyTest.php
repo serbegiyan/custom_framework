@@ -26,7 +26,7 @@ class OrganizationPolicyTest extends TestCase
         $this->assertTrue($result);
     }
     
-    public function testUpdateReturnsFalseIfUserIsNotOwner(): void
+    public function testIfUpdateReturnsFalseIfUserIsNotOwner(): void
     {
         $orgId = new OrganizationId(2);
         $service = $this->createMock(OrganizationService::class);
@@ -37,6 +37,21 @@ class OrganizationPolicyTest extends TestCase
         
         $policy = new OrganizationPolicy($service);
         $result = $policy->update(10, $orgId);
+
+        $this->assertFalse($result);
+    }
+
+    public function testIfDeleteReturnsFalseIfUserIsNotOwner(): void
+    {
+        $orgId = new OrganizationId(2);
+        $service = $this->createMock(OrganizationService::class);
+
+        $service->expects($this->once())
+            ->method('getOwnerId')
+            ->willReturn(5);      
+        
+        $policy = new OrganizationPolicy($service);
+        $result = $policy->delete(10, $orgId);
 
         $this->assertFalse($result);
     }
