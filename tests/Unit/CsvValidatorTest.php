@@ -32,6 +32,10 @@ class CsvValidatorTest extends TestCase
         $validator->validate($row, $headers);    
     }    
 
+    /**
+     * @param array<int, string> $headers
+     * @param array<int, string> $row
+     */
     #[DataProvider('filterProvider')]
     public function testIfTypesOrBusinessRulesInvalid(array $row, array $headers): void
     {
@@ -40,6 +44,9 @@ class CsvValidatorTest extends TestCase
         $validator->validate($row, $headers);    
     }
 
+    /**
+     * @return array<string, array<string, array<int, string>>>
+     */
     public static function filterProvider(): array
     {
         $headers = ['is_active', 'gender', 'family_status', 'birth_date', 'salary', 'has_children', 'registration_date'];

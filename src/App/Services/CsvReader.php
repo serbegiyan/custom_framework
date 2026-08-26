@@ -12,7 +12,9 @@ class CsvReader
             throw new \RuntimeException('Failed to open file');
         }
         $fp = fopen($file, "r");
-
+        if(!$fp){
+            throw new \RuntimeException('Failed to open file');
+        }
         $headers = fgetcsv($fp) ?: [];
         yield 'headers' => $headers;
 

@@ -7,6 +7,17 @@ use App\Enums\Gender;
 use App\Exceptions\ValidationException;
 use DateTime;
 
+/**
+ * @property string $country
+ * @property string $city
+ * @property bool $is_active
+ * @property string $gender
+ * @property int $salary 
+ * @property bool $has_children
+ * @property string $family_status
+ * @property string $birth_date
+ * @property string $registration_date
+ */
 #[\AllowDynamicProperties]
 class Statics
 {

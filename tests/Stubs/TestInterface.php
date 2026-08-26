@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Stub;
+namespace Tests\Stubs;
 
 interface TestInterface
 {

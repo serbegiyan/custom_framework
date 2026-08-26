@@ -24,7 +24,9 @@ class GeneratorService
                 throw new RuntimeException('Failed to open file');
             }
             $fp = fopen($file, "w");
-
+            if(!$fp){
+                        throw new \RuntimeException('Failed to open file');
+                    }
             fputcsv($fp, ['country', 'city', 'is_active', 'gender', 'birth_date', 'salary', 'has_children', 'family_status', 'registration_date', 'organization_id']);
             for ($i = 0; $i < $quantity; $i++) {
                 $arr = [

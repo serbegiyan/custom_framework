@@ -2,6 +2,8 @@
 
 namespace Core;
 
+use App\Services\ServiceNotFoundException;
+
 class View
 {
     private string $path;
@@ -30,6 +32,9 @@ class View
         require $this->path . $template . '.php';
 
         $result = ob_get_clean();
+        if(!$result){
+            throw new ServiceNotFoundException('Invalid reading');
+        }
 
         return $result;
     }

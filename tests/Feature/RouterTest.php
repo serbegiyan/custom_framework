@@ -16,6 +16,7 @@ use App\Interfaces\ResponseInterface;
 use PHPUnit\Framework\MockObject\Stub; 
 use Core\JsonResponse;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\MockObject\MockObject;
 
 #[CoversClass(Router::class)]
 class RouterTest extends TestCase
@@ -34,7 +35,7 @@ class RouterTest extends TestCase
     /** @var Stub&Localization */
     private $localMock;
 
-    /** @var Mock&OrganizationController */
+    /** @var MockObject&OrganizationController */
     private $controllerMock;
 
     protected function setUp(): void
@@ -77,6 +78,9 @@ class RouterTest extends TestCase
         $this->assertSame($status, $result->getStatusCode());
     }    
 
+    /**
+     * @return array<string, array<string, string|int>>
+     */
     public static function filterProvider(): array
     {
         return [

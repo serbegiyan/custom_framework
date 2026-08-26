@@ -85,15 +85,13 @@ class ContainerTest extends TestCase
     {
         $this->expectException(ServiceNotFoundException::class);
 
-        $this->container->get(SomeWrongClass::class);
+        $this->container->get('SomeNonExistentClass');
     }
 
     public function testItThrowsExceptionIfClassNotInstantiable(): void
     {
         $this->expectException(ServiceNotFoundException::class);
-        $this->container->set('TestInterface', function(){
-            return new TestInterface();
-        });
+
         $this->container->get(TestInterface::class);
     }
 }
